@@ -1,5 +1,5 @@
 const Registration = () => {
-  return <div className="">this is registration page</div>;
+  return <div className="font-gilroyNormal">this is registration page</div>;
 };
 
 export default Registration;

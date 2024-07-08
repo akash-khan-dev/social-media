@@ -26,3 +26,29 @@
   --pink-100: #fce7f3;
   --cyan-100: #cffafe;
 }
+
+@font-face {
+  font-family: Gilroy Regular;
+  src: url(/src/assets/fonts/Gilroy-Regular.ttf);
+}
+@font-face {
+  font-family: Gilroy medium;
+  src: url(/src/assets/fonts/Gilroy-Medium.ttf);
+}
+
+@font-face {
+  font-family: Gilroy semibold;
+  src: url(/src/assets/fonts/Gilroy-SemiBold.ttf);
+}
+@font-face {
+  font-family: Gilroy bold;
+  src: url(/src/assets/fonts/Gilroy-Bold.ttf);
+}
+@font-face {
+  font-family: Gilroy extrabold;
+  src: url(/src/assets/fonts/Gilroy-ExtraBold.ttf);
+}
+@font-face {
+  font-family: Gilroy light;
+  src: url(/src/assets/fonts/Gilroy-Light.ttf);
+}
