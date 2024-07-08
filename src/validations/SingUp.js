@@ -12,7 +12,7 @@ const authRules = {
 };
 
 export const SignUpValidations = Yup.object({
-  fistName: authRules.firsName,
+  firstName: authRules.firstName,
   lastName: authRules.lastName,
   email: authRules.email,
   password: authRules.password,

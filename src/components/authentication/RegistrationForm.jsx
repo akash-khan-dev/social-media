@@ -20,7 +20,7 @@ const RegistrationForm = () => {
       console.log(data);
     },
   });
-  console.log(formik.errors);
+  console.log(formik.errors.lastName);
   return (
     <>
       <div className="w-full">
@@ -37,6 +37,11 @@ const RegistrationForm = () => {
                 onBlur={formik.handleBlur}
                 placeholder="Firs Name"
               />
+              {formik.errors.firstName && formik.touched.firstName && (
+                <p className="font-gilroyNormal text-base mb-3 -mt-2 text-red ml-2">
+                  {formik.errors.firstName}
+                </p>
+              )}
               <input
                 className="w-full border-2 border-line_color px-2 py-2 rounded-md focus:outline-none mb-3"
                 type="text"
@@ -47,6 +52,11 @@ const RegistrationForm = () => {
                 onBlur={formik.handleBlur}
                 placeholder="Last Name"
               />
+              {formik.errors.lastName && formik.touched.firstName && (
+                <p className="font-gilroyNormal text-base mb-3 -mt-2 text-red ml-2">
+                  {formik.errors.lastName}
+                </p>
+              )}
               <input
                 className="w-full border-2 border-line_color px-2 py-2 rounded-md focus:outline-none mb-3"
                 type="email"
@@ -56,6 +66,11 @@ const RegistrationForm = () => {
                 onBlur={formik.handleBlur}
                 placeholder="example@gmail.com"
               />
+              {formik.errors.email && formik.touched.email && (
+                <p className="font-gilroyNormal text-base mb-3 -mt-2 text-red ml-2">
+                  {formik.errors.email}
+                </p>
+              )}
               <input
                 className="w-full border-2 border-line_color px-2 py-2 rounded-md focus:outline-none mb-3"
                 type="password"
@@ -66,7 +81,11 @@ const RegistrationForm = () => {
                 onBlur={formik.handleBlur}
                 placeholder="password"
               />
-
+              {formik.errors.password && formik.touched.password && (
+                <p className="font-gilroyNormal text-base mb-3 -mt-2 text-red ml-2">
+                  {formik.errors.password}
+                </p>
+              )}
               <div className=" flex gap-x-7 mb-2">
                 <select
                   name="bYear"
@@ -82,6 +101,7 @@ const RegistrationForm = () => {
                   <option>2001</option>
                   <option>2001</option>
                 </select>
+
                 <select
                   name="bMonth"
                   value={formik.values.bMonth}
@@ -110,6 +130,21 @@ const RegistrationForm = () => {
                   <option>3</option>
                 </select>
               </div>
+              {formik.errors.bYear && formik.touched.bYear && (
+                <p className="font-gilroyNormal text-base mb-3 -mt-2 text-red ml-2">
+                  {formik.errors.bYear}
+                </p>
+              )}
+              {formik.errors.bMonth && formik.touched.bMonth && (
+                <p className="font-gilroyNormal text-base mb-3 -mt-2 text-red ml-2">
+                  {formik.errors.bMonth}
+                </p>
+              )}
+              {formik.errors.bDay && formik.touched.bDay && (
+                <p className="font-gilroyNormal text-base mb-3 -mt-2 text-red ml-2">
+                  {formik.errors.bDay}
+                </p>
+              )}
               <div className="flex gap-3">
                 <div>
                   <input
@@ -163,6 +198,12 @@ const RegistrationForm = () => {
                   </label>
                 </div>
               </div>
+              {formik.errors.gender && formik.touched.gender && (
+                <p className="font-gilroyNormal text-base mb-3 -mt-2 text-red ml-2">
+                  {formik.errors.gender}
+                </p>
+              )}
+
               <button
                 type="submit"
                 className=" font-gilroyMedium px-6 py-2 bg-secondary_bg rounded-md text-white"
