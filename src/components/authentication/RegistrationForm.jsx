@@ -1,8 +1,10 @@
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
 import { SignUpValidations } from "../../validations/SingUp";
+import { useState } from "react";
 
 const RegistrationForm = () => {
+  const [ageError, setAgeError] = useState();
   const initialState = {
     firstName: "",
     lastName: "",
@@ -17,6 +19,21 @@ const RegistrationForm = () => {
     initialValues: initialState,
     validationSchema: SignUpValidations,
     onSubmit: (data) => {
+      const currentDate = new Date();
+      const pick_date = new Date(
+        formik.values.bYear,
+        formik.values.bMonth - 1,
+        formik.values.bDay
+      );
+      const adult = new Date(1970 + 18, 0, 1);
+      const toOld = new Date(1970 + 70, 0, 1);
+      if (currentDate - pick_date < adult) {
+        return setAgeError("Underage you are not 18");
+      } else if (currentDate - pick_date > toOld) {
+        return setAgeError("you are more then 70");
+      }
+      setAgeError("");
+
       console.log(data);
     },
   });
@@ -141,6 +158,11 @@ const RegistrationForm = () => {
                   ))}
                 </select>
               </div>
+              {ageError && (
+                <p className="font-gilroyNormal text-base mb-3 -mt-2 text-red ml-2">
+                  {ageError}
+                </p>
+              )}
               {formik.errors.bYear && formik.touched.bYear && (
                 <p className="font-gilroyNormal text-base mb-3 -mt-2 text-red ml-2">
                   {formik.errors.bYear}
