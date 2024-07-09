@@ -2,6 +2,8 @@ import { useFormik } from "formik";
 import { Link } from "react-router-dom";
 import { SignUpValidations } from "../../validations/SingUp";
 import { useState } from "react";
+import DateOfBirth from "./DateOfBirth";
+import Gender from "./Gender";
 
 const RegistrationForm = () => {
   const [ageError, setAgeError] = useState();
@@ -114,129 +116,18 @@ const RegistrationForm = () => {
                   {formik.errors.password}
                 </p>
               )}
-              <div className=" flex gap-x-2 lg:gap-x-7 mb-2">
-                <select
-                  name="bYear"
-                  value={formik.values.bYear}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  autoComplete="off"
-                  id=""
-                  className="w-[33%] p-1 border border-line_color rounded-md focus:outline-none font-gilroyNormal "
-                >
-                  <option>Birth Year</option>
-                  {years.map((year, i) => (
-                    <option key={i}>{year}</option>
-                  ))}
-                </select>
-
-                <select
-                  name="bMonth"
-                  value={formik.values.bMonth}
-                  autoComplete="off"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  id=""
-                  className="w-[33%] p-1 border border-line_color rounded-md focus:outline-none font-gilroyNormal "
-                >
-                  <option>Birth Month</option>
-                  {month.map((item, i) => (
-                    <option key={i}>{item}</option>
-                  ))}
-                </select>
-                <select
-                  name="bDay"
-                  autoComplete="off"
-                  value={formik.values.bDay}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  className="w-[33%] p-1 border border-line_color rounded-md focus:outline-none font-gilroyNormal "
-                >
-                  <option>Birth day</option>
-                  {getDates.map((date, i) => (
-                    <option key={i}>{date}</option>
-                  ))}
-                </select>
+              <div>
+                <DateOfBirth
+                  years={years}
+                  month={month}
+                  getDates={getDates}
+                  formik={formik}
+                  ageError={ageError}
+                />
               </div>
-              {ageError && (
-                <p className="font-gilroyNormal text-base mb-3 -mt-2 text-red ml-2">
-                  {ageError}
-                </p>
-              )}
-              {formik.errors.bYear && formik.touched.bYear && (
-                <p className="font-gilroyNormal text-base mb-3 -mt-2 text-red ml-2">
-                  {formik.errors.bYear}
-                </p>
-              )}
-              {formik.errors.bMonth && formik.touched.bMonth && (
-                <p className="font-gilroyNormal text-base mb-3 -mt-2 text-red ml-2">
-                  {formik.errors.bMonth}
-                </p>
-              )}
-              {formik.errors.bDay && formik.touched.bDay && (
-                <p className="font-gilroyNormal text-base mb-3 -mt-2 text-red ml-2">
-                  {formik.errors.bDay}
-                </p>
-              )}
-              <div className="flex gap-3">
-                <div>
-                  <input
-                    className="mr-1"
-                    id="male"
-                    type="radio"
-                    name="gender"
-                    value="Male"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  <label
-                    htmlFor="male"
-                    className="font-gilroyMedium text-md text-text_color"
-                  >
-                    Male
-                  </label>
-                </div>
-                <div className="mb-3">
-                  <input
-                    className="mr-1"
-                    id="female"
-                    type="radio"
-                    name="gender"
-                    value="Female"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  <label
-                    htmlFor="female"
-                    className="font-gilroyMedium text-md text-text_color"
-                  >
-                    Female
-                  </label>
-                </div>
-                <div>
-                  <input
-                    className="mr-1"
-                    id="others"
-                    type="radio"
-                    name="gender"
-                    value="others"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  <label
-                    htmlFor="others"
-                    className="font-gilroyMedium text-md text-text_color"
-                  >
-                    Others
-                  </label>
-                </div>
+              <div>
+                <Gender formik={formik} />
               </div>
-              {formik.errors.gender && formik.touched.gender && (
-                <p className="font-gilroyNormal text-base mb-3 -mt-2 text-red ml-2">
-                  {formik.errors.gender}
-                </p>
-              )}
-
               <button
                 type="submit"
                 className=" font-gilroyMedium px-6 py-2 bg-secondary_bg rounded-md text-white"
