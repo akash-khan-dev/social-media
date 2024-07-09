@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SignUpValidations } from "../../validations/SingUp";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
@@ -12,6 +12,7 @@ import { ToastSuccess } from "../../utils/ToastSuccess";
 const RegistrationForm = () => {
   const [ageError, setAgeError] = useState();
   const [addUser, { isLoading }] = useAddUserMutation();
+  const navigate = useNavigate();
   const initialState = {
     firstName: "",
     lastName: "",
@@ -38,6 +39,9 @@ const RegistrationForm = () => {
       ToastError(signUpMutation?.error?.data?.Message);
     } else {
       ToastSuccess(signUpMutation?.data?.message);
+      setTimeout(() => {
+        navigate("/login");
+      }, 2500);
     }
   };
 
@@ -161,7 +165,7 @@ const RegistrationForm = () => {
               </button>
               <p className="mt-5 text-sm lg:text-md font-gilroyMedium text-text_color">
                 Already have an account?{" "}
-                <Link className="text-red" to={"/"}>
+                <Link className="text-red" to={"/login"}>
                   Sing IN
                 </Link>
               </p>

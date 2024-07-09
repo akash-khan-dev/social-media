@@ -21,3 +21,7 @@ export const SignUpValidations = Yup.object({
   bDay: authRules.bDay,
   gender: authRules.gender,
 });
+export const SignInValidations = Yup.object({
+  email: authRules.email,
+  password: authRules.password,
+});
