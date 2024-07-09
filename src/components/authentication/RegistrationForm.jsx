@@ -86,7 +86,7 @@ const RegistrationForm = () => {
                   {formik.errors.password}
                 </p>
               )}
-              <div className=" flex gap-x-7 mb-2">
+              <div className=" flex gap-x-2 lg:gap-x-7 mb-2">
                 <select
                   name="bYear"
                   value={formik.values.bYear}
@@ -96,7 +96,7 @@ const RegistrationForm = () => {
                   id=""
                   className="w-[33%] p-1 border border-line_color rounded-md focus:outline-none font-gilroyNormal "
                 >
-                  <option>Birthday Year</option>
+                  <option>Birth Year</option>
                   <option>2000</option>
                   <option>2001</option>
                   <option>2001</option>
@@ -111,7 +111,7 @@ const RegistrationForm = () => {
                   id=""
                   className="w-[33%] p-1 border border-line_color rounded-md focus:outline-none font-gilroyNormal "
                 >
-                  <option>Birthday Month</option>
+                  <option>Birth Month</option>
                   <option>1</option>
                   <option>2</option>
                   <option>3</option>
@@ -124,7 +124,7 @@ const RegistrationForm = () => {
                   onBlur={formik.handleBlur}
                   className="w-[33%] p-1 border border-line_color rounded-md focus:outline-none font-gilroyNormal "
                 >
-                  <option>Birthday day</option>
+                  <option>Birth day</option>
                   <option>1</option>
                   <option>2</option>
                   <option>3</option>
@@ -210,7 +210,7 @@ const RegistrationForm = () => {
               >
                 Submit
               </button>
-              <p className="mt-5 text-md font-gilroyMedium text-text_color">
+              <p className="mt-5 text-sm lg:text-md font-gilroyMedium text-text_color">
                 Already have an account?{" "}
                 <Link className="text-red" to={"/"}>
                   Sing IN
