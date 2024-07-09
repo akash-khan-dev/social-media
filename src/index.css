@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 :root {
   --main_bg: #fff;
   --page_color: #f7f7f7;

@@ -2,11 +2,14 @@ import { useFormik } from "formik";
 import { Link } from "react-router-dom";
 import { SignUpValidations } from "../../validations/SingUp";
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 import DateOfBirth from "./DateOfBirth";
 import Gender from "./Gender";
+import { useAddUserMutation } from "../../StateFeature/api/authApi";
 
 const RegistrationForm = () => {
   const [ageError, setAgeError] = useState();
+  const [addUser, { isLoading, error }] = useAddUserMutation();
   const initialState = {
     firstName: "",
     lastName: "",
@@ -17,6 +20,22 @@ const RegistrationForm = () => {
     bDay: new Date().getDay(),
     gender: "",
   };
+  console.log(error);
+
+  const registration = async (data) => {
+    const signUpMutation = await addUser({
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      password: data.password,
+      bYear: data.bYear,
+      bMonth: data.bMonth,
+      bDay: data.bDay,
+      gender: data.gender,
+    });
+    console.log(signUpMutation.data);
+  };
+
   const formik = useFormik({
     initialValues: initialState,
     validationSchema: SignUpValidations,
@@ -35,8 +54,7 @@ const RegistrationForm = () => {
         return setAgeError("you are more then 70");
       }
       setAgeError("");
-
-      console.log(data);
+      registration(data);
     },
   });
 
@@ -53,6 +71,7 @@ const RegistrationForm = () => {
 
   return (
     <>
+      <ToastContainer />
       <div className="w-full">
         <div className="rounded-md shadow-md px-10 py-7">
           <div>
