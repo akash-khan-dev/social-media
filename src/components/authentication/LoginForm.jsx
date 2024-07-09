@@ -7,10 +7,11 @@ import { ToastError } from "../../utils/ToastError";
 import { SignInValidations } from "../../validations/SingUp";
 import { ToastContainer } from "react-toastify";
 import { ToastSuccess } from "../../utils/ToastSuccess";
+import { BeatLoader } from "react-spinners";
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const [loginUser] = useLoginUserMutation();
+  const [loginUser, { isLoading }] = useLoginUserMutation();
 
   const loginFunc = async (data) => {
     const loginMutation = await loginUser({
@@ -74,17 +75,26 @@ const LoginForm = () => {
                   {formik.errors.password}
                 </p>
               )}
-
-              <button
-                type="submit"
-                className=" font-gilroyMedium px-6 py-2 bg-secondary_bg rounded-md text-white"
-              >
-                Submit
-              </button>
+              {isLoading ? (
+                <button
+                  type="submit"
+                  disabled
+                  className=" font-gilroyMedium px-6 py-2 bg-secondary_bg rounded-md text-white"
+                >
+                  <BeatLoader />
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  className=" font-gilroyMedium px-6 py-2 bg-secondary_bg rounded-md text-white"
+                >
+                  Login
+                </button>
+              )}
               <p className="mt-5 text-sm lg:text-md font-gilroyMedium text-text_color">
                 Already have an account?{" "}
                 <Link className="text-red" to={"/registration"}>
-                  Sing IN
+                  Sing In
                 </Link>
               </p>
             </form>

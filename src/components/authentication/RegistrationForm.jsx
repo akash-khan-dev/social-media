@@ -8,10 +8,11 @@ import Gender from "./Gender";
 import { useAddUserMutation } from "../../StateFeature/api/authApi";
 import { ToastError } from "../../utils/ToastError";
 import { ToastSuccess } from "../../utils/ToastSuccess";
+import { BeatLoader } from "react-spinners";
 
 const RegistrationForm = () => {
   const [ageError, setAgeError] = useState();
-  const [addUser] = useAddUserMutation();
+  const [addUser, { isLoading }] = useAddUserMutation();
   const navigate = useNavigate();
   const initialState = {
     firstName: "",
@@ -158,12 +159,22 @@ const RegistrationForm = () => {
               <div>
                 <Gender formik={formik} />
               </div>
-              <button
-                type="submit"
-                className=" font-gilroyMedium px-6 py-2 bg-secondary_bg rounded-md text-white"
-              >
-                Submit
-              </button>
+              {isLoading ? (
+                <button
+                  type="submit"
+                  disabled
+                  className=" font-gilroyMedium px-6 py-2 bg-secondary_bg rounded-md text-white"
+                >
+                  <BeatLoader />
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  className=" font-gilroyMedium px-6 py-2 bg-secondary_bg rounded-md text-white"
+                >
+                  Submit
+                </button>
+              )}
               <p className="mt-5 text-sm lg:text-md font-gilroyMedium text-text_color">
                 Already have an account?{" "}
                 <Link className="text-red" to={"/login"}>
