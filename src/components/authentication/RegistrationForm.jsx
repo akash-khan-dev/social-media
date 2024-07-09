@@ -8,9 +8,9 @@ const RegistrationForm = () => {
     lastName: "",
     email: "",
     password: "",
-    bYear: "",
-    bMonth: "",
-    bDay: "",
+    bYear: new Date().getFullYear(),
+    bMonth: new Date().getMonth(),
+    bDay: new Date().getDay(),
     gender: "",
   };
   const formik = useFormik({
@@ -20,7 +20,18 @@ const RegistrationForm = () => {
       console.log(data);
     },
   });
-  console.log(formik.errors.lastName);
+
+  // for years
+  const tempYear = new Date().getFullYear();
+  const years = Array.from(new Array(105), (val, index) => tempYear - index);
+  // for month
+  const month = Array.from(new Array(12), (val, index) => 1 + index);
+  // for day
+  const day = () => {
+    return new Date(formik.values.bYear, formik.values.bMonth, 0).getDate();
+  };
+  const getDates = Array.from(new Array(day()), (val, index) => 1 + index);
+
   return (
     <>
       <div className="w-full">
@@ -97,9 +108,9 @@ const RegistrationForm = () => {
                   className="w-[33%] p-1 border border-line_color rounded-md focus:outline-none font-gilroyNormal "
                 >
                   <option>Birth Year</option>
-                  <option>2000</option>
-                  <option>2001</option>
-                  <option>2001</option>
+                  {years.map((year, i) => (
+                    <option key={i}>{year}</option>
+                  ))}
                 </select>
 
                 <select
@@ -112,9 +123,9 @@ const RegistrationForm = () => {
                   className="w-[33%] p-1 border border-line_color rounded-md focus:outline-none font-gilroyNormal "
                 >
                   <option>Birth Month</option>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
+                  {month.map((item, i) => (
+                    <option key={i}>{item}</option>
+                  ))}
                 </select>
                 <select
                   name="bDay"
@@ -125,9 +136,9 @@ const RegistrationForm = () => {
                   className="w-[33%] p-1 border border-line_color rounded-md focus:outline-none font-gilroyNormal "
                 >
                   <option>Birth day</option>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
+                  {getDates.map((date, i) => (
+                    <option key={i}>{date}</option>
+                  ))}
                 </select>
               </div>
               {formik.errors.bYear && formik.touched.bYear && (
