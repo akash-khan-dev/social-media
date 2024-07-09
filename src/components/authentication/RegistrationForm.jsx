@@ -6,10 +6,12 @@ import { ToastContainer, toast } from "react-toastify";
 import DateOfBirth from "./DateOfBirth";
 import Gender from "./Gender";
 import { useAddUserMutation } from "../../StateFeature/api/authApi";
+import { ToastError } from "../../utils/ToastError";
+import { ToastSuccess } from "../../utils/ToastSuccess";
 
 const RegistrationForm = () => {
   const [ageError, setAgeError] = useState();
-  const [addUser, { isLoading, error }] = useAddUserMutation();
+  const [addUser, { isLoading }] = useAddUserMutation();
   const initialState = {
     firstName: "",
     lastName: "",
@@ -20,7 +22,6 @@ const RegistrationForm = () => {
     bDay: new Date().getDay(),
     gender: "",
   };
-  console.log(error);
 
   const registration = async (data) => {
     const signUpMutation = await addUser({
@@ -33,7 +34,11 @@ const RegistrationForm = () => {
       bDay: data.bDay,
       gender: data.gender,
     });
-    console.log(signUpMutation.data);
+    if (signUpMutation.error) {
+      ToastError(signUpMutation?.error?.data?.Message);
+    } else {
+      ToastSuccess(signUpMutation?.data?.message);
+    }
   };
 
   const formik = useFormik({
@@ -54,6 +59,7 @@ const RegistrationForm = () => {
         return setAgeError("you are more then 70");
       }
       setAgeError("");
+
       registration(data);
     },
   });
