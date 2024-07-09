@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import { SignUpValidations } from "../../validations/SingUp";
 import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import DateOfBirth from "./DateOfBirth";
 import Gender from "./Gender";
 import { useAddUserMutation } from "../../StateFeature/api/authApi";
@@ -11,7 +11,7 @@ import { ToastSuccess } from "../../utils/ToastSuccess";
 
 const RegistrationForm = () => {
   const [ageError, setAgeError] = useState();
-  const [addUser, { isLoading }] = useAddUserMutation();
+  const [addUser] = useAddUserMutation();
   const navigate = useNavigate();
   const initialState = {
     firstName: "",
@@ -42,6 +42,7 @@ const RegistrationForm = () => {
       setTimeout(() => {
         navigate("/login");
       }, 2500);
+      return;
     }
   };
 

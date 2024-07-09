@@ -1,11 +1,46 @@
 /* eslint-disable react/prop-types */
 
-import { Link } from "react-router-dom";
+import { useFormik } from "formik";
+import { Link, useNavigate } from "react-router-dom";
+import { useLoginUserMutation } from "../../StateFeature/api/authApi";
+import { ToastError } from "../../utils/ToastError";
+import { SignInValidations } from "../../validations/SingUp";
+import { ToastContainer } from "react-toastify";
+import { ToastSuccess } from "../../utils/ToastSuccess";
 
-// eslint-disable-next-line react/prop-types
-const LoginForm = ({ formik }) => {
+const LoginForm = () => {
+  const navigate = useNavigate();
+  const [loginUser] = useLoginUserMutation();
+
+  const loginFunc = async (data) => {
+    const loginMutation = await loginUser({
+      email: data.email,
+      password: data.password,
+    });
+    if (loginMutation.error) {
+      return ToastError(loginMutation?.error?.data?.message);
+    } else {
+      ToastSuccess(loginMutation?.data?.message);
+      setTimeout(() => {
+        navigate("/");
+      }, 2500);
+      return;
+    }
+  };
+  const initialState = {
+    email: "",
+    password: "",
+  };
+  const formik = useFormik({
+    initialValues: initialState,
+    validationSchema: SignInValidations,
+    onSubmit: (data) => {
+      loginFunc(data);
+    },
+  });
   return (
     <>
+      <ToastContainer />
       <div className="w-full">
         <div className="rounded-md shadow-md px-10 py-7">
           <div>

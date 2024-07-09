@@ -1,23 +1,10 @@
 import { Helmet } from "react-helmet-async";
 import LoginForm from "../../components/authentication/LoginForm";
-import { useFormik } from "formik";
+
 import AuthLeft from "../../components/authentication/AuthLeft";
 import LoginIcon from "../../svg/LoginIcon";
-import { SignInValidations } from "../../validations/SingUp";
 
 const Login = () => {
-  const initialState = {
-    email: "",
-    password: "",
-  };
-  const formik = useFormik({
-    initialValues: initialState,
-    validationSchema: SignInValidations,
-    onSubmit: (data) => {
-      console.log(data);
-    },
-  });
-
   return (
     <>
       <Helmet>
@@ -31,12 +18,11 @@ const Login = () => {
               icon={<LoginIcon />}
               title={"Login for Access"}
               description={` Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio
-                 distinctio asperiores saepe natus id earum. Nesciunt ut voluptate
-                 `}
+                 distinctio asperiores saepe natus id earum. Nesciunt ut voluptate`}
             />
           </div>
           <div className="w-full md:w-[40%] ">
-            <LoginForm formik={formik} />
+            <LoginForm />
           </div>
         </div>
       </div>
