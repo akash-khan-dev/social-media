@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 
 import { useFormik } from "formik";
@@ -8,9 +9,12 @@ import { SignInValidations } from "../../validations/SingUp";
 import { ToastContainer } from "react-toastify";
 import { ToastSuccess } from "../../utils/ToastSuccess";
 import { BeatLoader } from "react-spinners";
+import { useDispatch } from "react-redux";
+import { loggedInUser } from "../../StateFeature/Slice/authSlice";
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [loginUser, { isLoading }] = useLoginUserMutation();
 
   const loginFunc = async (data) => {
@@ -22,10 +26,14 @@ const LoginForm = () => {
       return ToastError(loginMutation?.error?.data?.message);
     } else {
       ToastSuccess(loginMutation?.data?.message);
-      setTimeout(() => {
-        navigate("/");
-      }, 2500);
-      return;
+      const { message, ...rest } = loginMutation.data;
+      dispatch(loggedInUser(rest));
+      localStorage.setItem("userInfo", JSON.stringify(rest));
+
+      //   setTimeout(() => {
+      //     navigate("/");
+      //   }, 2500);
+      //   return;
     }
   };
   const initialState = {
