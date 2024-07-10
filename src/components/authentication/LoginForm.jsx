@@ -9,12 +9,15 @@ import { SignInValidations } from "../../validations/SingUp";
 import { ToastContainer } from "react-toastify";
 import { ToastSuccess } from "../../utils/ToastSuccess";
 import { BeatLoader } from "react-spinners";
+import { FaEye, FaRegEyeSlash } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { loggedInUser } from "../../StateFeature/Slice/authSlice";
 import Input from "../common/Input";
 import InputError from "../common/InputError";
+import { useState } from "react";
 
 const LoginForm = () => {
+  const [showPass, setShowPass] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loginUser, { isLoading }] = useLoginUserMutation();
@@ -49,6 +52,13 @@ const LoginForm = () => {
       loginFunc(data);
     },
   });
+  const handleShowPassword = () => {
+    if (showPass) {
+      setShowPass(false);
+    } else {
+      setShowPass(true);
+    }
+  };
   return (
     <>
       <ToastContainer />
@@ -68,15 +78,27 @@ const LoginForm = () => {
                 error={formik.errors.email}
                 touched={formik.touched.email}
               />
-              <Input
-                type="password"
-                name="password"
-                autoComplete="off"
-                value={formik.values.password}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="password"
-              />
+              <div className="relative">
+                <Input
+                  type={showPass ? "text" : "password"}
+                  name="password"
+                  autoComplete="off"
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  placeholder="Password"
+                />
+                <InputError
+                  error={formik.errors.password}
+                  touched={formik.touched.password}
+                />
+                <div
+                  onClick={handleShowPassword}
+                  className="absolute top-3 right-5 cursor-pointer"
+                >
+                  {showPass ? <FaRegEyeSlash /> : <FaEye />}
+                </div>
+              </div>
               <InputError
                 error={formik.errors.password}
                 touched={formik.touched.password}

@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import DateOfBirth from "./DateOfBirth";
 import Gender from "./Gender";
 import { useAddUserMutation } from "../../StateFeature/api/authApi";
+import { FaEye, FaRegEyeSlash } from "react-icons/fa";
 import { ToastError } from "../../utils/ToastError";
 import { ToastSuccess } from "../../utils/ToastSuccess";
 import { BeatLoader } from "react-spinners";
@@ -14,6 +15,7 @@ import InputError from "../common/InputError";
 
 const RegistrationForm = () => {
   const [ageError, setAgeError] = useState();
+  const [showPass, setShowPass] = useState(false);
   const [addUser, { isLoading }] = useAddUserMutation();
   const navigate = useNavigate();
   const initialState = {
@@ -83,6 +85,13 @@ const RegistrationForm = () => {
   };
   const getDates = Array.from(new Array(day()), (val, index) => 1 + index);
 
+  const handleShowPassword = () => {
+    if (showPass) {
+      setShowPass(false);
+    } else {
+      setShowPass(true);
+    }
+  };
   return (
     <>
       <ToastContainer />
@@ -128,19 +137,27 @@ const RegistrationForm = () => {
                 error={formik.errors.email}
                 touched={formik.touched.email}
               />
-              <Input
-                type="password"
-                name="password"
-                autoComplete="off"
-                value={formik.values.password}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="password"
-              />
-              <InputError
-                error={formik.errors.password}
-                touched={formik.touched.password}
-              />
+              <div className="relative">
+                <Input
+                  type={showPass ? "text" : "password"}
+                  name="password"
+                  autoComplete="off"
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  placeholder="Password"
+                />
+                <InputError
+                  error={formik.errors.password}
+                  touched={formik.touched.password}
+                />
+                <div
+                  onClick={handleShowPassword}
+                  className="absolute top-3 right-5 cursor-pointer"
+                >
+                  {showPass ? <FaRegEyeSlash /> : <FaEye />}
+                </div>
+              </div>
               <div>
                 <DateOfBirth
                   years={years}
