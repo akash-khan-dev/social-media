@@ -9,6 +9,8 @@ import { useAddUserMutation } from "../../StateFeature/api/authApi";
 import { ToastError } from "../../utils/ToastError";
 import { ToastSuccess } from "../../utils/ToastSuccess";
 import { BeatLoader } from "react-spinners";
+import Input from "../common/Input";
+import InputError from "../common/InputError";
 
 const RegistrationForm = () => {
   const [ageError, setAgeError] = useState();
@@ -88,8 +90,7 @@ const RegistrationForm = () => {
         <div className="rounded-md shadow-md px-10 py-7">
           <div>
             <form onSubmit={formik.handleSubmit} action="">
-              <input
-                className="w-full border-2 border-line_color px-2 py-2 rounded-md focus:outline-none mb-3"
+              <Input
                 type="text"
                 name="firstName"
                 value={formik.values.firstName}
@@ -98,13 +99,11 @@ const RegistrationForm = () => {
                 onBlur={formik.handleBlur}
                 placeholder="Firs Name"
               />
-              {formik.errors.firstName && formik.touched.firstName && (
-                <p className="font-gilroyNormal text-base mb-3 -mt-2 text-red ml-2">
-                  {formik.errors.firstName}
-                </p>
-              )}
-              <input
-                className="w-full border-2 border-line_color px-2 py-2 rounded-md focus:outline-none mb-3"
+              <InputError
+                error={formik.errors.firstName}
+                touched={formik.touched.firstName}
+              />
+              <Input
                 type="text"
                 name="lastName"
                 value={formik.values.lastName}
@@ -113,13 +112,11 @@ const RegistrationForm = () => {
                 onBlur={formik.handleBlur}
                 placeholder="Last Name"
               />
-              {formik.errors.lastName && formik.touched.firstName && (
-                <p className="font-gilroyNormal text-base mb-3 -mt-2 text-red ml-2">
-                  {formik.errors.lastName}
-                </p>
-              )}
-              <input
-                className="w-full border-2 border-line_color px-2 py-2 rounded-md focus:outline-none mb-3"
+              <InputError
+                error={formik.errors.lastName}
+                touched={formik.touched.lastName}
+              />
+              <Input
                 type="email"
                 name="email"
                 value={formik.values.email}
@@ -127,13 +124,11 @@ const RegistrationForm = () => {
                 onBlur={formik.handleBlur}
                 placeholder="example@gmail.com"
               />
-              {formik.errors.email && formik.touched.email && (
-                <p className="font-gilroyNormal text-base mb-3 -mt-2 text-red ml-2">
-                  {formik.errors.email}
-                </p>
-              )}
-              <input
-                className="w-full border-2 border-line_color px-2 py-2 rounded-md focus:outline-none mb-3"
+              <InputError
+                error={formik.errors.email}
+                touched={formik.touched.email}
+              />
+              <Input
                 type="password"
                 name="password"
                 autoComplete="off"
@@ -142,11 +137,10 @@ const RegistrationForm = () => {
                 onBlur={formik.handleBlur}
                 placeholder="password"
               />
-              {formik.errors.password && formik.touched.password && (
-                <p className="font-gilroyNormal text-base mb-3 -mt-2 text-red ml-2">
-                  {formik.errors.password}
-                </p>
-              )}
+              <InputError
+                error={formik.errors.password}
+                touched={formik.touched.password}
+              />
               <div>
                 <DateOfBirth
                   years={years}

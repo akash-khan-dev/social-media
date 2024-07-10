@@ -11,6 +11,8 @@ import { ToastSuccess } from "../../utils/ToastSuccess";
 import { BeatLoader } from "react-spinners";
 import { useDispatch } from "react-redux";
 import { loggedInUser } from "../../StateFeature/Slice/authSlice";
+import Input from "../common/Input";
+import InputError from "../common/InputError";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -54,8 +56,7 @@ const LoginForm = () => {
         <div className="rounded-md shadow-md px-10 py-7">
           <div>
             <form onSubmit={formik.handleSubmit} action="">
-              <input
-                className="w-full border-2 border-line_color px-2 py-2 rounded-md focus:outline-none mb-3"
+              <Input
                 type="email"
                 name="email"
                 value={formik.values.email}
@@ -63,13 +64,11 @@ const LoginForm = () => {
                 onBlur={formik.handleBlur}
                 placeholder="example@gmail.com"
               />
-              {formik.errors.email && formik.touched.email && (
-                <p className="font-gilroyNormal text-base mb-3 -mt-2 text-red ml-2">
-                  {formik.errors.email}
-                </p>
-              )}
-              <input
-                className="w-full border-2 border-line_color px-2 py-2 rounded-md focus:outline-none mb-3"
+              <InputError
+                error={formik.errors.email}
+                touched={formik.touched.email}
+              />
+              <Input
                 type="password"
                 name="password"
                 autoComplete="off"
@@ -78,11 +77,10 @@ const LoginForm = () => {
                 onBlur={formik.handleBlur}
                 placeholder="password"
               />
-              {formik.errors.password && formik.touched.password && (
-                <p className="font-gilroyNormal text-base mb-3 -mt-2 text-red ml-2">
-                  {formik.errors.password}
-                </p>
-              )}
+              <InputError
+                error={formik.errors.password}
+                touched={formik.touched.password}
+              />
               {isLoading ? (
                 <button
                   type="submit"
