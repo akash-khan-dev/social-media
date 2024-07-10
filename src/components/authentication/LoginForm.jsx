@@ -30,10 +30,10 @@ const LoginForm = () => {
       dispatch(loggedInUser(rest));
       localStorage.setItem("userInfo", JSON.stringify(rest));
 
-      //   setTimeout(() => {
-      //     navigate("/");
-      //   }, 2500);
-      //   return;
+      setTimeout(() => {
+        navigate("/");
+      }, 2500);
+      return;
     }
   };
   const initialState = {
