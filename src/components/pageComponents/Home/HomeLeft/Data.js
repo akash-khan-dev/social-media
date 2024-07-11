@@ -8,21 +8,26 @@ export const ProfileData = [
   {
     icon: NewsFeed,
     title: "News Feed",
+    link: "/",
   },
   {
     icon: Message,
     title: "Message",
+    link: "/",
   },
   {
     icon: Friends,
     title: "Friends",
+    link: "/friends",
   },
   {
     icon: Media,
     title: "Media",
+    link: "/",
   },
   {
     icon: Settings,
     title: "Settings",
+    link: "settings",
   },
 ];
