@@ -1,13 +1,9 @@
-import CreatePost from "./CreatePost";
 import ShowPost from "./ShowPost";
 
 const HomeMiddle = () => {
   return (
     <>
-      <div>
-        <CreatePost />
-      </div>
-      <div>
+      <div className="w-full h-60 mt-3">
         <ShowPost />
       </div>
     </>

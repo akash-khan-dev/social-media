@@ -9,6 +9,7 @@ import Home from "./pages/home";
 import Login from "./pages/login";
 import { NotLoginUser } from "./PrivateRoute/NoteLoginUser";
 import { LoggedInUser } from "./PrivateRoute/LoggedInUser";
+import LayOut from "./RootLayOut/LayOut";
 
 function App() {
   const router = createBrowserRouter(
@@ -19,7 +20,9 @@ function App() {
           <Route path="/login" element={<Login />} />
         </Route>
         <Route element={<LoggedInUser />}>
-          <Route path="/" element={<Home />} />
+          <Route element={<LayOut />}>
+            <Route path="/" element={<Home />} />
+          </Route>
         </Route>
       </Route>
     )

@@ -16,10 +16,22 @@ const LeftData = ({ data }) => {
       {data.link == "settings" ? (
         <div
           onClick={() => setShow(true)}
-          className=" group flex gap-x-7 ml-3 mt-3 hover:bg-black py-3 px-7 rounded-[40px] transition duration-300 cursor-pointer"
+          className={`${
+            show ? "bg-black" : "bg-transparent"
+          } group flex gap-x-7 ml-3 mt-3 hover:bg-black py-3 px-7 rounded-[40px] transition duration-300 cursor-pointer`}
         >
-          <div className="group-hover:text-white">{<ItemIcon />}</div>
-          <h3 className="group-hover:text-white font-gilroyMedium text-lg text-black">
+          <div
+            className={`${
+              show ? "text-white" : "bg-transparent"
+            } group-hover:text-white`}
+          >
+            {<ItemIcon />}
+          </div>
+          <h3
+            className={`${
+              show ? "text-white" : "bg-transparent"
+            } group-hover:text-white font-gilroyMedium text-lg text-black`}
+          >
             {data.title}
           </h3>
         </div>
