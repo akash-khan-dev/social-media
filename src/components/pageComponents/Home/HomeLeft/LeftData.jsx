@@ -1,11 +1,16 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import SettingOption from "./SettingOption/SettingOption";
+import OutSideClick from "../../../../utils/Click";
 
 /* eslint-disable react/prop-types */
 const LeftData = ({ data }) => {
   const [show, setShow] = useState(false);
   const ItemIcon = data.icon;
+  const outsideRef = useRef(null);
+  OutSideClick(outsideRef, () => {
+    return setShow(false);
+  });
   return (
     <>
       {data.link == "settings" ? (
@@ -30,8 +35,8 @@ const LeftData = ({ data }) => {
         </NavLink>
       )}
       {show && (
-        <div>
-          <SettingOption />
+        <div ref={outsideRef}>
+          <SettingOption setShow={setShow} />
         </div>
       )}
     </>

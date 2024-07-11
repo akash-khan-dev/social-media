@@ -1,12 +1,17 @@
+/* eslint-disable react/prop-types */
 import { FaRegMoon } from "react-icons/fa";
 import { IoMdArrowBack } from "react-icons/io";
 
-const DisplayMood = () => {
+const DisplayMood = ({ setShowMood }) => {
   return (
     <>
       <div className="shadow-md p-5 ml-5">
         <div className="mb-3 flex gap-3 items-center">
-          <IoMdArrowBack size={22} />
+          <IoMdArrowBack
+            size={22}
+            onClick={() => setShowMood(false)}
+            className="cursor-pointer"
+          />
 
           <p className="cursor-pointer font-gilroyBold text-md text-black group-hover:text-secondary_color transition-all duration-300">
             Display & Accessability
@@ -35,7 +40,7 @@ const DisplayMood = () => {
                 </label>
                 <input id="dark" type="radio" name="darkmood" />
               </div>
-              <div className="flex flex justify-between">
+              <div className=" flex justify-between">
                 <label
                   htmlFor="white"
                   className="font-gilroySemibold text-md text-black"

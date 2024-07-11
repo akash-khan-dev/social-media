@@ -6,7 +6,7 @@ const SettingOption = () => {
   const [showMood, setShowMood] = useState(false);
 
   if (showMood) {
-    return <DisplayMood />;
+    return <DisplayMood setShowMood={setShowMood} />;
   }
   return (
     <>
