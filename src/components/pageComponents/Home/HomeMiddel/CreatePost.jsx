@@ -1,9 +1,17 @@
 import { IoSearch } from "react-icons/io5";
 import SearchBox from "./SearchBox";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import OutSideClick from "../../../../utils/Click";
 
 const CreatePost = () => {
   const [showSearchBox, setShowSearchBox] = useState(false);
+  const outsideClick = useRef(null);
+
+  // for search box off if click outside
+  OutSideClick(outsideClick, () => {
+    setShowSearchBox(false);
+  });
+
   return (
     <>
       <div className="flex items-center justify-between ">
@@ -26,7 +34,10 @@ const CreatePost = () => {
               />
             </div>
           </div>
-          <div className="absolute top-[-28px] left-[-28px] bg-white">
+          <div
+            className="absolute top-[-28px] left-[-28px] bg-white"
+            ref={outsideClick}
+          >
             {showSearchBox && <SearchBox />}
           </div>
         </div>

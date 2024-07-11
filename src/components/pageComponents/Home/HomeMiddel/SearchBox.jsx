@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { IoSearch } from "react-icons/io5";
 
-const SearchBox = ({ focus }) => {
+const SearchBox = () => {
   const InputRef = useRef(null);
   const [searchIconVisible, setSearchIconVisible] = useState(true);
   useEffect(() => {
