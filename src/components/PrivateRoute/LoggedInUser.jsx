@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import Login from "../pages/login";
+import Login from "../../pages/login/index";
 import { Outlet } from "react-router-dom";
 
 export const LoggedInUser = () => {

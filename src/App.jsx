@@ -7,9 +7,10 @@ import {
 import Registration from "./pages/registration";
 import Home from "./pages/home";
 import Login from "./pages/login";
-import { NotLoginUser } from "./PrivateRoute/NoteLoginUser";
-import { LoggedInUser } from "./PrivateRoute/LoggedInUser";
-import LayOut from "./RootLayOut/LayOut";
+import { NotLoginUser } from "../src/components/PrivateRoute/NoteLoginUser";
+import { LoggedInUser } from "../src/components/PrivateRoute/LoggedInUser";
+
+import LayOut from "../src/components/RootLayout/LayOut";
 
 function App() {
   const router = createBrowserRouter(
