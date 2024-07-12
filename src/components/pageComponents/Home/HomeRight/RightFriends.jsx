@@ -1,4 +1,9 @@
+import { ReduceText } from "../../../../utils/ReduceText";
+
 const RightFriends = () => {
+  const originalName = " md akash khan ahemd atikur";
+  const reduceText = ReduceText(originalName, 15);
+
   return (
     <>
       <div className=" pr-4">
@@ -20,7 +25,7 @@ const RightFriends = () => {
               <div className="w-[50px] h-[50px] bg-black rounded-full"></div>
             </div>
             <div className="w-[75%]">
-              <h4 className="font-gilroySemibold text-md"> Md Akash Khan</h4>
+              <h4 className="font-gilroySemibold text-md">{reduceText}</h4>
               <p className="font-gilroyNormal text-xs text-secondary_color">
                 1 hour ago
               </p>
