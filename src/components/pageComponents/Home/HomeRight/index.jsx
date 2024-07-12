@@ -1,5 +1,11 @@
+import RightFriends from "./RightFriends";
+
 const RightHome = () => {
-  return <div>RightHome</div>;
+  return (
+    <>
+      <RightFriends />
+    </>
+  );
 };
 
 export default RightHome;
