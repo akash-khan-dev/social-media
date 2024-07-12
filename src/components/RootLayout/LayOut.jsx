@@ -1,7 +1,6 @@
-import Profile from "../components/pageComponents/Home/HomeLeft/Profile";
+import Profile from "../pageComponents/Home/HomeLeft";
 import { Outlet } from "react-router-dom";
-import CreatePost from "../components/pageComponents/Home/HomeMiddle/CreatePost";
-
+import Header from "../pageComponents/Home/HomeMiddle/Header";
 // eslint-disable-next-line react/prop-types
 const LayOut = () => {
   return (
@@ -13,7 +12,7 @@ const LayOut = () => {
           </div>
           <div>
             <div>
-              <CreatePost />
+              <Header />
             </div>
             <Outlet />
           </div>

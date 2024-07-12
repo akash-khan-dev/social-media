@@ -3,7 +3,7 @@ import SearchBox from "./SearchBox";
 import { useRef, useState } from "react";
 import OutSideClick from "../../../../utils/Click";
 
-const CreatePost = () => {
+const Header = () => {
   const [showSearchBox, setShowSearchBox] = useState(false);
   const outsideClick = useRef(null);
 
@@ -46,4 +46,4 @@ const CreatePost = () => {
   );
 };
 
-export default CreatePost;
+export default Header;
