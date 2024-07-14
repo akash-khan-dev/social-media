@@ -1,28 +1,12 @@
 import { Crose } from "../../../../../svg/crose";
 import AddPost from "./AddPost";
-import { BsEmojiFrown } from "react-icons/bs";
-import EmojiPicker from "emoji-picker-react";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
+import EmojiPick from "./EmojiPick";
 
 const CreatePostPopup = () => {
   const textRef = useRef(null);
-  const [showPicker, setShowPicker] = useState(false);
   const [textState, setTextState] = useState("");
-  const [cursorPosition, setCursorPosition] = useState();
 
-  const handleEmojiClick = ({ emoji }, e) => {
-    const ref = textRef.current;
-    ref.focus();
-    const textStart = textState.substring(0, ref.selectionStart);
-    const textEnd = textState.substring(ref.selectionEnd);
-    const newText = textStart + emoji + textEnd;
-    setTextState(newText);
-    setCursorPosition(textStart.length + emoji.length);
-  };
-
-  useEffect(() => {
-    textRef.current.selectionEnd = cursorPosition;
-  }, [cursorPosition]);
   return (
     <>
       <div className="absolute top-0 left-0 w-full bg-blur h-screen flex items-center justify-center z-20">
@@ -55,21 +39,11 @@ const CreatePostPopup = () => {
             </div>
             <div className="flex items-center justify-between mb-2">
               <div className="w-[40px] h-[40px] bg-gradient-to-r to-cyan-100 from-purple-100 rounded-md"></div>
-              <div className="relative cursor-pointer">
-                <BsEmojiFrown
-                  onClick={() => setShowPicker((prev) => !prev)}
-                  size={24}
-                />
-                {showPicker && (
-                  <div className="absolute -top-[400px] -left-[100px] z-20">
-                    <EmojiPicker
-                      onEmojiClick={handleEmojiClick}
-                      height={390}
-                      width={350}
-                    />
-                  </div>
-                )}
-              </div>
+              <EmojiPick
+                textRef={textRef}
+                setTextState={setTextState}
+                textState={textState}
+              />
             </div>
             <div>
               <AddPost />
