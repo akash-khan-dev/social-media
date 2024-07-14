@@ -2,13 +2,19 @@ import { Crose } from "../../../../../svg/crose";
 import AddPost from "./AddPost";
 import { BsEmojiFrown } from "react-icons/bs";
 import EmojiPicker from "emoji-picker-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const CreatePostPopup = () => {
+  const textRef = useRef(null);
   const [showPicker, setShowPicker] = useState(false);
+  const [textState, setTextState] = useState("");
+  const handleEmojiClick = () => {
+    textRef.current.focus();
+  };
+  console.log(textState);
   return (
     <>
-      <div className="absolute top-0 left-0 w-full bg-blur h-screen flex items-center justify-center">
+      <div className="absolute top-0 left-0 w-full bg-blur h-screen flex items-center justify-center z-20">
         <div className="w-[30%] shadow-md bg-white relative">
           <div className="absolute top-2 right-3 text-purple-100 cursor-pointer">
             <Crose />
@@ -27,7 +33,10 @@ const CreatePostPopup = () => {
             </div>
             <div className="mt-3">
               <textarea
-                className="w-full min-h-20 focus:outline-none"
+                ref={textRef}
+                value={textState}
+                onChange={(e) => setTextState(e.target.value)}
+                className="w-full min-h-20 focus:outline-none font-gilroyNormal text-lg text-black"
                 name=""
                 placeholder="What's your mind ?"
                 id=""
@@ -41,8 +50,12 @@ const CreatePostPopup = () => {
                   size={24}
                 />
                 {showPicker && (
-                  <div className="absolute -top-[400px] -left-[360px] z-20">
-                    <EmojiPicker />
+                  <div className="absolute -top-[400px] -left-[300px] z-20">
+                    <EmojiPicker
+                      onEmojiClick={handleEmojiClick}
+                      height={390}
+                      width={350}
+                    />
                   </div>
                 )}
               </div>
