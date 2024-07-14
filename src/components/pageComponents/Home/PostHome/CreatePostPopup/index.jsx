@@ -2,16 +2,27 @@ import { Crose } from "../../../../../svg/crose";
 import AddPost from "./AddPost";
 import { BsEmojiFrown } from "react-icons/bs";
 import EmojiPicker from "emoji-picker-react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const CreatePostPopup = () => {
   const textRef = useRef(null);
   const [showPicker, setShowPicker] = useState(false);
   const [textState, setTextState] = useState("");
-  const handleEmojiClick = () => {
-    textRef.current.focus();
+  const [cursorPosition, setCursorPosition] = useState();
+
+  const handleEmojiClick = ({ emoji }, e) => {
+    const ref = textRef.current;
+    ref.focus();
+    const textStart = textState.substring(0, ref.selectionStart);
+    const textEnd = textState.substring(ref.selectionEnd);
+    const newText = textStart + emoji + textEnd;
+    setTextState(newText);
+    setCursorPosition(textStart.length + emoji.length);
   };
-  console.log(textState);
+
+  useEffect(() => {
+    textRef.current.selectionEnd = cursorPosition;
+  }, [cursorPosition]);
   return (
     <>
       <div className="absolute top-0 left-0 w-full bg-blur h-screen flex items-center justify-center z-20">
@@ -50,7 +61,7 @@ const CreatePostPopup = () => {
                   size={24}
                 />
                 {showPicker && (
-                  <div className="absolute -top-[400px] -left-[300px] z-20">
+                  <div className="absolute -top-[400px] -left-[100px] z-20">
                     <EmojiPicker
                       onEmojiClick={handleEmojiClick}
                       height={390}
