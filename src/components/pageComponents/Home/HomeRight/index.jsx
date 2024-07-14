@@ -1,9 +1,15 @@
 import RightFriends from "./RightFriends";
+import Stories from "./Stories";
 
 const RightHome = () => {
   return (
     <>
-      <RightFriends />
+      <div>
+        <RightFriends />
+      </div>
+      <div>
+        <Stories />
+      </div>
     </>
   );
 };

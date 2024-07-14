@@ -2,6 +2,8 @@ import { IoSearch } from "react-icons/io5";
 import SearchBox from "./SearchBox";
 import { useRef, useState } from "react";
 import OutSideClick from "../../../../utils/Click";
+import LeftData from "../HomeLeft/LeftData";
+import { ProfileData } from "../HomeLeft/Data";
 
 const Header = () => {
   const [showSearchBox, setShowSearchBox] = useState(false);
@@ -15,27 +17,33 @@ const Header = () => {
   return (
     <>
       <div className="flex items-center justify-between ">
-        <div>
+        <div className="hidden lg:block">
           <h3 className="font-gilroyBold text-xl text-black">Feeds</h3>
         </div>
-        <div className="w-[32%] relative">
+        <div className="lg:hidden w-[50px] h-[50px] md:w-[80px] md:h-[80px] bg-black rounded-full "></div>
+        <div className="w-[50%] md:w-[80%] lg:hidden flex gap-x-3 sm:gap-5 md:gap-x-7  items-center justify-center">
+          {ProfileData.map((data, i) => (
+            <LeftData key={i} data={data} />
+          ))}
+        </div>
+        <div className="lg:w-[32%] relative mr-[25px]">
           <div
-            className=" flex items-center gap-2 border-2 border-line_color py-2 px-3 rounded-full"
+            className="w-[40px] h-[40px] lg:w-full flex items-center justify-center gap-2 border-2 border-line_color py-4 px-4 rounded-full"
             onClick={() => setShowSearchBox(true)}
           >
             <div>
               <IoSearch />
             </div>
-            <div>
+            <div className="hidden lg:block w-[90%]">
               <input
                 type="text"
                 placeholder="Search"
-                className="focus:outline-none placeholder:font-gilroyNormal font-gilroyMedium text-lg "
+                className="w-full focus:outline-none placeholder:font-gilroyNormal font-gilroyMedium text-lg "
               />
             </div>
           </div>
           <div
-            className="absolute top-[-28px] left-[-28px] bg-white"
+            className="absolute -top-3 -right-2 lg:top-[-28px] lg:left-[-28px] bg-white z-10"
             ref={outsideClick}
           >
             {showSearchBox && <SearchBox />}

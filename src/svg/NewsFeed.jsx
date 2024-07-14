@@ -1,6 +1,6 @@
 export const NewsFeed = () => {
   return (
-    <svg width="30px" height="30px" viewBox="0 0 32 32" version="1.1">
+    <svg width="25px" height="25px" viewBox="0 0 32 32" version="1.1">
       <g id="icomoon-ignore"></g>
       <path
         stroke="currentColor"

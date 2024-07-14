@@ -17,20 +17,20 @@ const LeftData = ({ data }) => {
         <div
           onClick={() => setShow(true)}
           className={`${
-            show ? "bg-black" : "bg-transparent"
-          } group flex gap-x-7 ml-3 mt-3 hover:bg-black py-3 px-7 rounded-[40px] transition duration-300 cursor-pointer`}
+            show ? "lg:bg-black" : "bg-transparent"
+          } group flex lg:ml-3 xl:gap-x-7 lg:mt-3 lg:hover:bg-black lg:py-4 lg:px-4 xl:px-7 rounded-[40px] transition duration-300 cursor-pointer`}
         >
           <div
             className={`${
               show ? "text-white" : "bg-transparent"
-            } group-hover:text-white`}
+            } lg:group-hover:text-white`}
           >
             {<ItemIcon />}
           </div>
           <h3
             className={`${
               show ? "text-white" : "bg-transparent"
-            } group-hover:text-white font-gilroyMedium text-lg text-black`}
+            } hidden xl:block lg:group-hover:text-white font-gilroyMedium text-base xl:text-lg text-black`}
           >
             {data.title}
           </h3>
@@ -38,16 +38,16 @@ const LeftData = ({ data }) => {
       ) : (
         <NavLink
           to={data.link}
-          className="group flex gap-x-7 ml-3 mt-3 hover:bg-black py-3 px-7 rounded-[40px] transition duration-300"
+          className="group  flex  xl:gap-x-7 lg:ml-3 lg:mt-3 lg:hover:bg-black lg:py-4 lg:px-4 xl:px-7 rounded-[40px] transition duration-300"
         >
-          <div className="group-hover:text-white">{<ItemIcon />}</div>
-          <h3 className="group-hover:text-white font-gilroyMedium text-lg text-black">
+          <div className="lg:group-hover:text-white">{<ItemIcon />}</div>
+          <h3 className="hidden xl:block group-hover:text-white font-gilroyMedium text-base xl:text-lg text-black">
             {data.title}
           </h3>
         </NavLink>
       )}
       {show && (
-        <div ref={outsideRef}>
+        <div ref={outsideRef} className="relative">
           <SettingOption setShow={setShow} />
         </div>
       )}

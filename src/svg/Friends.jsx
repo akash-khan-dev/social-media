@@ -3,8 +3,8 @@ export const Friends = () => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
-      width="30px"
-      height="30px"
+      width="25px"
+      height="25px"
       viewBox="0 -6 44 44"
       preserveAspectRatio="xMidYMid"
     >

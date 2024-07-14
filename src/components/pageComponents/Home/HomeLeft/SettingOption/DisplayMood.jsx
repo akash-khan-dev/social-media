@@ -5,7 +5,7 @@ import { IoMdArrowBack } from "react-icons/io";
 const DisplayMood = ({ setShowMood }) => {
   return (
     <>
-      <div className="shadow-md p-5 ml-5">
+      <div className="bg-white shadow-md p-5 ml-5 w-[250px] absolute top-5 -left-64 lg:left-0">
         <div className="mb-3 flex gap-3 items-center">
           <IoMdArrowBack
             size={22}

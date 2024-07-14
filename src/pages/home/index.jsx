@@ -7,7 +7,7 @@ const Home = () => {
       <Helmet>
         <title>Home</title>
       </Helmet>
-      <div className="mt-5">
+      <div className="mt-5 container">
         <div>
           <HomeMiddle />
         </div>

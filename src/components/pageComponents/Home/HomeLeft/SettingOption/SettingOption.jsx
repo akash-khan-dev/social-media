@@ -10,7 +10,7 @@ const SettingOption = () => {
   }
   return (
     <>
-      <div className="shadow-md p-5 ml-5">
+      <div className="bg-white shadow-md p-5 ml-5 absolute top-5 right-0 w-[260px] lg:left-0">
         <div
           className="flex items-center gap-7 mb-3 group cursor-pointer"
           onClick={() => setShowMood(true)}

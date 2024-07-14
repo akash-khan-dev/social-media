@@ -6,9 +6,9 @@ import RightHome from "../pageComponents/Home/HomeRight";
 const LayOut = () => {
   return (
     <>
-      <div>
-        <div className="grid grid-cols-[1fr,3fr,1fr] mx-5 gap-x-7  mt-10">
-          <div>
+      <div className="container">
+        <div className="lg:grid lg:grid-cols-[70px,4fr,1fr] xl:grid-cols-[1fr,3fr,1fr] mx-2 md:mx-5 gap-x-7 mt-6 md:mt-10 ">
+          <div className="hidden lg:block">
             <Profile />
           </div>
           <div>
@@ -17,7 +17,7 @@ const LayOut = () => {
             </div>
             <Outlet />
           </div>
-          <div>
+          <div className="hidden lg:block">
             <RightHome />
           </div>
         </div>
