@@ -11,6 +11,7 @@ import { NotLoginUser } from "../src/components/PrivateRoute/NoteLoginUser";
 import { LoggedInUser } from "../src/components/PrivateRoute/LoggedInUser";
 
 import LayOut from "../src/components/RootLayout/LayOut";
+import CreatePostPopup from "./components/pageComponents/Home/PostHome/CreatePostPopup";
 
 function App() {
   const router = createBrowserRouter(
@@ -28,7 +29,12 @@ function App() {
       </Route>
     )
   );
-  return <RouterProvider router={router}></RouterProvider>;
+  return (
+    <>
+      <CreatePostPopup />
+      <RouterProvider router={router}></RouterProvider>
+    </>
+  );
 }
 
 export default App;
