@@ -5,7 +5,7 @@ import EmojiPickers from "./EmojiPickers";
 import ImagesVIewer from "./ImagesVIewer";
 
 const CreatePostPopup = () => {
-  const [showImageViewer, setShowImageViewer] = useState(true);
+  const [showImageViewer, setShowImageViewer] = useState(false);
   const [textState, setTextState] = useState("");
   const [postImage, setPostImage] = useState([]);
   return (
@@ -35,9 +35,13 @@ const CreatePostPopup = () => {
                   changePart={showImageViewer}
                   postImage={postImage}
                   setPostImage={setPostImage}
+                  setShowImageViewer={setShowImageViewer}
                 />
                 <div>
-                  <AddPost />
+                  <AddPost
+                    showImageViewer={showImageViewer}
+                    setShowImageViewer={setShowImageViewer}
+                  />
                 </div>
               </>
             ) : (
@@ -47,7 +51,10 @@ const CreatePostPopup = () => {
                   setTextState={setTextState}
                 />
                 <div>
-                  <AddPost />
+                  <AddPost
+                    showImageViewer={showImageViewer}
+                    setShowImageViewer={setShowImageViewer}
+                  />
                 </div>
               </>
             )}

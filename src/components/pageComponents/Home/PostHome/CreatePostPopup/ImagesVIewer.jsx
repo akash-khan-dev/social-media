@@ -11,6 +11,7 @@ const ImagesVIewer = ({
   changePart,
   postImage,
   setPostImage,
+  setShowImageViewer,
 }) => {
   const chooseFile = useRef(null);
 
@@ -63,7 +64,10 @@ const ImagesVIewer = ({
                   Add photo/video
                 </p>
               </div>
-              <div className="absolute top-3 right-3 w-[30px] h-[30px] bg-blur cursor-pointer rounded-full flex items-center justify-center">
+              <div
+                onClick={() => setPostImage([])}
+                className="absolute top-3 right-3 w-[30px] h-[30px] bg-white cursor-pointer rounded-full flex items-center justify-center"
+              >
                 <RxCross2 />
               </div>
               <div
@@ -105,7 +109,10 @@ const ImagesVIewer = ({
             </div>
           ) : (
             <div>
-              <div className="absolute top-2 right-2 z-30">
+              <div
+                onClick={() => setShowImageViewer(false)}
+                className="absolute top-2 right-2 z-30"
+              >
                 <FaRegTimesCircle
                   size={25}
                   className="text-secondary_color cursor-pointer "
