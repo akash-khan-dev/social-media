@@ -22,11 +22,6 @@ const AddPost = () => {
             </div>
           </div>
         </div>
-        <div className="mt-2">
-          <button className="py-2 w-full bg-white_100 hover:bg-black font-gilroySemibold text-lg text-black hover:text-white rounded-md transition-all duration-300">
-            Post Now
-          </button>
-        </div>
       </div>
     </>
   );

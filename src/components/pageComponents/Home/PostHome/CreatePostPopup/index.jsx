@@ -1,12 +1,12 @@
+import { useState } from "react";
 import { Crose } from "../../../../../svg/crose";
 import AddPost from "./AddPost";
-import { useRef, useState } from "react";
-import EmojiPick from "./EmojiPick";
+import EmojiPickers from "./EmojiPickers";
+import ImagesVIewer from "./ImagesVIewer";
 
 const CreatePostPopup = () => {
-  const textRef = useRef(null);
+  const [showImageViewer, setShowImageViewer] = useState(true);
   const [textState, setTextState] = useState("");
-
   return (
     <>
       <div className="absolute top-0 left-0 w-full bg-blur h-screen flex items-center justify-center z-20">
@@ -26,27 +26,33 @@ const CreatePostPopup = () => {
                 <h2 className="font-gilroySemibold text-xl">MD Akash khan</h2>
               </div>
             </div>
-            <div className="mt-3">
-              <textarea
-                ref={textRef}
-                value={textState}
-                onChange={(e) => setTextState(e.target.value)}
-                className="w-full min-h-20 focus:outline-none font-gilroyNormal text-lg text-black"
-                name=""
-                placeholder="What's your mind ?"
-                id=""
-              ></textarea>
-            </div>
-            <div className="flex items-center justify-between mb-2">
-              <div className="w-[40px] h-[40px] bg-gradient-to-r to-cyan-100 from-purple-100 rounded-md"></div>
-              <EmojiPick
-                textRef={textRef}
-                setTextState={setTextState}
-                textState={textState}
-              />
-            </div>
-            <div>
-              <AddPost />
+            {showImageViewer ? (
+              <>
+                <ImagesVIewer
+                  textState={textState}
+                  setTextState={setTextState}
+                  changePart={showImageViewer}
+                />
+                <div>
+                  <AddPost />
+                </div>
+              </>
+            ) : (
+              <>
+                <EmojiPickers
+                  textState={textState}
+                  setTextState={setTextState}
+                />
+                <div>
+                  <AddPost />
+                </div>
+              </>
+            )}
+
+            <div className="mt-2">
+              <button className="py-2 w-full bg-white_100 hover:bg-black font-gilroySemibold text-lg text-black hover:text-white rounded-md transition-all duration-300">
+                Post Now
+              </button>
             </div>
           </div>
         </div>
