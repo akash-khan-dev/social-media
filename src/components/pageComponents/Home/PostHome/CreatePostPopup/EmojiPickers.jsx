@@ -45,7 +45,13 @@ const EmojiPickers = ({ textState, setTextState, changePart }) => {
               size={24}
             />
             {showPicker && (
-              <div className="absolute -top-[400px] -left-[100px] z-20">
+              <div
+                className={`${
+                  changePart
+                    ? "absolute top-[10px] -left-[350px] z-20"
+                    : "absolute -top-[400px] -left-[100px] z-20"
+                }`}
+              >
                 <EmojiPicker
                   onEmojiClick={handleEmojiClick}
                   height={390}

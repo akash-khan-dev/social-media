@@ -7,6 +7,7 @@ import ImagesVIewer from "./ImagesVIewer";
 const CreatePostPopup = () => {
   const [showImageViewer, setShowImageViewer] = useState(true);
   const [textState, setTextState] = useState("");
+  const [postImage, setPostImage] = useState([]);
   return (
     <>
       <div className="absolute top-0 left-0 w-full bg-blur h-screen flex items-center justify-center z-20">
@@ -32,6 +33,8 @@ const CreatePostPopup = () => {
                   textState={textState}
                   setTextState={setTextState}
                   changePart={showImageViewer}
+                  postImage={postImage}
+                  setPostImage={setPostImage}
                 />
                 <div>
                   <AddPost />
