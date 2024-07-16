@@ -2,12 +2,20 @@ import { FaRegMoon } from "react-icons/fa";
 import { CiLogout } from "react-icons/ci";
 import { useState } from "react";
 import DisplayMood from "./DisplayMood";
+import { useDispatch } from "react-redux";
+import { loggedOutUser } from "../../../../../StateFeature/Slice/authSlice";
 const SettingOption = () => {
   const [showMood, setShowMood] = useState(false);
+  const dispatch = useDispatch();
 
   if (showMood) {
     return <DisplayMood setShowMood={setShowMood} />;
   }
+
+  const handleLogOut = () => {
+    localStorage.removeItem("userInfo");
+    dispatch(loggedOutUser());
+  };
   return (
     <>
       <div className="bg-white shadow-md p-5 ml-5 absolute top-5 right-0 w-[260px] lg:left-0">
@@ -26,7 +34,10 @@ const SettingOption = () => {
           <div className="ml-1 ">
             <CiLogout size={25} />
           </div>
-          <p className="cursor-pointer font-gilroySemibold text-base text-black group-hover:text-secondary_color transition-all duration-300">
+          <p
+            onClick={handleLogOut}
+            className="cursor-pointer font-gilroySemibold text-base text-black group-hover:text-secondary_color transition-all duration-300"
+          >
             Log Out
           </p>
         </div>
