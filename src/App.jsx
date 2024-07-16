@@ -12,6 +12,7 @@ import { LoggedInUser } from "../src/components/PrivateRoute/LoggedInUser";
 
 import LayOut from "../src/components/RootLayout/LayOut";
 import CreatePostPopup from "./components/pageComponents/Home/PostHome/CreatePostPopup";
+import ActivatePage from "./pages/home/ActivatePage";
 
 function App() {
   const router = createBrowserRouter(
@@ -24,6 +25,7 @@ function App() {
         <Route element={<LoggedInUser />}>
           <Route element={<LayOut />}>
             <Route path="/" element={<Home />} />
+            <Route path="/activate/:token" element={<ActivatePage />} />
           </Route>
         </Route>
       </Route>
@@ -31,7 +33,7 @@ function App() {
   );
   return (
     <>
-      <CreatePostPopup />
+      {/* <CreatePostPopup /> */}
       <RouterProvider router={router}></RouterProvider>
     </>
   );

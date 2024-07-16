@@ -99,10 +99,6 @@ const LoginForm = () => {
                   {showPass ? <FaRegEyeSlash /> : <FaEye />}
                 </div>
               </div>
-              <InputError
-                error={formik.errors.password}
-                touched={formik.touched.password}
-              />
               {isLoading ? (
                 <button
                   type="submit"

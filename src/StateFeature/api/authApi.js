@@ -20,7 +20,21 @@ export const authApi = createApi({
         body,
       }),
     }),
+    verifiedUser: builder.mutation({
+      query: ({ token, userToken }) => ({
+        url: "/api/v1/auth/activate",
+        method: "POST",
+        body: { token },
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useAddUserMutation, useLoginUserMutation } = authApi;
+export const {
+  useAddUserMutation,
+  useLoginUserMutation,
+  useVerifiedUserMutation,
+} = authApi;
