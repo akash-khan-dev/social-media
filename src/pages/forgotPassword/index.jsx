@@ -28,7 +28,9 @@ const ForgotPassword = () => {
       }
       case 2: {
         if (user) {
-          return <OtpCode />;
+          return (
+            <OtpCode user={user} setUser={setUser} setVisible={setVisible} />
+          );
         }
         return null;
       }

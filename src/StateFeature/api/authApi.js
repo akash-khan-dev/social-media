@@ -53,6 +53,13 @@ export const authApi = createApi({
         body: { email },
       }),
     }),
+    matchOTP: builder.mutation({
+      query: ({ otp, email }) => ({
+        url: "/api/v1/auth/matchOTP",
+        method: "POST",
+        body: { otp, email },
+      }),
+    }),
   }),
 });
 
@@ -63,4 +70,5 @@ export const {
   useAgainVerificationMutation,
   useMatchUserMutation,
   useSendCodeMutation,
+  useMatchOTPMutation,
 } = authApi;
