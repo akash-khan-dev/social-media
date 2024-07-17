@@ -6,21 +6,37 @@ import ChangePassword from "../../components/ForgotPassword/ChangePassword";
 
 const ForgotPassword = () => {
   // eslint-disable-next-line no-unused-vars
-  const [visible, setVisible] = useState(3);
+  const [visible, setVisible] = useState(0);
+  const [user, setUser] = useState();
 
   const renderComponent = () => {
     switch (visible) {
       case 0: {
-        return <FindAccount />;
+        return <FindAccount setVisible={setVisible} setUser={setUser} />;
       }
       case 1: {
-        return <ResetPassword />;
+        if (user) {
+          return (
+            <ResetPassword
+              user={user}
+              setUser={setUser}
+              setVisible={setVisible}
+            />
+          );
+        }
+        return null;
       }
       case 2: {
-        return <OtpCode />;
+        if (user) {
+          return <OtpCode />;
+        }
+        return null;
       }
       case 3: {
-        return <ChangePassword />;
+        if (user) {
+          return <ChangePassword />;
+        }
+        return null;
       }
       default: {
         return null;

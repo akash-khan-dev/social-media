@@ -10,7 +10,7 @@ const OtpCode = () => {
   const formik = useFormik({
     initialValues: { code: "" },
     validationSchema: ResetPasswordCodeValidation,
-    onSubmit: (data) => {
+    onSubmit: async (data) => {
       console.log(data);
     },
   });
