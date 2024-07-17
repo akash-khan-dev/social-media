@@ -1,6 +1,5 @@
 import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
-import { SignUpValidations } from "../../validations/SingUp";
 import { useState } from "react";
 import { ToastContainer } from "react-toastify";
 import DateOfBirth from "./DateOfBirth";
@@ -12,6 +11,7 @@ import { ToastSuccess } from "../../utils/ToastSuccess";
 import { BeatLoader } from "react-spinners";
 import Input from "../common/Input";
 import InputError from "../common/InputError";
+import { SignUpValidations } from "../../validations/FormValidation";
 
 const RegistrationForm = () => {
   const [ageError, setAgeError] = useState();

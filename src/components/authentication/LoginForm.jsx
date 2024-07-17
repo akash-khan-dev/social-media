@@ -5,7 +5,6 @@ import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginUserMutation } from "../../StateFeature/api/authApi";
 import { ToastError } from "../../utils/ToastError";
-import { SignInValidations } from "../../validations/SingUp";
 import { ToastContainer } from "react-toastify";
 import { ToastSuccess } from "../../utils/ToastSuccess";
 import { BeatLoader } from "react-spinners";
@@ -15,6 +14,7 @@ import { loggedInUser } from "../../StateFeature/Slice/authSlice";
 import Input from "../common/Input";
 import InputError from "../common/InputError";
 import { useState } from "react";
+import { SignInValidations } from "../../validations/FormValidation";
 
 const LoginForm = () => {
   const [showPass, setShowPass] = useState(false);
@@ -99,22 +99,33 @@ const LoginForm = () => {
                   {showPass ? <FaRegEyeSlash /> : <FaEye />}
                 </div>
               </div>
-              {isLoading ? (
-                <button
-                  type="submit"
-                  disabled
-                  className=" font-gilroyMedium px-6 py-2 bg-secondary_bg rounded-md text-white"
-                >
-                  <BeatLoader />
-                </button>
-              ) : (
-                <button
-                  type="submit"
-                  className=" font-gilroyMedium px-6 py-2 bg-secondary_bg rounded-md text-white"
-                >
-                  Login
-                </button>
-              )}
+              <div className="flex items-center justify-between">
+                {isLoading ? (
+                  <button
+                    type="submit"
+                    disabled
+                    className=" font-gilroyMedium px-6 py-2 bg-secondary_bg rounded-md text-white"
+                  >
+                    <BeatLoader />
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    className=" font-gilroyMedium px-6 py-2 bg-secondary_bg rounded-md text-white"
+                  >
+                    Login
+                  </button>
+                )}
+                <div>
+                  <Link
+                    className="font-gilroyNormal text-blue hover:underline"
+                    to="/forgot"
+                  >
+                    {" "}
+                    Reset Password
+                  </Link>
+                </div>
+              </div>
               <p className="mt-5 text-sm lg:text-md font-gilroyMedium text-text_color">
                 Already have an account?{" "}
                 <Link className="text-red" to={"/registration"}>

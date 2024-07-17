@@ -13,6 +13,7 @@ import { LoggedInUser } from "../src/components/PrivateRoute/LoggedInUser";
 import LayOut from "../src/components/RootLayout/LayOut";
 import CreatePostPopup from "./components/pageComponents/Home/PostHome/CreatePostPopup";
 import ActivatePage from "./pages/home/ActivatePage";
+import ForgotPassword from "./pages/forgotPassword";
 
 function App() {
   const router = createBrowserRouter(
@@ -21,6 +22,7 @@ function App() {
         <Route element={<NotLoginUser />}>
           <Route path="/registration" element={<Registration />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/forgot" element={<ForgotPassword />} />
         </Route>
         <Route element={<LoggedInUser />}>
           <Route element={<LayOut />}>

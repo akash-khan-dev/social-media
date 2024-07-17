@@ -25,3 +25,16 @@ export const SignInValidations = Yup.object({
   email: authRules.email,
   password: authRules.password,
 });
+export const ForgotPasswordValidations = Yup.object({
+  email: authRules.email,
+});
+export const ResetPasswordCodeValidation = Yup.object({
+  code: Yup.string()
+    .min(5, "Code must be 5 characters")
+    .max(5, "Code must be 5 characters")
+    .required("Please enter verification code"),
+});
+
+export const NewPassword = Yup.object({
+  password: authRules.password,
+});
