@@ -1,15 +1,21 @@
+/* eslint-disable react/prop-types */
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
 import { NewPassword } from "../../validations/FormValidation";
 import { useFormik } from "formik";
 import InputError from "../common/InputError";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Input from "../common/Input";
-
 import { FaEye, FaRegEyeSlash } from "react-icons/fa";
+import { useChangePasswordMutation } from "../../StateFeature/api/authApi";
+import { ToastContainer } from "react-toastify";
+import { ToastSuccess } from "../../utils/ToastSuccess";
+import { ToastError } from "../../utils/ToastError";
 
-const ChangePassword = () => {
+const ChangePassword = ({ user }) => {
+  const navigate = useNavigate();
   const [showPass, setShowPass] = useState(false);
+  const [changePassword] = useChangePasswordMutation();
 
   const handleShowPassword = () => {
     if (!showPass) {
@@ -21,12 +27,24 @@ const ChangePassword = () => {
   const formik = useFormik({
     initialValues: { password: "" },
     validationSchema: NewPassword,
-    onSubmit: (data) => {
-      console.log(data);
+    onSubmit: async (data) => {
+      try {
+        const result = await changePassword({
+          password: data.password,
+          email: user.email,
+        }).unwrap();
+        ToastSuccess(result.data.message);
+        setTimeout(() => {
+          navigate("/login");
+        }, 3000);
+      } catch (err) {
+        ToastError(err.data.message);
+      }
     },
   });
   return (
     <>
+      <ToastContainer />
       <div className="bg-white min-w-[320px] w-[530px] px-8 py-4 rounded-md">
         <div>
           <h2 className="font-gilroyBold text-xl text-black border-b border-line_color pb-3 text-center">

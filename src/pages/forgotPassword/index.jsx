@@ -36,7 +36,7 @@ const ForgotPassword = () => {
       }
       case 3: {
         if (user) {
-          return <ChangePassword />;
+          return <ChangePassword user={user} setUser={setUser} />;
         }
         return null;
       }
