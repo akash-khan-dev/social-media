@@ -3,11 +3,20 @@
 import EmojiPicker from "emoji-picker-react";
 import { useEffect, useRef, useState } from "react";
 import { BsEmojiFrown } from "react-icons/bs";
+import { postBackgrounds } from "./postBackgorund";
 
-const EmojiPickers = ({ textState, setTextState, changePart }) => {
+const EmojiPickers = ({
+  textState,
+  setTextState,
+  changePart,
+  setBackground,
+  background,
+}) => {
   const textRef = useRef(null);
+  const bgRef = useRef(null);
   const [showPicker, setShowPicker] = useState(false);
   const [cursorPosition, setCursorPosition] = useState();
+  const [showBg, setShowBg] = useState(false);
 
   const handleEmojiClick = ({ emoji }, e) => {
     const ref = textRef.current;
@@ -22,22 +31,49 @@ const EmojiPickers = ({ textState, setTextState, changePart }) => {
   useEffect(() => {
     textRef.current.selectionEnd = cursorPosition;
   }, [cursorPosition, textRef]);
+
+  // for post background
+  const handleBackground = (index) => {
+    bgRef.current.style.background = `url(${postBackgrounds[index]})`;
+    bgRef.current.classList.add("bgPost");
+    setBackground(postBackgrounds[index]);
+    textRef.current.focus();
+  };
+  // for remove background
+  const handleRemoveBackground = () => {
+    bgRef.current.style.background = "";
+    setBackground("");
+    bgRef.current.classList.remove("bgPost");
+    textRef.current.focus();
+  };
   return (
     <>
       <div className={`${changePart ? "flex justify-between mt-3" : "mt-3"}`}>
-        <textarea
-          ref={textRef}
-          value={textState}
-          onChange={(e) => setTextState(e.target.value)}
-          className={`${
-            changePart
-              ? "w-11/12 min-h-14 focus:outline-none font-gilroyNormal text-lg text-black"
-              : "w-full min-h-20 focus:outline-none font-gilroyNormal text-lg text-black"
-          }`}
-          name=""
-          placeholder="What's your mind ?"
-          id=""
-        ></textarea>
+        <div
+          ref={bgRef}
+          className={`${changePart ? "w-11/12 min-h-14" : "min-h-14"}`}
+        >
+          <textarea
+            ref={textRef}
+            value={textState}
+            onChange={(e) => setTextState(e.target.value)}
+            className={`${
+              changePart
+                ? "w-full focus:outline-none font-gilroyNormal text-lg text-black"
+                : "w-full focus:outline-none font-gilroyNormal text-lg text-black bg-transparent p-2 "
+            }`}
+            style={{
+              paddingTop: `${
+                background
+                  ? Math.abs(textRef.current.value.length * 0.1 - 25)
+                  : "0"
+              }%`,
+            }}
+            name=""
+            placeholder="What's your mind ?"
+            id=""
+          ></textarea>
+        </div>
         {changePart && (
           <div className="relative cursor-pointer">
             <BsEmojiFrown
@@ -63,8 +99,32 @@ const EmojiPickers = ({ textState, setTextState, changePart }) => {
         )}
       </div>
       {!changePart && (
-        <div className="flex items-center justify-between mb-2">
-          <div className="w-[40px] h-[40px] bg-gradient-to-r to-cyan-100 from-purple-100 rounded-md"></div>
+        <div className="flex items-center justify-between my-2">
+          <div className="flex items-center gap-x-1">
+            <div
+              onClick={() => setShowBg((prev) => !prev)}
+              className="cursor-pointer w-[40px] h-[40px] bg-gradient-to-r to-cyan-100 from-purple-100 rounded-md"
+            ></div>
+            <div className="flex items-center gap-x-1">
+              {showBg && (
+                <>
+                  <div
+                    onClick={handleRemoveBackground}
+                    className="cursor-pointer w-[40px] h-[40px] bg-white rounded-md border border-line_color"
+                  ></div>
+                  {postBackgrounds.map((item, index) => (
+                    <img
+                      onClick={() => handleBackground(index)}
+                      key={index}
+                      src={item}
+                      alt="background"
+                      className="w-[40px] h-[40px] rounded-md cursor-pointer"
+                    />
+                  ))}
+                </>
+              )}
+            </div>
+          </div>
           <div className="relative cursor-pointer">
             <BsEmojiFrown
               onClick={() => setShowPicker((prev) => !prev)}

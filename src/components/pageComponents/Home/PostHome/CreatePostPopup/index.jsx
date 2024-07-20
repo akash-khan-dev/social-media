@@ -8,10 +8,11 @@ const CreatePostPopup = () => {
   const [showImageViewer, setShowImageViewer] = useState(false);
   const [textState, setTextState] = useState("");
   const [postImage, setPostImage] = useState([]);
+  const [background, setBackground] = useState("");
   return (
     <>
       <div className="absolute top-0 left-0 w-full bg-blur h-screen flex items-center justify-center z-20">
-        <div className="w-[30%] shadow-md bg-white relative">
+        <div className="w-[35%] shadow-md bg-white relative">
           <div className="absolute top-2 right-3 text-purple-100 cursor-pointer">
             <Crose />
           </div>
@@ -47,6 +48,8 @@ const CreatePostPopup = () => {
             ) : (
               <>
                 <EmojiPickers
+                  background={background}
+                  setBackground={setBackground}
                   textState={textState}
                   setTextState={setTextState}
                 />

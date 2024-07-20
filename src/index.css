@@ -53,3 +53,17 @@
   font-family: Gilroy light;
   src: url(/src/assets/fonts/Gilroy-Light.ttf);
 }
+
+.bgPost {
+  height: 350px;
+  width: 100%;
+  background-size: cover;
+}
+.bgPost textarea {
+  text-align: center;
+  height: 100%;
+  color: #fff;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 45px;
+}
