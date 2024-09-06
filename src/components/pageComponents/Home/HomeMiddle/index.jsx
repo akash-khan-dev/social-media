@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 import ShowPost from "./ShowPost";
 import { CiVideoOn, CiLight } from "react-icons/ci";
 import { PiImagesThin } from "react-icons/pi";
-const HomeMiddle = () => {
+const HomeMiddle = ({ setPostPopupVisible }) => {
   return (
     <>
       <div className="w-full h-60 mt-3">
@@ -11,7 +12,7 @@ const HomeMiddle = () => {
               <div className="w-12 h-12 bg-black rounded-full"></div>
             </div>
 
-            <div className="w-[90%]">
+            <div onClick={() => setPostPopupVisible(true)} className="w-[90%]">
               <input
                 type="text"
                 placeholder="What's on your mind ?"

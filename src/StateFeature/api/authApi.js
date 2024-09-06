@@ -67,6 +67,20 @@ export const authApi = createApi({
         body: { password, email },
       }),
     }),
+    createPost: builder.mutation({
+      query: ({ type, images, text, background, user, token }) => ({
+        url: "/api/v1/post/createPost",
+        method: "POST",
+        body: { type, images, text, background, user },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+      transformResponse: (response) => ({
+        status: "done",
+        data: response,
+      }),
+    }),
   }),
 });
 
@@ -79,4 +93,5 @@ export const {
   useSendCodeMutation,
   useMatchOTPMutation,
   useChangePasswordMutation,
+  useCreatePostMutation,
 } = authApi;

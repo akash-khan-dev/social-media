@@ -14,8 +14,10 @@ import LayOut from "../src/components/RootLayout/LayOut";
 import CreatePostPopup from "./components/pageComponents/Home/PostHome/CreatePostPopup";
 import ActivatePage from "./pages/home/ActivatePage";
 import ForgotPassword from "./pages/forgotPassword";
+import { useState } from "react";
 
 function App() {
+  const [postPopupVisible, setPostPopupVisible] = useState(false);
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route>
@@ -26,7 +28,10 @@ function App() {
         </Route>
         <Route element={<LoggedInUser />}>
           <Route element={<LayOut />}>
-            <Route path="/" element={<Home />} />
+            <Route
+              path="/"
+              element={<Home setPostPopupVisible={setPostPopupVisible} />}
+            />
             <Route path="/activate/:token" element={<ActivatePage />} />
           </Route>
         </Route>
@@ -35,7 +40,10 @@ function App() {
   );
   return (
     <>
-      <CreatePostPopup />
+      {postPopupVisible && (
+        <CreatePostPopup setPostPopupVisible={setPostPopupVisible} />
+      )}
+
       <RouterProvider router={router}></RouterProvider>
     </>
   );

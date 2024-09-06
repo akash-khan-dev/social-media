@@ -33,7 +33,7 @@ const ChangePassword = ({ user }) => {
           password: data.password,
           email: user.email,
         }).unwrap();
-        ToastSuccess(result.data.message);
+        ToastSuccess(result.message);
         setTimeout(() => {
           navigate("/login");
         }, 3000);

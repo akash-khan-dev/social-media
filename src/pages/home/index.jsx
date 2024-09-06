@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import { Helmet } from "react-helmet-async";
 import HomeMiddle from "../../components/pageComponents/Home/HomeMiddle";
 import AgainVerification from "../../components/againVerification";
 import { useSelector } from "react-redux";
 
-const Home = () => {
+const Home = ({ setPostPopupVisible }) => {
   const userInfo = useSelector((state) => state.registration.userInfo);
   return (
     <>
@@ -14,7 +15,7 @@ const Home = () => {
 
       <div className="mt-5 container">
         <div>
-          <HomeMiddle />
+          <HomeMiddle setPostPopupVisible={setPostPopupVisible} />
         </div>
       </div>
     </>
