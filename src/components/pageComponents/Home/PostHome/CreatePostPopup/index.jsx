@@ -11,6 +11,7 @@ import {
 import { useSelector } from "react-redux";
 import { BeatLoader } from "react-spinners";
 import dataURItoBlob from "../../../../../utils/dataURItoBlcb";
+import { ToastError } from "../../../../../utils/ToastError";
 
 // eslint-disable-next-line react/prop-types
 const CreatePostPopup = ({ setPostPopupVisible }) => {
@@ -81,7 +82,7 @@ const CreatePostPopup = ({ setPostPopupVisible }) => {
       }
     } catch (err) {
       setLoading(false);
-      console.log(err);
+      ToastError(err.message);
     }
   };
   return (

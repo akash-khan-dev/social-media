@@ -4,6 +4,7 @@ import EmojiPickers from "./EmojiPickers";
 import { FaRegTimesCircle } from "react-icons/fa";
 import { FaRegImage } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
+import { ToastError } from "../../../../../utils/ToastError";
 
 const ImagesVIewer = ({
   textState,
@@ -16,15 +17,23 @@ const ImagesVIewer = ({
   const chooseFile = useRef(null);
 
   const handleImageUpload = (e) => {
-    const file = Array.from(e.target.files);
+    let file = Array.from(e.target.files);
     file.forEach((img) => {
       if (
         img.type !== "image/png" &&
         img.type !== "image/jpeg" &&
+        img.type !== "image/jpg" &&
         img.type !== "image/webp" &&
         img.type !== "image/gif"
       ) {
-        console.log("image not supported");
+        file = file.filter((item) => item.name !== img.name);
+        ToastError(
+          `${img.name} unsupported file only jpeg, png, gif,jpg and webp`
+        );
+        return;
+      } else if (img.size > 1024 * 1024 * 5) {
+        file = file.filter((item) => item.name !== img.name);
+        ToastError(`${img.name} is to larger ! please atleast 5MB file `);
       }
 
       const readerFile = new FileReader();
