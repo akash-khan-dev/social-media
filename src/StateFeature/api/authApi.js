@@ -81,6 +81,16 @@ export const authApi = createApi({
         data: response,
       }),
     }),
+    uploadImage: builder.mutation({
+      query: ({ formData, token }) => ({
+        url: "/api/v1/upload/uploadImage",
+        method: "POST",
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+    }),
   }),
 });
 
@@ -94,4 +104,5 @@ export const {
   useMatchOTPMutation,
   useChangePasswordMutation,
   useCreatePostMutation,
+  useUploadImageMutation,
 } = authApi;

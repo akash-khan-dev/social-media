@@ -4,9 +4,13 @@ import AddPost from "./AddPost";
 import EmojiPickers from "./EmojiPickers";
 import ImagesVIewer from "./ImagesVIewer";
 import OutSideClick from "../../../../../utils/Click";
-import { useCreatePostMutation } from "../../../../../StateFeature/api/authApi";
+import {
+  useCreatePostMutation,
+  useUploadImageMutation,
+} from "../../../../../StateFeature/api/authApi";
 import { useSelector } from "react-redux";
 import { BeatLoader } from "react-spinners";
+import dataURItoBlob from "../../../../../utils/dataURItoBlcb";
 
 // eslint-disable-next-line react/prop-types
 const CreatePostPopup = ({ setPostPopupVisible }) => {
@@ -17,6 +21,7 @@ const CreatePostPopup = ({ setPostPopupVisible }) => {
   const [postImage, setPostImage] = useState([]);
   const [background, setBackground] = useState("");
   const [createPost] = useCreatePostMutation();
+  const [uploadImage] = useUploadImageMutation();
 
   const user = useSelector((state) => state.registration.userInfo);
 
@@ -38,7 +43,28 @@ const CreatePostPopup = ({ setPostPopupVisible }) => {
           token: user.token,
         }).unwrap();
       } else if (postImage && postImage.length) {
-        console.log("hlello");
+        const imagesPost = postImage.map((item) => dataURItoBlob(item));
+        const path = `${user.username}/post_image`;
+        let formData = new FormData();
+        formData.append("path", path);
+
+        imagesPost.forEach((img) => {
+          formData.append("file", img);
+        });
+
+        const responseImage = await uploadImage({
+          formData,
+          path,
+          token: user.token,
+        }).unwrap();
+        response = await createPost({
+          type: null,
+          images: responseImage,
+          text: textState,
+          background: null,
+          user: user.id,
+          token: user.token,
+        }).unwrap();
       } else if (textState) {
         response = await createPost({
           type: null,
@@ -122,7 +148,7 @@ const CreatePostPopup = ({ setPostPopupVisible }) => {
                 >
                   <BeatLoader />
                 </button>
-              ) : textState == "" ? (
+              ) : textState == "" && postImage.length == 0 ? (
                 <button
                   disabled
                   className="py-2 w-full bg-white_100 font-gilroySemibold text-lg text-black rounded-md transition-all duration-300"
