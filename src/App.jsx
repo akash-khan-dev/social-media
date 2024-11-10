@@ -15,9 +15,13 @@ import CreatePostPopup from "./components/pageComponents/Home/PostHome/CreatePos
 import ActivatePage from "./pages/home/ActivatePage";
 import ForgotPassword from "./pages/forgotPassword";
 import { useState } from "react";
+import { useGetAllPostQuery } from "./StateFeature/api/authApi";
 
 function App() {
   const [postPopupVisible, setPostPopupVisible] = useState(false);
+
+  const { data: post } = useGetAllPostQuery();
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route>
@@ -30,7 +34,9 @@ function App() {
           <Route element={<LayOut />}>
             <Route
               path="/"
-              element={<Home setPostPopupVisible={setPostPopupVisible} />}
+              element={
+                <Home post={post} setPostPopupVisible={setPostPopupVisible} />
+              }
             />
             <Route path="/activate/:token" element={<ActivatePage />} />
           </Route>

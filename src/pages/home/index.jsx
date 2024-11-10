@@ -3,8 +3,9 @@ import { Helmet } from "react-helmet-async";
 import HomeMiddle from "../../components/pageComponents/Home/HomeMiddle";
 import AgainVerification from "../../components/againVerification";
 import { useSelector } from "react-redux";
+import ShowPost from "../../components/pageComponents/Home/HomeMiddle/ShowPost";
 
-const Home = ({ setPostPopupVisible }) => {
+const Home = ({ post, setPostPopupVisible }) => {
   const userInfo = useSelector((state) => state.registration.userInfo);
   return (
     <>
@@ -15,7 +16,12 @@ const Home = ({ setPostPopupVisible }) => {
 
       <div className="mt-5 container">
         <div>
-          <HomeMiddle setPostPopupVisible={setPostPopupVisible} />
+          <HomeMiddle post={post} setPostPopupVisible={setPostPopupVisible} />
+        </div>
+        <div>
+          {post.data.map((item) => (
+            <ShowPost key={item._id} data={item} />
+          ))}
         </div>
       </div>
     </>

@@ -4,6 +4,13 @@ export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_BACKEND_UTL,
+    prepareHeaders: (headers) => {
+      const user = JSON.parse(localStorage.getItem("userInfo"));
+      if (user && user.token) {
+        headers.set("Authorization", `Bearer ${user.token}`);
+      }
+      return headers;
+    },
   }),
   endpoints: (builder) => ({
     addUser: builder.mutation({
@@ -91,6 +98,9 @@ export const authApi = createApi({
         },
       }),
     }),
+    getAllPost: builder.query({
+      query: () => "/api/v1/post/showPost",
+    }),
   }),
 });
 
@@ -105,4 +115,5 @@ export const {
   useChangePasswordMutation,
   useCreatePostMutation,
   useUploadImageMutation,
+  useGetAllPostQuery,
 } = authApi;

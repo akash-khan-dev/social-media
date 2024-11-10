@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import ShowPost from "./ShowPost";
 import { CiVideoOn, CiLight } from "react-icons/ci";
 import { PiImagesThin } from "react-icons/pi";
 const HomeMiddle = ({ setPostPopupVisible }) => {
@@ -43,7 +42,6 @@ const HomeMiddle = ({ setPostPopupVisible }) => {
             </div>
           </div>
         </div>
-        <ShowPost />
       </div>
     </>
   );
