@@ -26,7 +26,7 @@ const Header = () => {
             <LeftData key={i} data={data} />
           ))}
         </div>
-        <div className="lg:w-[32%] relative mr-[25px]">
+        <div className="lg:w-[32%] relative">
           <div
             className="w-[40px] h-[40px] lg:w-full flex items-center justify-center gap-2 border-2 border-line_color py-4 px-4 rounded-full"
             onClick={() => setShowSearchBox(true)}

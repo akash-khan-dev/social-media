@@ -18,7 +18,7 @@ const AgainVerification = () => {
   return (
     <>
       <ToastContainer />
-      <div className="w-full bg-white p-4 shadow-md mt-5 rounded-md">
+      <div className="w-3/4 mx-auto bg-white p-4 shadow-md mt-5 rounded-md">
         <h4 className="text-black font-gilroyNormal text-lg">
           Your account is not verified. Please verify your account before it
           gets delete after an hour of creating

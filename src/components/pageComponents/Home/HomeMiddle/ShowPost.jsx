@@ -14,7 +14,7 @@ const ShowPost = ({ data }) => {
     }).replace("about ", "");
 
   return (
-    <div className="w-full p-4 shadow-md rounded-md">
+    <div className="w-full p-4 shadow-md rounded-md mb-5">
       <div className="flex justify-between items-center">
         <div className="flex w-1/2 items-center">
           <div className="w-14">

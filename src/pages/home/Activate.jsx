@@ -5,7 +5,7 @@ import { PuffLoader } from "react-spinners";
 const Activate = ({ type, heading, message, loading }) => {
   return (
     <>
-      <div className="absolute top-0 left-0 w-full h-screen bg-blur z-20 flex items-center justify-center">
+      <div className=" absolute top-0 left-0 w-full h-screen bg-blur z-20 flex items-center justify-center">
         <div className="w-[400px] bg-white shadow-md p-4 text-center">
           <h3
             className={`${

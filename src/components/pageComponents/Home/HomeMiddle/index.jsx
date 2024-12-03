@@ -10,7 +10,7 @@ const HomeMiddle = ({ setPostPopupVisible }) => {
   };
   return (
     <>
-      <div className="w-full h-60 mt-3">
+      <div className="w-full h-52 mt-3">
         <div className="py-5 px-3 bg-white_100 rounded-md mt-6">
           <div className="flex items-center justify-center py-1 bg-white rounded-full">
             <div className="w-[10%]">
