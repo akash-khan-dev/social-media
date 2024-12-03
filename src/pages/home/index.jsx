@@ -14,12 +14,12 @@ const Home = ({ post, setPostPopupVisible }) => {
       </Helmet>
       {!userInfo.verified && <AgainVerification />}
 
-      <div className="mt-5 container">
+      <div className="w-3/4 mt-5 container">
         <div>
           <HomeMiddle post={post} setPostPopupVisible={setPostPopupVisible} />
         </div>
         <div>
-          {post.data.map((item) => (
+          {post?.data?.map((item) => (
             <ShowPost key={item._id} data={item} />
           ))}
         </div>
