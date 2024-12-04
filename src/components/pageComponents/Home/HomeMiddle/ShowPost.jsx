@@ -7,10 +7,15 @@ import { AiOutlineLike } from "react-icons/ai";
 import { IoMdShareAlt } from "react-icons/io";
 import { FaRegCommentDots } from "react-icons/fa6";
 import Reacts from "./Reacts";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import CreateComments from "./CreateComments";
 // eslint-disable-next-line react/prop-types
-const ShowPost = ({ data }) => {
+const ShowPost = ({ data, userInfo }) => {
   const [showReactsEmoji, setShowReactEmoji] = useState(false);
+  const inputRef = useRef(null);
+  const [commentText, setCommentText] = useState("");
+  const [commentImage, setCommentImage] = useState("");
+  const [commentError, setCommentError] = useState("");
   // ========for how mins ago post created
   const createDate =
     data?.createdAt &&
@@ -120,7 +125,7 @@ const ShowPost = ({ data }) => {
             <Reacts setShowReactEmoji={setShowReactEmoji} />
           </div>
         )}
-        <div className="flex items-center mt-2 text-secondary_color">
+        <div className="flex items-center mt-2 text-secondary_color border-b border-line_color pb-2">
           <div className="flex items-center w-2/4  justify-center">
             <AiOutlineLike
               size={24}
@@ -139,8 +144,17 @@ const ShowPost = ({ data }) => {
             <span>Like</span>
           </div>
           <div className="flex items-center w-2/4  justify-center gap-1">
-            <FaRegCommentDots size={20} className="cursor-pointer" />
-            <span>Like</span>
+            <FaRegCommentDots
+              size={20}
+              className="cursor-pointer"
+              onClick={() => inputRef.current.focus()}
+            />
+            <span
+              onClick={() => inputRef.current.focus()}
+              className="cursor-pointer"
+            >
+              Comment
+            </span>
           </div>
 
           <div className="flex items-center w-2/4  justify-center">
@@ -149,6 +163,18 @@ const ShowPost = ({ data }) => {
               Like
             </span>
           </div>
+        </div>
+        <div>
+          <CreateComments
+            userInfo={userInfo}
+            commentText={commentText}
+            setCommentText={setCommentText}
+            commentImage={commentImage}
+            setCommentImage={setCommentImage}
+            commentError={commentError}
+            setCommentError={setCommentError}
+            inputRef={inputRef}
+          />
         </div>
       </div>
     </div>

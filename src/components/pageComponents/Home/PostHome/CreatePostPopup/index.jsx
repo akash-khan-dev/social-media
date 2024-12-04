@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import { BeatLoader } from "react-spinners";
 import dataURItoBlob from "../../../../../utils/dataURItoBlcb";
 import { ToastError } from "../../../../../utils/ToastError";
+import profile from "../../../../../../public/postBackgrounds/man.jpg";
 
 // eslint-disable-next-line react/prop-types
 const CreatePostPopup = ({ setPostPopupVisible }) => {
@@ -102,9 +103,17 @@ const CreatePostPopup = ({ setPostPopupVisible }) => {
           </div>
           <div className="p-4">
             <div className=" flex items-center gap-3">
-              <div className="w-[50px] h-[50px] bg-black rounded-full"></div>
+              <div className="w-[50px] h-[50px] rounded-full overflow-hidden">
+                <img
+                  src={user.profilePicture || profile}
+                  alt="profile"
+                  className="w-full h-full object-cover"
+                />
+              </div>
               <div>
-                <h2 className="font-gilroySemibold text-xl">MD Akash khan</h2>
+                <h2 className="font-gilroySemibold text-xl">
+                  {user.firstName}
+                </h2>
               </div>
             </div>
             {showImageViewer ? (
