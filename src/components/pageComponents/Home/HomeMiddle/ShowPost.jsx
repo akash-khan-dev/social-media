@@ -3,10 +3,15 @@ import { Link } from "react-router-dom";
 import avatar from "../../../../../public/postBackgrounds/man.jpg";
 import { formatDistance } from "date-fns";
 import { BsThreeDots } from "react-icons/bs";
+import { AiOutlineLike } from "react-icons/ai";
+import { IoMdShareAlt } from "react-icons/io";
+import { FaRegCommentDots } from "react-icons/fa6";
+import Reacts from "./Reacts";
+import { useState } from "react";
 // eslint-disable-next-line react/prop-types
 const ShowPost = ({ data }) => {
-  if (!data) return <div>Error: No data provided!</div>; // Handle missing data gracefully
-
+  const [showReactsEmoji, setShowReactEmoji] = useState(false);
+  // ========for how mins ago post created
   const createDate =
     data?.createdAt &&
     formatDistance(new Date(data.createdAt), new Date(), {
@@ -65,7 +70,7 @@ const ShowPost = ({ data }) => {
               {data.text || ""}
             </h4>
           </div>
-          <div className="relative">
+          <div className="relative mt-2">
             {Array.isArray(data.images) &&
               data.images[0] &&
               Array.isArray(data.images[0].data) &&
@@ -101,6 +106,51 @@ const ShowPost = ({ data }) => {
           </div>
         </>
       )}
+      <div className="mt-1 relative">
+        <div className="flex justify-between items-center border-b border-line_color pb-2">
+          <div></div>
+          <div>
+            <span className="font-gilroyMedium text-sm text-secondary_color">
+              13 Comments
+            </span>
+          </div>
+        </div>
+        {showReactsEmoji && (
+          <div className="w-[320px] absolute -top-3 left-0  bg-white shadow-md px-4 py-1 rounded-full">
+            <Reacts setShowReactEmoji={setShowReactEmoji} />
+          </div>
+        )}
+        <div className="flex items-center mt-2 text-secondary_color">
+          <div className="flex items-center w-2/4  justify-center">
+            <AiOutlineLike
+              size={24}
+              className="cursor-pointer"
+              onMouseOver={() =>
+                setTimeout(() => {
+                  setShowReactEmoji(true);
+                }, 600)
+              }
+              onMouseLeave={() =>
+                setTimeout(() => {
+                  setShowReactEmoji(false);
+                }, 600)
+              }
+            />
+            <span>Like</span>
+          </div>
+          <div className="flex items-center w-2/4  justify-center gap-1">
+            <FaRegCommentDots size={20} className="cursor-pointer" />
+            <span>Like</span>
+          </div>
+
+          <div className="flex items-center w-2/4  justify-center">
+            <IoMdShareAlt size={23} className="cursor-pointer" />
+            <span className="font-gilroySemibold text-sm text-secondary_color">
+              Like
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
