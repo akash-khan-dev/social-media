@@ -9,13 +9,19 @@ import { FaRegCommentDots } from "react-icons/fa6";
 import Reacts from "./Reacts";
 import { useRef, useState } from "react";
 import CreateComments from "./CreateComments";
+import PostMenu from "./PostMenu/PostMenu";
 // eslint-disable-next-line react/prop-types
 const ShowPost = ({ data, userInfo }) => {
+  console.log(data);
+  console.log(userInfo);
+
   const [showReactsEmoji, setShowReactEmoji] = useState(false);
   const inputRef = useRef(null);
+  const [showOption, setShowOption] = useState(false);
   const [commentText, setCommentText] = useState("");
   const [commentImage, setCommentImage] = useState("");
   const [commentError, setCommentError] = useState("");
+
   // ========for how mins ago post created
   const createDate =
     data?.createdAt &&
@@ -50,8 +56,19 @@ const ShowPost = ({ data, userInfo }) => {
             </p>
           </div>
         </div>
-        <div className="cursor-pointer w-7 h-7 rounded-full flex justify-center items-center hover:bg-white_100 transition-all duration-300">
-          <BsThreeDots size={25} />
+        <div className="relative">
+          <div className=" cursor-pointer w-7 h-7 rounded-full flex justify-center items-center hover:bg-white_100 transition-all duration-300">
+            <BsThreeDots onClick={() => setShowOption(!showOption)} size={25} />
+          </div>
+          <div>
+            {showOption && (
+              <PostMenu
+                setShowOption={setShowOption}
+                postInfo={data.user._id}
+                userInfo={userInfo}
+              />
+            )}
+          </div>
         </div>
       </div>
       {data.background ? (
