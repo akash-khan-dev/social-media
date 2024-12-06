@@ -1,9 +1,12 @@
 import Profile from "../pageComponents/Home/HomeLeft";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation, useParams } from "react-router-dom";
 import Header from "../pageComponents/Home/HomeMiddle/Header";
 import RightHome from "../pageComponents/Home/HomeRight";
 // eslint-disable-next-line react/prop-types
 const LayOut = () => {
+  const location = useLocation();
+  const path = location.pathname;
+  const username = useParams();
   return (
     <>
       <div className="container">
@@ -12,8 +15,12 @@ const LayOut = () => {
             <Profile />
           </div>
           <div>
-            <div className="w-3/4 mx-auto pb-4 pt-6 sticky -top-3 left-0 z-30 bg-white px-3">
-              <Header />
+            <div
+              className={`${path === "/profile" && "w-full"} ${
+                username && "w-full"
+              }w-3/4 mx-auto pb-4 pt-6 sticky -top-3 left-0 z-30 bg-white px-3`}
+            >
+              <Header path={path} />
             </div>
             <Outlet />
           </div>
