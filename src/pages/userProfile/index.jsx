@@ -2,6 +2,9 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetUserProfileQuery } from "../../StateFeature/api/authApi";
+import { Helmet } from "react-helmet-async";
+import Cover from "../../components/pageComponents/ProfileComponent/Cover";
+import ProfilePictureInfo from "../../components/pageComponents/ProfileComponent/ProfilePictureInfo";
 
 const Profile = () => {
   const { username } = useParams();
@@ -18,9 +21,15 @@ const Profile = () => {
 
   return (
     <div>
-      <h1>Profile</h1>
-      <p>Username: {profile?.user?.username}</p>
-      <p>Email: {profile?.user?.email}</p>
+      <Helmet>
+        <title>profile</title>
+      </Helmet>
+      <div>
+        <Cover coverImg={profile.user.cover} />
+      </div>
+      <div>
+        <ProfilePictureInfo profile={profile} />
+      </div>
     </div>
   );
 };
