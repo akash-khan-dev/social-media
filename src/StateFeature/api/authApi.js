@@ -101,6 +101,9 @@ export const authApi = createApi({
     getAllPost: builder.query({
       query: () => "/api/v1/post/showPost",
     }),
+    getUserProfile: builder.query({
+      query: (username) => `/api/v1/auth/user/${username}`,
+    }),
   }),
 });
 
@@ -116,4 +119,5 @@ export const {
   useCreatePostMutation,
   useUploadImageMutation,
   useGetAllPostQuery,
+  useGetUserProfileQuery,
 } = authApi;

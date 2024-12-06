@@ -16,6 +16,7 @@ import ActivatePage from "./pages/home/ActivatePage";
 import ForgotPassword from "./pages/forgotPassword";
 import { useState } from "react";
 import { useGetAllPostQuery } from "./StateFeature/api/authApi";
+import Profile from "./pages/userProfile";
 
 function App() {
   const [postPopupVisible, setPostPopupVisible] = useState(false);
@@ -40,6 +41,8 @@ function App() {
             />
             <Route path="/activate/:token" element={<ActivatePage />} />
           </Route>
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/:username" element={<Profile />} />
         </Route>
       </Route>
     )

@@ -43,7 +43,7 @@ const ShowPost = ({ data, userInfo }) => {
           </div>
           <div>
             <Link
-              to={`/profile${data.user?.username || ""}`}
+              to={`/profile/${data.user?.username || ""}`}
               className="font-gilroyBold font-[18px] text-black "
             >
               {`${data.user?.firstName || ""} ${data.user?.lastName || ""}`}

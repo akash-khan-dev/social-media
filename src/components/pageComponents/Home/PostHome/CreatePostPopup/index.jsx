@@ -46,7 +46,7 @@ const CreatePostPopup = ({ setPostPopupVisible }) => {
         }).unwrap();
       } else if (postImage && postImage.length) {
         const imagesPost = postImage.map((item) => dataURItoBlob(item));
-        const path = `${user.username}/post_image`;
+        const path = `${user.username.replace(/\s+/g, "_")}/post_image`;
         let formData = new FormData();
         formData.append("path", path);
 
