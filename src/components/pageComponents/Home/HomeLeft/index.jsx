@@ -1,16 +1,25 @@
+import { Link } from "react-router-dom";
 import { ProfileData } from "./Data";
 import LeftData from "./LeftData";
+import { useSelector } from "react-redux";
+import profile from "../../../../../public/postBackgrounds/man.jpg";
 
 const Profile = () => {
+  const userInfo = useSelector((state) => state.registration.userInfo);
   return (
     <>
-      <div className="w-[80px] h-[80px] xl:w-[110px] xl:h-[110px] bg-black rounded-full mx-auto "></div>
+      <div className="w-[80px] h-[80px] xl:w-[110px] xl:h-[110px] rounded-full overflow-hidden mx-auto ">
+        <img src={userInfo.profilePicture || profile} alt="profile" />
+      </div>
       <div className="text-center mt-4">
-        <h2 className="font-gilroySemibold hidden xl:block text-2xl text-black">
-          Akash khan
-        </h2>
-        <p className="hidden xl-block font-gilroyNormal text-sm text-text_color">
-          akash@gmail.com
+        <Link
+          to={"/profile"}
+          className="font-gilroySemibold hidden xl:block text-2xl text-black"
+        >
+          {userInfo.firstName + " " + userInfo.lastName}
+        </Link>
+        <p className="hidden xl:block font-gilroyNormal text-sm text-text_color">
+          {userInfo.email}
         </p>
       </div>
       <div>

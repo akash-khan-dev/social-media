@@ -13,7 +13,7 @@ export const ProfileData = [
   {
     icon: Message,
     title: "Message",
-    link: "/",
+    link: "/message",
   },
   {
     icon: Friends,
@@ -23,7 +23,7 @@ export const ProfileData = [
   {
     icon: Media,
     title: "Media",
-    link: "/",
+    link: "/media",
   },
   {
     icon: Settings,

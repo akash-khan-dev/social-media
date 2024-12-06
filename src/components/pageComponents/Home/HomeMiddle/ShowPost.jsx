@@ -12,9 +12,6 @@ import CreateComments from "./CreateComments";
 import PostMenu from "./PostMenu/PostMenu";
 // eslint-disable-next-line react/prop-types
 const ShowPost = ({ data, userInfo }) => {
-  console.log(data);
-  console.log(userInfo);
-
   const [showReactsEmoji, setShowReactEmoji] = useState(false);
   const inputRef = useRef(null);
   const [showOption, setShowOption] = useState(false);
@@ -64,8 +61,9 @@ const ShowPost = ({ data, userInfo }) => {
             {showOption && (
               <PostMenu
                 setShowOption={setShowOption}
-                postInfo={data.user._id}
+                postInfo={data?.user?._id}
                 userInfo={userInfo}
+                postImg={data?.images}
               />
             )}
           </div>

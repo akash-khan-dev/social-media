@@ -7,7 +7,8 @@ import { HiSave } from "react-icons/hi";
 import { MdEdit } from "react-icons/md";
 import { IoMdCloudDownload } from "react-icons/io";
 import { AiOutlineFullscreen } from "react-icons/ai";
-const PostMenu = ({ setShowOption, postInfo, userInfo }) => {
+import { FaTrash } from "react-icons/fa6";
+const PostMenu = ({ setShowOption, postInfo, userInfo, postImg }) => {
   const [checkUser, setCheckUser] = useState(
     postInfo === userInfo.id ? true : false
   );
@@ -25,8 +26,13 @@ const PostMenu = ({ setShowOption, postInfo, userInfo }) => {
         {checkUser && <MenuList icon={TiPin} text="Pin Post" />}
         <MenuList icon={HiSave} text="Save Post" />
         {checkUser && <MenuList icon={MdEdit} text="Edit Post" />}
-        <MenuList icon={IoMdCloudDownload} text="Download" />
-        <MenuList icon={AiOutlineFullscreen} text="Enter Full Screen" />
+        {postImg && postImg.length && (
+          <MenuList icon={IoMdCloudDownload} text="Download" />
+        )}
+        {postImg && postImg.length && (
+          <MenuList icon={AiOutlineFullscreen} text="Enter Full Screen" />
+        )}
+        {checkUser && <MenuList icon={FaTrash} text="Delete Post" />}
       </div>
     </div>
   );
