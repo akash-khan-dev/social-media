@@ -5,8 +5,11 @@ import { useGetUserProfileQuery } from "../../StateFeature/api/authApi";
 import { Helmet } from "react-helmet-async";
 import Cover from "../../components/pageComponents/ProfileComponent/Cover";
 import ProfilePictureInfo from "../../components/pageComponents/ProfileComponent/ProfilePictureInfo";
+import ProfileMenus from "../../components/pageComponents/ProfileComponent/ProfileMenus";
+import ProfileLeft from "../../components/pageComponents/ProfileComponent/ProfileLeft";
+import ProfileRight from "../../components/pageComponents/ProfileComponent/ProfileRight";
 
-const Profile = () => {
+const Profile = ({ setPostPopupVisible }) => {
   const { username } = useParams();
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.registration.userInfo);
@@ -24,11 +27,24 @@ const Profile = () => {
       <Helmet>
         <title>profile</title>
       </Helmet>
-      <div>
-        <Cover coverImg={profile.user.cover} />
-      </div>
-      <div>
-        <ProfilePictureInfo profile={profile} />
+      <div className="relative ">
+        <div>
+          <Cover coverImg={profile?.user?.cover} />
+        </div>
+        <div>
+          <ProfilePictureInfo profile={profile?.user} />
+        </div>
+        <div className="w-full pb-6 bg-white_100">
+          <ProfileMenus />
+        </div>
+        <div className="grid grid-cols-[2fr,3fr] gap-x-3">
+          <div className="w-full ">
+            <ProfileLeft />
+          </div>
+          <div className="w-full ">
+            <ProfileRight setPostPopupVisible={setPostPopupVisible} />
+          </div>
+        </div>
       </div>
     </div>
   );

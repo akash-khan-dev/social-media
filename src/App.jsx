@@ -36,11 +36,18 @@ function App() {
             <Route
               path="/"
               element={
-                <Home post={post} setPostPopupVisible={setPostPopupVisible} />
+                <Home
+                  post={post}
+                  setPostPopupVisible={setPostPopupVisible}
+                  postPopupVisible={postPopupVisible}
+                />
               }
             />
             <Route path="/activate/:token" element={<ActivatePage />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route
+              path="/profile"
+              element={<Profile setPostPopupVisible={setPostPopupVisible} />}
+            />
             <Route path="/profile/:username" element={<Profile />} />
           </Route>
         </Route>
@@ -50,7 +57,10 @@ function App() {
   return (
     <>
       {postPopupVisible && (
-        <CreatePostPopup setPostPopupVisible={setPostPopupVisible} />
+        <CreatePostPopup
+          setPostPopupVisible={setPostPopupVisible}
+          postPopupVisible={postPopupVisible}
+        />
       )}
 
       <RouterProvider router={router}></RouterProvider>

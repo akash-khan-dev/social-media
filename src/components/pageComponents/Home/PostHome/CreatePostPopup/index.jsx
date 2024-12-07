@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Crose } from "../../../../../svg/crose";
 import AddPost from "./AddPost";
 import EmojiPickers from "./EmojiPickers";
@@ -15,7 +15,7 @@ import { ToastError } from "../../../../../utils/ToastError";
 import profile from "../../../../../../public/postBackgrounds/man.jpg";
 
 // eslint-disable-next-line react/prop-types
-const CreatePostPopup = ({ setPostPopupVisible }) => {
+const CreatePostPopup = ({ setPostPopupVisible, postPopupVisible }) => {
   const outSideRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const [showImageViewer, setShowImageViewer] = useState(false);
@@ -86,9 +86,22 @@ const CreatePostPopup = ({ setPostPopupVisible }) => {
       ToastError(err.message);
     }
   };
+  useEffect(() => {
+    const body = document.body;
+
+    if (postPopupVisible) {
+      body.classList.add("no-scroll");
+    } else {
+      body.classList.remove("no-scroll");
+    }
+
+    return () => {
+      body.classList.remove("no-scroll");
+    };
+  }, [postPopupVisible]);
   return (
     <>
-      <div className="absolute top-0 left-0 w-full bg-blur h-screen flex items-center justify-center z-20">
+      <div className="fixed top-0 left-0 w-full bg-blur h-screen flex items-center justify-center z-20">
         <div ref={outSideRef} className="w-[35%] shadow-md bg-white relative">
           <div
             onClick={() => setPostPopupVisible(false)}
@@ -111,8 +124,8 @@ const CreatePostPopup = ({ setPostPopupVisible }) => {
                 />
               </div>
               <div>
-                <h2 className="font-gilroySemibold text-xl">
-                  {user.firstName}
+                <h2 className="font-gilroySemibold text-lg">
+                  {user.firstName + " " + user.lastName}
                 </h2>
               </div>
             </div>

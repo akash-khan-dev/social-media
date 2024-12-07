@@ -12,8 +12,8 @@ const Cover = ({ coverImg }) => {
     setShowOption(false);
   });
   return (
-    <div className="relative">
-      <div className="w-full h-[350px] bg-line_color rounded-md overflow-hidden">
+    <div>
+      <div className="w-full h-[350px] bg-line_color rounded-tl-md rounded-tr-md overflow-hidden ">
         <img
           src={coverImg || cover}
           alt="cover"
@@ -30,7 +30,7 @@ const Cover = ({ coverImg }) => {
       {showOption && (
         <div
           ref={choseFile}
-          className="absolute top-12 right-5 bg-white shadow-md"
+          className="absolute top-12 right-5 bg-white shadow-md rounded-md overflow-hidden"
         >
           <div className="px-6 py-1 flex items-center gap-2 cursor-pointer text-secondary_color hover:bg-black hover:text-white transition duration-300">
             <MdModeEditOutline />

@@ -67,3 +67,6 @@
   font-size: 30px;
   line-height: 45px;
 }
+.no-scroll {
+  overflow: hidden;
+}
