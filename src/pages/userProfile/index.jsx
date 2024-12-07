@@ -29,10 +29,10 @@ const Profile = ({ setPostPopupVisible }) => {
       </Helmet>
       <div className="relative ">
         <div>
-          <Cover coverImg={profile?.user?.cover} />
+          <Cover coverImg={profile?.cover} />
         </div>
         <div>
-          <ProfilePictureInfo profile={profile?.user} />
+          <ProfilePictureInfo profile={profile} />
         </div>
         <div className="w-full pb-6 bg-white_100">
           <ProfileMenus />
@@ -42,7 +42,11 @@ const Profile = ({ setPostPopupVisible }) => {
             <ProfileLeft />
           </div>
           <div className="w-full ">
-            <ProfileRight setPostPopupVisible={setPostPopupVisible} />
+            <ProfileRight
+              profile={profile}
+              userInfo={userInfo}
+              setPostPopupVisible={setPostPopupVisible}
+            />
           </div>
         </div>
       </div>

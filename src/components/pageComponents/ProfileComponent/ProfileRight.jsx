@@ -1,9 +1,11 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from "react";
 
 import HomeMiddle from "../Home/HomeMiddle";
 import ProfilePostView from "./ProfilePostView";
+import ShowPost from "../Home/HomeMiddle/ShowPost";
 
-const ProfileRight = ({ setPostPopupVisible }) => {
+const ProfileRight = ({ userInfo, profile, setPostPopupVisible }) => {
   const [postView, setPostView] = useState("list");
   return (
     <>
@@ -13,7 +15,19 @@ const ProfileRight = ({ setPostPopupVisible }) => {
       <div>
         <ProfilePostView postView={postView} setPostView={setPostView} />
       </div>
-      {postView === "list" ? <h1>List</h1> : <h1>Grid</h1>}
+      {profile?.post && profile?.post?.length ? (
+        <div>
+          {profile?.post?.map((item) => (
+            <ShowPost key={item._id} data={item} userInfo={userInfo} />
+          ))}
+        </div>
+      ) : (
+        <div className="w-full shadow-md mt-5 bg-white p-3 text-center rounded-md">
+          <h4 className="font-gilroyMedium text-xl text-black">
+            No Post available
+          </h4>
+        </div>
+      )}
     </>
   );
 };
