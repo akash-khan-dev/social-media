@@ -70,3 +70,12 @@
 .no-scroll {
   overflow: hidden;
 }
+.profile_cropper .reactEasyCrop_Container img {
+  width: 100%;
+  object-fit: contain;
+}
+.profile_cropper .reactEasyCrop_CropAreaGrid {
+  width: 300px !important;
+  height: 300px !important;
+  color: rgb(225, 225, 225, 0.5);
+}
