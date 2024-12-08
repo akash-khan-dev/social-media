@@ -17,13 +17,12 @@ const HomeMiddle = ({ setPostPopupVisible }) => {
             <div className="w-[10%]">
               <div className="w-12 h-12 bg-black rounded-full"></div>
             </div>
-
             <div onClick={handleVisible} className="w-[90%]">
               <input
                 ref={removeFocused}
                 type="text"
                 placeholder="What's on your mind ?"
-                className="w-[60%] focus:outline-none"
+                className="w-[60%] pl-[10px] focus:outline-none"
               />
             </div>
           </div>

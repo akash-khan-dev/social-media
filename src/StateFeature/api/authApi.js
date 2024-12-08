@@ -104,6 +104,13 @@ export const authApi = createApi({
     getUserProfile: builder.query({
       query: (username) => `/api/v1/auth/user/${username}`,
     }),
+    imgList: builder.mutation({
+      query: ({ path, sort, max }) => ({
+        url: "/api/v1/upload/imgList",
+        method: "POST",
+        body: { path, sort, max },
+      }),
+    }),
   }),
 });
 
@@ -120,4 +127,5 @@ export const {
   useUploadImageMutation,
   useGetAllPostQuery,
   useGetUserProfileQuery,
+  useImgListMutation,
 } = authApi;

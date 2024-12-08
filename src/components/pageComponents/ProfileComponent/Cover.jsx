@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 import React, { useRef, useState } from "react";
 import { BsCamera } from "react-icons/bs";
 import cover from "../../../../public/postBackgrounds/cover.png";
 import { MdModeEditOutline } from "react-icons/md";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import OutSideClick from "../../../utils/Click";
-const Cover = ({ coverImg }) => {
+const Cover = ({ coverImg, visitor }) => {
   const [showOption, setShowOption] = useState(false);
   const choseFile = useRef(null);
 
@@ -20,13 +21,15 @@ const Cover = ({ coverImg }) => {
           className="w-full h-full object-cover"
         />
       </div>
-      <div
-        onClick={() => setShowOption(!showOption)}
-        className="absolute top-2 right-2 px-3 rounded-lg py-2 flex items-center gap-2 bg-white text-secondary_color cursor-pointer"
-      >
-        <BsCamera />
-        <span className="font-gilroyMedium text-base">Edit Photo</span>
-      </div>
+      {visitor && (
+        <div
+          onClick={() => setShowOption(!showOption)}
+          className="absolute top-2 right-2 px-3 rounded-lg py-2 flex items-center gap-2 bg-white text-secondary_color cursor-pointer"
+        >
+          <BsCamera />
+          <span className="font-gilroyMedium text-base">Edit Photo</span>
+        </div>
+      )}
       {showOption && (
         <div
           ref={choseFile}

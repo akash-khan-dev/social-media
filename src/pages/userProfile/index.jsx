@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { useGetUserProfileQuery } from "../../StateFeature/api/authApi";
+import {
+  useGetUserProfileQuery,
+  useImgListMutation,
+} from "../../StateFeature/api/authApi";
 import { Helmet } from "react-helmet-async";
 import Cover from "../../components/pageComponents/ProfileComponent/Cover";
 import ProfilePictureInfo from "../../components/pageComponents/ProfileComponent/ProfilePictureInfo";
@@ -16,12 +19,22 @@ const Profile = ({ setPostPopupVisible }) => {
   const userName = username === undefined ? userInfo.username : username;
   const { data: profile } = useGetUserProfileQuery(userName);
 
+  const [listImg, { data: imageData, imageError, isLoading: imageLoading }] =
+    useImgListMutation();
+  const path = `${userName.replace(/\s+/g, "_")}/*`;
+  const sort = "desc";
+  const max = "30";
+
   useEffect(() => {
     if (profile && profile.ok === false) {
       navigate("/");
+      listImg({ path, sort, max });
+    } else {
+      listImg({ path, sort, max });
     }
-  }, [navigate, profile]);
+  }, [navigate, profile, listImg, path]);
 
+  const visitor = userName === userInfo.username ? true : false;
   return (
     <div>
       <Helmet>
@@ -29,23 +42,24 @@ const Profile = ({ setPostPopupVisible }) => {
       </Helmet>
       <div className="relative ">
         <div>
-          <Cover coverImg={profile?.cover} />
+          <Cover coverImg={profile?.cover} visitor={visitor} />
         </div>
         <div>
-          <ProfilePictureInfo profile={profile} />
+          <ProfilePictureInfo profile={profile} visitor={visitor} />
         </div>
         <div className="w-full pb-6 bg-white_100">
-          <ProfileMenus />
+          <ProfileMenus profile={profile} />
         </div>
         <div className="grid grid-cols-[2fr,3fr] gap-x-3">
-          <div className="w-full ">
-            <ProfileLeft />
+          <div className="w-full">
+            <ProfileLeft imageData={imageData} />
           </div>
           <div className="w-full ">
             <ProfileRight
               profile={profile}
               userInfo={userInfo}
               setPostPopupVisible={setPostPopupVisible}
+              visitor={visitor}
             />
           </div>
         </div>

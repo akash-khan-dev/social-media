@@ -5,13 +5,16 @@ import HomeMiddle from "../Home/HomeMiddle";
 import ProfilePostView from "./ProfilePostView";
 import ShowPost from "../Home/HomeMiddle/ShowPost";
 
-const ProfileRight = ({ userInfo, profile, setPostPopupVisible }) => {
+const ProfileRight = ({ userInfo, profile, setPostPopupVisible, visitor }) => {
   const [postView, setPostView] = useState("list");
   return (
     <>
-      <div>
-        <HomeMiddle setPostPopupVisible={setPostPopupVisible} />
-      </div>
+      {visitor && (
+        <div>
+          <HomeMiddle setPostPopupVisible={setPostPopupVisible} />
+        </div>
+      )}
+
       <div>
         <ProfilePostView postView={postView} setPostView={setPostView} />
       </div>
