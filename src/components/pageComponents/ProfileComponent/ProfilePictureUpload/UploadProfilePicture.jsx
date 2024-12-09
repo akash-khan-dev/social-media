@@ -1,12 +1,24 @@
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, { useRef } from "react";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { useState, useCallback } from "react";
 import Cropper from "react-easy-crop";
+import { FaPlus } from "react-icons/fa6";
+import { FaMinus } from "react-icons/fa";
 const UploadProfilePicture = ({ image, setImage }) => {
+  const [captionText, setCaptionText] = useState("");
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
+  const zoomRef = useRef(null);
 
+  const zoomOut = () => {
+    zoomRef.current.stepDown();
+    setZoom(zoomRef.current.value);
+  };
+  const zoomIn = () => {
+    zoomRef.current.stepUp();
+    setZoom(zoomRef.current.value);
+  };
   const onCropComplete = useCallback(() => {
     (croppedArea, croppedAreaPixels) => {
       console.log(croppedArea, croppedAreaPixels);
@@ -30,6 +42,7 @@ const UploadProfilePicture = ({ image, setImage }) => {
         </div>
         <div className="p-5">
           <textarea
+            onChange={(e) => setCaptionText(e.target.value)}
             placeholder="Caption"
             className="w-full h-24 text-black text-base font-gilroyMedium px-2 bg-transparent py-2 resize-none rounded-md border border-line_color outline-none"
           ></textarea>
@@ -45,6 +58,32 @@ const UploadProfilePicture = ({ image, setImage }) => {
             onCropComplete={onCropComplete}
             onZoomChange={setZoom}
           />
+        </div>
+        <div className="flex items-center w-[70%] justify-between mx-auto my-4">
+          <div
+            onClick={zoomOut}
+            className="w-10 h-10 bg-white_100 rounded-full hover:shadow-md flex items-center justify-center transition duration-300 cursor-pointer"
+          >
+            <FaMinus />
+          </div>
+          <div>
+            <input
+              ref={zoomRef}
+              value={zoom}
+              min={1}
+              max={3}
+              step={0.1}
+              onChange={(e) => setZoom(e.target.value)}
+              type="range"
+              className="w-[250px]"
+            />
+          </div>
+          <div
+            onClick={zoomIn}
+            className="w-10 h-10 bg-white_100 rounded-full hover:shadow-md flex items-center justify-center transition duration-300 cursor-pointer"
+          >
+            <FaPlus />
+          </div>
         </div>
       </div>
     </div>
