@@ -79,3 +79,17 @@
   height: 300px !important;
   color: rgb(225, 225, 225, 0.5);
 }
+
+.customize_range[type="range"] {
+  height: 5px;
+  background-color: #ececec;
+}
+.customize_range[type="range"]::-webkit-slider-thumb {
+  width: 20px;
+  height: 20px;
+  background-color: #5093f3;
+  border-radius: 50%;
+  outline: none;
+  box-shadow: 0px 24px 50px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}

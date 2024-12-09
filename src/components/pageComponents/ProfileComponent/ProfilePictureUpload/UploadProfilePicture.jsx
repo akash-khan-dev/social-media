@@ -1,14 +1,15 @@
 /* eslint-disable react/prop-types */
-import React, { useRef } from "react";
+import React, { useCallback, useState, useRef } from "react";
 import { IoCloseCircleOutline } from "react-icons/io5";
-import { useState, useCallback } from "react";
 import Cropper from "react-easy-crop";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa";
+import getCroppedImage from "../../../../utils/GetCroppedImg";
 const UploadProfilePicture = ({ image, setImage }) => {
   const [captionText, setCaptionText] = useState("");
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
+  const [croppedArePixels, setCroppedArePixels] = useState(null);
   const zoomRef = useRef(null);
 
   const zoomOut = () => {
@@ -19,14 +20,25 @@ const UploadProfilePicture = ({ image, setImage }) => {
     zoomRef.current.stepUp();
     setZoom(zoomRef.current.value);
   };
-  const onCropComplete = useCallback(() => {
-    (croppedArea, croppedAreaPixels) => {
-      console.log(croppedArea, croppedAreaPixels);
-    };
-  }, []);
+  const onCropComplete = (croppedArea, croppedAreaPixels) => {
+    setCroppedArePixels(croppedAreaPixels);
+  };
+
+  //   ========for crop img
+  const getCroppingImage = useCallback(async () => {
+    try {
+      const croppedImg = await getCroppedImage(image, croppedArePixels);
+      console.log(croppedImg);
+
+      setCrop({ x: 0, y: 0 });
+      setZoom(1);
+    } catch (e) {
+      console.log(e.message);
+    }
+  }, [croppedArePixels, image]);
   return (
     <div>
-      <div className="w-[35%] h-[600px] shadow-md top-[55%] bg-white -translate-y-[50%] fixed z-20">
+      <div className="w-[35%] h-[600px] box-border shadow-md top-[52%] bg-white -translate-y-[50%] fixed z-20">
         <div>
           <div
             onClick={() => setImage("")}
@@ -44,16 +56,15 @@ const UploadProfilePicture = ({ image, setImage }) => {
           <textarea
             onChange={(e) => setCaptionText(e.target.value)}
             placeholder="Caption"
-            className="w-full h-24 text-black text-base font-gilroyMedium px-2 bg-transparent py-2 resize-none rounded-md border border-line_color outline-none"
+            className="w-full h-20 text-black text-base font-gilroyMedium px-2 bg-transparent py-2 resize-none rounded-md border border-line_color outline-none"
           ></textarea>
         </div>
-        <div className="profile_cropper w-[80%] mx-auto relative flex justify-center items-center mt-5 h-[300px]">
+        <div className="profile_cropper w-[80%] mx-auto relative flex justify-center items-center mt-5 h-[280px]">
           <Cropper
             image={image}
-            cropShape="round"
             crop={crop}
             zoom={zoom}
-            aspect={1 / 1}
+            aspect={1}
             onCropChange={setCrop}
             onCropComplete={onCropComplete}
             onZoomChange={setZoom}
@@ -75,7 +86,7 @@ const UploadProfilePicture = ({ image, setImage }) => {
               step={0.1}
               onChange={(e) => setZoom(e.target.value)}
               type="range"
-              className="w-[250px]"
+              className="w-[250px] customize_range"
             />
           </div>
           <div
@@ -84,6 +95,17 @@ const UploadProfilePicture = ({ image, setImage }) => {
           >
             <FaPlus />
           </div>
+        </div>
+        <div className="flex items-center justify-end gap-x-4 px-12 ">
+          <button
+            onClick={getCroppingImage}
+            className="bg-white_100 rounded-md px-5 py-2 font-gilroyMedium text-base text-black"
+          >
+            Save Crop Image
+          </button>
+          <button className="bg-blue rounded-md px-5 py-2 font-gilroyMedium text-base text-white">
+            Upload
+          </button>
         </div>
       </div>
     </div>
