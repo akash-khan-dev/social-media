@@ -1,15 +1,17 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import profilePic from "../../../../public/postBackgrounds/man.jpg";
 import { MdOutlineCameraAlt } from "react-icons/md";
 import ProfilePictureUpload from "./ProfilePictureUpload";
 const ProfilePictureInfo = ({ profile, visitor }) => {
   const [showUploadProfile, setShowUploadProfile] = useState(false);
+  const uploadProfileRef = useRef(null);
   return (
     <div className="flex items-center bg-white_100 pl-36 pt-3">
       {showUploadProfile && (
         <div>
           <ProfilePictureUpload
+            uploadProfileRef={uploadProfileRef}
             showUploadProfile={showUploadProfile}
             setShowUploadProfile={setShowUploadProfile}
           />
@@ -17,6 +19,7 @@ const ProfilePictureInfo = ({ profile, visitor }) => {
       )}
       <div className="relative">
         <div
+          ref={uploadProfileRef}
           style={{
             backgroundImage: `url(${profile?.profilePicture || profilePic})`,
             backgroundPosition: "center",
