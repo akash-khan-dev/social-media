@@ -2,7 +2,10 @@
 import { useRef } from "react";
 import { CiVideoOn, CiLight } from "react-icons/ci";
 import { PiImagesThin } from "react-icons/pi";
+import { useSelector } from "react-redux";
+import profile from "../../../../../public/postBackgrounds/man.jpg";
 const HomeMiddle = ({ setPostPopupVisible }) => {
+  const user = useSelector((state) => state.registration.userInfo);
   const removeFocused = useRef(null);
   const handleVisible = () => {
     removeFocused.current.blur();
@@ -15,7 +18,13 @@ const HomeMiddle = ({ setPostPopupVisible }) => {
         <div className="py-5 px-3 bg-white_100 rounded-md mt-6">
           <div className="flex items-center justify-center py-1 bg-white rounded-full">
             <div className="w-[10%]">
-              <div className="w-12 h-12 bg-black rounded-full"></div>
+              <div className="w-12 h-12 rounded-full overflow-hidden">
+                <img
+                  src={user.profilePicture || profile}
+                  className="w-full h-full object-cover"
+                  alt="profile"
+                />
+              </div>
             </div>
             <div onClick={handleVisible} className="w-[90%]">
               <input
