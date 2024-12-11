@@ -45,7 +45,11 @@ const Profile = ({ setPostPopupVisible }) => {
           <Cover coverImg={profile?.cover} visitor={visitor} />
         </div>
         <div>
-          <ProfilePictureInfo profile={profile} visitor={visitor} />
+          <ProfilePictureInfo
+            imageData={imageData?.resources}
+            profile={profile}
+            visitor={visitor}
+          />
         </div>
         <div className="w-full pb-6 bg-white_100">
           <ProfileMenus profile={profile} />

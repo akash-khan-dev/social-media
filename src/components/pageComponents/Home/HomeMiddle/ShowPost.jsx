@@ -103,16 +103,17 @@ const ShowPost = ({ data, userInfo }) => {
                   }`}
                 >
                   {data.images[0].data.slice(0, 4).map((img, i) => (
-                    <img
-                      key={i}
-                      className={`${
-                        data.images[0].data.length === 3
-                          ? "[&:nth-of-type(1)]:row-start-1 [&:nth-of-type(1)]:row-end-3"
-                          : ""
-                      } w-full h-full object-cover`}
-                      src={img.url}
-                      alt="image"
-                    />
+                    <div key={i}>
+                      <img
+                        className={`${
+                          data.images[0].data.length === 3
+                            ? "[&:nth-of-type(1)]:row-start-1 [&:nth-of-type(1)]:row-end-3"
+                            : ""
+                        } w-full h-full object-cover`}
+                        src={img.url}
+                        alt="image"
+                      />
+                    </div>
                   ))}
                   {data.images[0].data.length > 4 && (
                     <div className="absolute bottom-32 right-28 w-[55px] h-[55px] bg-blur rounded-full flex items-center justify-center">

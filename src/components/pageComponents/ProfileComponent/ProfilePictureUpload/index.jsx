@@ -4,8 +4,10 @@ import { IoCloseCircleOutline } from "react-icons/io5";
 import OutSideClick from "../../../../utils/Click";
 import { FaPlus } from "react-icons/fa6";
 import UploadProfilePicture from "./UploadProfilePicture";
+import { useSelector } from "react-redux";
 
 const ProfilePictureUpload = ({
+  imageData,
   uploadProfileRef,
   showUploadProfile,
   setShowUploadProfile,
@@ -14,6 +16,7 @@ const ProfilePictureUpload = ({
   const [error, setError] = useState("");
   const chooseRef = useRef(null);
   const chooseFile = useRef(null);
+  const userInfo = useSelector((state) => state.registration.userInfo);
   OutSideClick(chooseRef, () => {
     setShowUploadProfile(false);
   });
@@ -55,7 +58,7 @@ const ProfilePictureUpload = ({
   }, [showUploadProfile]);
   return (
     <>
-      <div className="fixed top-0 left-0 w-full bg-blur h-screen flex items-center justify-center z-20">
+      <div className="fixed top-0 left-0 w-full bg-blur h-screen flex items-center justify-center z-50">
         <div ref={chooseRef} className="w-[35%] shadow-md bg-white relative">
           <div
             onClick={() => setShowUploadProfile(false)}
@@ -82,7 +85,74 @@ const ProfilePictureUpload = ({
               onChange={handleCommentImgUpload}
             />
           </div>
-          <div className="w-full h-[300px]">for old profile</div>
+          <div className="w-full h-[250px] px-3 overflow-y-auto">
+            <h3 className="font-gilroyNormal font-lg font-black">
+              Profile Photos
+            </h3>
+            <span className="font-gilroyMedium text-base text-secondary_color lining-[20px]">
+              Total (
+              {
+                imageData?.filter(
+                  (img) =>
+                    img.asset_folder ===
+                    `${userInfo.username.replace(/\s+/g, "_")}/profile_picture`
+                ).length
+              }
+              )
+            </span>
+            <div className="grid grid-cols-5 gap-2 mt-2">
+              {imageData
+                ?.filter(
+                  (img) =>
+                    img.asset_folder ===
+                    `${userInfo.username.replace(/\s+/g, "_")}/profile_picture`
+                )
+                .map((file, i) => (
+                  <div key={i}>
+                    <img
+                      onClick={() => setImage(file.secure_url)}
+                      src={file.secure_url}
+                      alt="profile"
+                      className="w-full h-[100px] object-cover cursor-pointer"
+                    />
+                  </div>
+                ))}
+            </div>
+          </div>
+          <div className="w-full h-[300px] mt-3 px-3 overflow-y-auto">
+            <h3 className="font-gilroyNormal font-lg font-black">
+              Other photos
+            </h3>
+            <span className="font-gilroyMedium text-base text-secondary_color lining-[20px]">
+              Total (
+              {
+                imageData?.filter(
+                  (img) =>
+                    img.asset_folder !==
+                    `${userInfo.username.replace(/\s+/g, "_")}/profile_picture`
+                ).length
+              }
+              )
+            </span>
+            <div className="grid grid-cols-5 gap-2 mt-2">
+              {imageData
+                ?.filter(
+                  (img) =>
+                    img.asset_folder !==
+                    `${userInfo.username.replace(/\s+/g, "_")}/profile_picture`
+                )
+                .map((file, i) => (
+                  <div key={i}>
+                    <img
+                      onClick={() => setImage(file.secure_url)}
+                      src={file.secure_url}
+                      alt="profile"
+                      className="w-full h-[100px] object-cover cursor-pointer"
+                    />
+                  </div>
+                ))}
+            </div>
+          </div>
           {image && (
             <div>
               <UploadProfilePicture
