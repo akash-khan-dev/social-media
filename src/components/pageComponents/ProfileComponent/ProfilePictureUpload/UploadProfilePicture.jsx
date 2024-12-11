@@ -5,12 +5,31 @@ import Cropper from "react-easy-crop";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa";
 import getCroppedImage from "../../../../utils/GetCroppedImg";
-const UploadProfilePicture = ({ image, setImage }) => {
+import { useDispatch, useSelector } from "react-redux";
+import { loggedInUser } from "../../../../StateFeature/Slice/authSlice";
+import { BeatLoader } from "react-spinners";
+import {
+  useCreatePostMutation,
+  useUploadImageMutation,
+  useUploadProfileImageMutation,
+} from "../../../../StateFeature/api/authApi";
+const UploadProfilePicture = ({
+  uploadProfileRef,
+  setShowUploadProfile,
+  image,
+  setImage,
+}) => {
   const [captionText, setCaptionText] = useState("");
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
+  const [loading, setLoading] = useState(false);
   const [croppedArePixels, setCroppedArePixels] = useState(null);
+  const [uploadImage] = useUploadImageMutation();
+  const [uploadProfileImage] = useUploadProfileImageMutation();
+  const [createPost] = useCreatePostMutation();
   const zoomRef = useRef(null);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.registration.userInfo);
 
   const zoomOut = () => {
     zoomRef.current.stepDown();
@@ -24,18 +43,67 @@ const UploadProfilePicture = ({ image, setImage }) => {
     setCroppedArePixels(croppedAreaPixels);
   };
 
-  //   ========for crop img
+  //   ========this function cropped img
   const getCroppingImage = useCallback(async () => {
     try {
       const croppedImg = await getCroppedImage(image, croppedArePixels);
-      console.log(croppedImg);
-
       setCrop({ x: 0, y: 0 });
       setZoom(1);
+      setImage(croppedImg);
+      return croppedImg;
     } catch (e) {
       console.log(e.message);
     }
-  }, [croppedArePixels, image]);
+  }, [croppedArePixels, image, setImage]);
+  // ===========this function for img uploading
+  const handleUploadProfilePicture = async () => {
+    try {
+      setLoading(true);
+      const img = await getCroppingImage();
+      const blob = await fetch(img).then((b) => b.blob());
+      const path = `${user.username.replace(/\s+/g, "_")}/profile_picture`;
+      const formData = new FormData();
+      formData.append("path", path);
+      formData.append("file", blob);
+
+      // ======this api call for img upload in cloudinary
+      const resProfilePicture = await uploadImage({
+        formData,
+        path,
+        token: user.token,
+      });
+      const url = resProfilePicture.data.data[0].url;
+      const uploadProfile = await uploadProfileImage({
+        url: url,
+        id: user.id,
+      }).unwrap();
+      if (uploadProfile.status === "done") {
+        setLoading(false);
+        // this api call or crate posts a profile
+        const profilePicPost = await createPost({
+          type: "profilePicture",
+          images: resProfilePicture,
+          text: captionText,
+          background: null,
+          user: user.id,
+          token: user.token,
+        }).unwrap();
+        if (profilePicPost.status === "done") {
+          setLoading(false);
+          uploadProfileRef.current.style.backgroundImage = `url(${url})`;
+          localStorage.setItem(
+            "userInfo",
+            JSON.stringify({ ...user, profilePicture: url })
+          );
+          dispatch(loggedInUser({ ...user, profilePicture: url }));
+          setImage("");
+          setShowUploadProfile(false);
+        }
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <div>
       <div className="w-[35%] h-[600px] box-border shadow-md top-[52%] bg-white -translate-y-[50%] fixed z-20">
@@ -99,13 +167,26 @@ const UploadProfilePicture = ({ image, setImage }) => {
         <div className="flex items-center justify-end gap-x-4 px-12 ">
           <button
             onClick={getCroppingImage}
+            disabled={loading}
             className="bg-white_100 rounded-md px-5 py-2 font-gilroyMedium text-base text-black"
           >
             Save Crop Image
           </button>
-          <button className="bg-blue rounded-md px-5 py-2 font-gilroyMedium text-base text-white">
-            Upload
-          </button>
+          {loading ? (
+            <button
+              disabled
+              className="bg-blue rounded-md px-5 py-2 font-gilroyMedium text-base text-white"
+            >
+              <BeatLoader />
+            </button>
+          ) : (
+            <button
+              onClick={handleUploadProfilePicture}
+              className="bg-blue rounded-md px-5 py-2 font-gilroyMedium text-base text-white"
+            >
+              Upload
+            </button>
+          )}
         </div>
       </div>
     </div>

@@ -5,7 +5,11 @@ import OutSideClick from "../../../../utils/Click";
 import { FaPlus } from "react-icons/fa6";
 import UploadProfilePicture from "./UploadProfilePicture";
 
-const ProfilePictureUpload = ({ showUploadProfile, setShowUploadProfile }) => {
+const ProfilePictureUpload = ({
+  uploadProfileRef,
+  showUploadProfile,
+  setShowUploadProfile,
+}) => {
   const [image, setImage] = useState("");
   const [error, setError] = useState("");
   const chooseRef = useRef(null);
@@ -81,7 +85,12 @@ const ProfilePictureUpload = ({ showUploadProfile, setShowUploadProfile }) => {
           <div className="w-full h-[300px]">for old profile</div>
           {image && (
             <div>
-              <UploadProfilePicture image={image} setImage={setImage} />
+              <UploadProfilePicture
+                uploadProfileRef={uploadProfileRef}
+                setShowUploadProfile={setShowUploadProfile}
+                image={image}
+                setImage={setImage}
+              />
             </div>
           )}
         </div>

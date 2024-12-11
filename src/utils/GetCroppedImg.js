@@ -9,7 +9,7 @@ export const createImg = (url) => {
 };
 
 export const getRadianAngle = (degreeValue) => {
-  return (degreeValue * Math.PI) / 100;
+  return (degreeValue * Math.PI) / 180;
 };
 
 export const rotatedSize = (width, height, rotation) => {
@@ -49,10 +49,10 @@ export default async function getCroppedImage(
   ctx.translate(-image.width / 2, -image.height / 2);
   ctx.drawImage(image, 0, 0);
   const data = ctx.getImageData(
-    pixelCrop.width,
-    pixelCrop.height,
     pixelCrop.x,
-    pixelCrop.y
+    pixelCrop.y,
+    pixelCrop.width,
+    pixelCrop.height
   );
   canvas.width = pixelCrop.width;
   canvas.height = pixelCrop.height;
@@ -60,7 +60,11 @@ export default async function getCroppedImage(
 
   return new Promise((resolve, reject) => {
     canvas.toBlob((file) => {
-      resolve(URL.createObjectURL(file));
+      if (file) {
+        resolve(URL.createObjectURL(file));
+      } else {
+        reject(new Error("Failed to convert canvas to Blob"));
+      }
     }, "image/jpeg");
   });
 }

@@ -111,6 +111,17 @@ export const authApi = createApi({
         body: { path, sort, max },
       }),
     }),
+    uploadProfileImage: builder.mutation({
+      query: ({ url, id }) => ({
+        url: "/api/v1/auth/uploadProfilePicture",
+        method: "PUT",
+        body: { url, id },
+      }),
+      transformResponse: (response) => ({
+        status: "done",
+        data: response,
+      }),
+    }),
   }),
 });
 
@@ -128,4 +139,5 @@ export const {
   useGetAllPostQuery,
   useGetUserProfileQuery,
   useImgListMutation,
+  useUploadProfileImageMutation,
 } = authApi;
