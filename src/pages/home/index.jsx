@@ -7,6 +7,7 @@ import ShowPost from "../../components/pageComponents/Home/HomeMiddle/ShowPost";
 
 const Home = ({ post, setPostPopupVisible }) => {
   const userInfo = useSelector((state) => state.registration.userInfo);
+
   return (
     <>
       <Helmet>

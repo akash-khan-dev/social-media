@@ -20,6 +20,8 @@ const ShowPost = ({ data, userInfo }) => {
   const [commentError, setCommentError] = useState("");
 
   // ========for how mins ago post created
+  console.log(data.images?.[0]?.data?.data);
+
   const createDate =
     data?.createdAt &&
     formatDistance(new Date(data.createdAt), new Date(), {
@@ -83,6 +85,36 @@ const ShowPost = ({ data, userInfo }) => {
             {data.text}
           </h4>
         </div>
+      ) : Array.isArray(data.images?.[0]?.data?.data) &&
+        data.type == "profilePicture" ? (
+        <>
+          <div>
+            <h4 className="font-gilroyMedium text-lg text-black mt-2">
+              {data.text || ""}
+            </h4>
+          </div>
+          <div className="relative mt-2">
+            {data.images?.[0]?.data?.data && (
+              <div
+                className={`${
+                  data?.images[0]?.data?.length === 1
+                    ? "w-full h-full overflow-hidden"
+                    : "overflow-hidden w-full h-full"
+                }`}
+              >
+                {data.images?.[0]?.data?.data?.map((img, i) => (
+                  <div key={i}>
+                    <img
+                      className={`w-full h-full object-cover`}
+                      src={img.url}
+                      alt="image"
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </>
       ) : (
         <>
           <div>
@@ -91,18 +123,16 @@ const ShowPost = ({ data, userInfo }) => {
             </h4>
           </div>
           <div className="relative mt-2">
-            {Array.isArray(data.images) &&
-              data.images[0] &&
-              Array.isArray(data.images[0].data) &&
-              data.images[0].data.length > 0 && (
+            {Array.isArray(data?.images) &&
+              data?.images[0]?.data?.length > 0 && (
                 <div
                   className={`${
-                    data.images[0].data.length === 1
+                    data?.images[0]?.data?.length === 1
                       ? "w-full h-full overflow-hidden"
                       : "overflow-hidden w-full h-full grid grid-cols-2 gap-2"
                   }`}
                 >
-                  {data.images[0].data.slice(0, 4).map((img, i) => (
+                  {data?.images[0]?.data.slice(0, 4).map((img, i) => (
                     <div key={i}>
                       <img
                         className={`${
