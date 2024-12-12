@@ -20,8 +20,6 @@ const ShowPost = ({ data, userInfo }) => {
   const [commentError, setCommentError] = useState("");
 
   // ========for how mins ago post created
-  console.log(data.images?.[0]?.data?.data);
-
   const createDate =
     data?.createdAt &&
     formatDistance(new Date(data.createdAt), new Date(), {
