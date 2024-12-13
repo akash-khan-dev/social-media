@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react";
 import profilePic from "../../../../public/postBackgrounds/man.jpg";
 import { MdOutlineCameraAlt } from "react-icons/md";
 import ProfilePictureUpload from "./ProfilePictureUpload";
-const ProfilePictureInfo = ({ profile, visitor, imageData, userInfo }) => {
+const ProfilePictureInfo = ({ profile, visitor, imageData }) => {
   const [showUploadProfile, setShowUploadProfile] = useState(false);
   const uploadProfileRef = useRef(null);
   return (

@@ -60,7 +60,11 @@ const Profile = ({ setPostPopupVisible }) => {
         </div>
         <div className="grid grid-cols-[2fr,3fr] gap-x-3">
           <div className="w-full">
-            <ProfileLeft imageLoading={imageLoading} imageData={imageData} />
+            <ProfileLeft
+              userDetail={profile?.details}
+              imageLoading={imageLoading}
+              imageData={imageData}
+            />
           </div>
           <div className="w-full ">
             <ProfileRight
