@@ -102,11 +102,6 @@ const ShowPost = ({ data, userInfo }) => {
         </div>
       ) : (
         <>
-          <div>
-            <h4 className="font-gilroyMedium text-lg text-black mt-2">
-              {data.text || ""}
-            </h4>
-          </div>
           <div className="relative mt-2">
             {data?.images && data?.images?.length > 0 && (
               <>

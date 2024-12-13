@@ -122,6 +122,17 @@ export const authApi = createApi({
         data: response,
       }),
     }),
+    uploadCoverPicture: builder.mutation({
+      query: ({ url, id }) => ({
+        url: "/api/v1/auth/uploadCoverPicture",
+        method: "PUT",
+        body: { url, id },
+      }),
+      transformResponse: (response) => ({
+        status: "done",
+        data: response,
+      }),
+    }),
   }),
 });
 
@@ -140,4 +151,5 @@ export const {
   useGetUserProfileQuery,
   useImgListMutation,
   useUploadProfileImageMutation,
+  useUploadCoverPictureMutation,
 } = authApi;
