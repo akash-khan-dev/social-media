@@ -52,7 +52,7 @@ const Profile = ({ setPostPopupVisible }) => {
           />
         </div>
         <div className="w-full pb-6 bg-white_100">
-          <ProfileMenus profile={profile} />
+          <ProfileMenus profile={profile} imageData={imageData} />
         </div>
         <div className="grid grid-cols-[2fr,3fr] gap-x-3">
           <div className="w-full">

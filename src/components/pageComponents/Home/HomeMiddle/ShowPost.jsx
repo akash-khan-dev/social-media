@@ -10,6 +10,7 @@ import Reacts from "./Reacts";
 import { useRef, useState } from "react";
 import CreateComments from "./CreateComments";
 import PostMenu from "./PostMenu/PostMenu";
+import cover from "../../../../../public/postBackgrounds/cover.png";
 // eslint-disable-next-line react/prop-types
 const ShowPost = ({ data, userInfo }) => {
   const [showReactsEmoji, setShowReactEmoji] = useState(false);
@@ -109,20 +110,21 @@ const ShowPost = ({ data, userInfo }) => {
           </div>
           <div className="relative mt-2">
             {data.images?.[0]?.data?.data && (
-              <div
-                className={`${
-                  data?.images[0]?.data?.length === 1
-                    ? "w-full h-full overflow-hidden"
-                    : "overflow-hidden w-full h-full"
-                }`}
-              >
+              <div className={`${"overflow-hidden w-full h-full"}`}>
                 {data.images?.[0]?.data?.data?.map((img, i) => (
                   <div key={i}>
                     <img
-                      className={`w-full h-full object-cover`}
-                      src={img.url}
+                      className={`w-full h-[250px] object-cover`}
+                      src={cover}
                       alt="image"
                     />
+                    <div className="w-[280px] h-[280px] rounded-full overflow-hidden mx-auto -mt-40">
+                      <img
+                        className={`w-full h-full object-cover`}
+                        src={img.url || avatar}
+                        alt="image"
+                      />
+                    </div>
                   </div>
                 ))}
               </div>
