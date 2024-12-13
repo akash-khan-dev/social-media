@@ -100,37 +100,6 @@ const ShowPost = ({ data, userInfo }) => {
             {data.text}
           </h4>
         </div>
-      ) : Array.isArray(data.images?.[0]?.data?.data) &&
-        data.type == "profilePicture" ? (
-        <>
-          <div>
-            <h4 className="font-gilroyMedium text-lg text-black mt-2">
-              {data.text || ""}
-            </h4>
-          </div>
-          <div className="relative mt-2">
-            {data.images?.[0]?.data?.data && (
-              <div className={`${"overflow-hidden w-full h-full"}`}>
-                {data.images?.[0]?.data?.data?.map((img, i) => (
-                  <div key={i}>
-                    <img
-                      className={`w-full h-[250px] object-cover`}
-                      src={cover}
-                      alt="image"
-                    />
-                    <div className="w-[280px] h-[280px] rounded-full overflow-hidden mx-auto -mt-40">
-                      <img
-                        className={`w-full h-full object-cover`}
-                        src={img.url || avatar}
-                        alt="image"
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </>
       ) : (
         <>
           <div>
@@ -139,37 +108,66 @@ const ShowPost = ({ data, userInfo }) => {
             </h4>
           </div>
           <div className="relative mt-2">
-            {Array.isArray(data?.images) &&
-              data?.images[0]?.data?.length > 0 && (
-                <div
-                  className={`${
-                    data?.images[0]?.data?.length === 1
-                      ? "w-full h-full overflow-hidden"
-                      : "overflow-hidden w-full h-full grid grid-cols-2 gap-2"
-                  }`}
-                >
-                  {data?.images[0]?.data.slice(0, 4).map((img, i) => (
-                    <div key={i}>
-                      <img
-                        className={`${
-                          data.images[0].data.length === 3
-                            ? "[&:nth-of-type(1)]:row-start-1 [&:nth-of-type(1)]:row-end-3"
-                            : ""
-                        } w-full h-full object-cover`}
-                        src={img.url}
-                        alt="image"
-                      />
-                    </div>
-                  ))}
-                  {data.images[0].data.length > 4 && (
-                    <div className="absolute bottom-32 right-28 w-[55px] h-[55px] bg-blur rounded-full flex items-center justify-center">
-                      <span className="font-gilroySemibold text-xl">
-                        +{data.images[0].data.length - 4}
-                      </span>
-                    </div>
-                  )}
+            {data?.images && data?.images?.length > 0 && (
+              <>
+                <div>
+                  <h4 className="font-gilroyMedium text-lg text-black mt-2">
+                    {data.text || ""}
+                  </h4>
                 </div>
-              )}
+                {data.type === "profilePicture" ? (
+                  <div className="relative mt-2">
+                    <div className={`${"overflow-hidden w-full h-full"}`}>
+                      {data?.images?.map((img, i) => (
+                        <div key={i}>
+                          <img
+                            className={`w-full h-[250px] object-cover`}
+                            src={cover}
+                            alt="image"
+                          />
+                          <div className="w-[280px] h-[280px] rounded-full overflow-hidden mx-auto -mt-40">
+                            <img
+                              className={`w-full h-full object-cover`}
+                              src={img.url || avatar}
+                              alt="image"
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div
+                    className={`${
+                      data?.images?.length === 1
+                        ? "w-full h-full overflow-hidden"
+                        : "overflow-hidden w-full h-full grid grid-cols-2 gap-2"
+                    }`}
+                  >
+                    {data?.images?.slice(0, 4).map((img, i) => (
+                      <div key={i}>
+                        <img
+                          className={`${
+                            data.images.length === 3
+                              ? "[&:nth-of-type(1)]:row-start-1 [&:nth-of-type(1)]:row-end-3"
+                              : ""
+                          } w-full h-full object-cover`}
+                          src={img.url}
+                          alt="image"
+                        />
+                      </div>
+                    ))}
+                    {data.images.length > 4 && (
+                      <div className="absolute bottom-32 right-28 w-[55px] h-[55px] bg-blur rounded-full flex items-center justify-center">
+                        <span className="font-gilroySemibold text-xl">
+                          +{data.images.length - 4}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </>
+            )}
           </div>
         </>
       )}

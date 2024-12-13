@@ -29,7 +29,7 @@ const UploadProfilePicture = ({
   const [createPost] = useCreatePostMutation();
   const zoomRef = useRef(null);
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.registration.userInfo);
+  const user = useSelector((state) => state.userInformation.userInfo);
 
   const zoomOut = () => {
     zoomRef.current.stepDown();
@@ -82,7 +82,7 @@ const UploadProfilePicture = ({
         // this api call or crate posts a profile
         const profilePicPost = await createPost({
           type: "profilePicture",
-          images: resProfilePicture,
+          images: resProfilePicture.data.data[0],
           text: captionText,
           background: null,
           user: user.id,
