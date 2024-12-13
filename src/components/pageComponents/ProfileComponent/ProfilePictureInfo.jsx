@@ -27,12 +27,12 @@ const ProfilePictureInfo = ({ profile, visitor, imageData, userInfo }) => {
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
           }}
-          className="absolute -top-[70px] -left-[120px]  w-28 h-28 rounded-full border-2 border-white "
+          className="absolute -top-[70px] -left-[120px]  w-28 h-28 rounded-full border-2 border-white z-20"
         ></div>
         {visitor && (
           <div
             onClick={() => setShowUploadProfile(true)}
-            className="absolute top-3 cursor-pointer right-3 w-[28px] h-[28px] rounded-full flex items-center justify-center bg-white"
+            className="absolute top-3 cursor-pointer right-3 w-[28px] h-[28px] rounded-full flex items-center justify-center bg-white z-30"
           >
             <MdOutlineCameraAlt className="text-black" />
           </div>

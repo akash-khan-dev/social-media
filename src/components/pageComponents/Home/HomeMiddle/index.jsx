@@ -5,7 +5,7 @@ import { PiImagesThin } from "react-icons/pi";
 import { useSelector } from "react-redux";
 import profile from "../../../../../public/postBackgrounds/man.jpg";
 const HomeMiddle = ({ setPostPopupVisible }) => {
-  const user = useSelector((state) => state.registration.userInfo);
+  const user = useSelector((state) => state.userInformation.userInfo);
   const removeFocused = useRef(null);
   const handleVisible = () => {
     removeFocused.current.blur();

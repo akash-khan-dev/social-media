@@ -6,7 +6,7 @@ import { ToastContainer } from "react-toastify";
 
 const AgainVerification = () => {
   const [againVerification] = useAgainVerificationMutation();
-  const userInfo = useSelector((state) => state.registration.userInfo);
+  const userInfo = useSelector((state) => state.userInformation.userInfo);
   const aginVerifiedCode = async () => {
     try {
       const result = await againVerification({ token: userInfo.token });

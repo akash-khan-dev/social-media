@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import ShowPost from "../../components/pageComponents/Home/HomeMiddle/ShowPost";
 
 const Home = ({ post, setPostPopupVisible }) => {
-  const userInfo = useSelector((state) => state.registration.userInfo);
+  const userInfo = useSelector((state) => state.userInformation.userInfo);
 
   return (
     <>

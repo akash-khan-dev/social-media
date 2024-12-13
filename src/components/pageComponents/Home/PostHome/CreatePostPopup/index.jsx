@@ -25,7 +25,7 @@ const CreatePostPopup = ({ setPostPopupVisible, postPopupVisible }) => {
   const [createPost] = useCreatePostMutation();
   const [uploadImage] = useUploadImageMutation();
 
-  const user = useSelector((state) => state.registration.userInfo);
+  const user = useSelector((state) => state.userInformation.userInfo);
 
   OutSideClick(outSideRef, () => {
     setPostPopupVisible(false);
@@ -61,7 +61,7 @@ const CreatePostPopup = ({ setPostPopupVisible, postPopupVisible }) => {
         }).unwrap();
         response = await createPost({
           type: null,
-          images: responseImage,
+          images: responseImage.data[0],
           text: textState,
           background: null,
           user: user.id,

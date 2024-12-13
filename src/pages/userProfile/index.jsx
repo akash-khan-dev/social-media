@@ -6,7 +6,7 @@ import {
   useImgListMutation,
 } from "../../StateFeature/api/authApi";
 import { Helmet } from "react-helmet-async";
-import Cover from "../../components/pageComponents/ProfileComponent/Cover";
+import Cover from "../../components/pageComponents/ProfileComponent/Cover/CoverPhoto";
 import ProfilePictureInfo from "../../components/pageComponents/ProfileComponent/ProfilePictureInfo";
 import ProfileMenus from "../../components/pageComponents/ProfileComponent/ProfileMenus";
 import ProfileLeft from "../../components/pageComponents/ProfileComponent/ProfileLeft";
@@ -15,7 +15,7 @@ import ProfileRight from "../../components/pageComponents/ProfileComponent/Profi
 const Profile = ({ setPostPopupVisible }) => {
   const { username } = useParams();
   const navigate = useNavigate();
-  const userInfo = useSelector((state) => state.registration.userInfo);
+  const userInfo = useSelector((state) => state.userInformation.userInfo);
   const userName = username === undefined ? userInfo.username : username;
   const { data: profile } = useGetUserProfileQuery(userName);
 
@@ -42,7 +42,11 @@ const Profile = ({ setPostPopupVisible }) => {
       </Helmet>
       <div className="relative ">
         <div>
-          <Cover coverImg={profile?.cover} visitor={visitor} />
+          <Cover
+            imageData={imageData?.resources}
+            coverImg={profile?.cover}
+            visitor={visitor}
+          />
         </div>
         <div>
           <ProfilePictureInfo

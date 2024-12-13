@@ -12,7 +12,7 @@ const ActivatePage = () => {
   const [loading, setLoading] = useState(true);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
-  const userInfo = useSelector((state) => state.registration.userInfo);
+  const userInfo = useSelector((state) => state.userInformation.userInfo);
   const { token } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();

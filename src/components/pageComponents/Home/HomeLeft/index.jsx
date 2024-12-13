@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import profile from "../../../../../public/postBackgrounds/man.jpg";
 
 const Profile = () => {
-  const userInfo = useSelector((state) => state.registration.userInfo);
+  const userInfo = useSelector((state) => state.userInformation.userInfo);
   return (
     <>
       <div className="w-[80px] h-[80px] xl:w-[110px] xl:h-[110px] rounded-full overflow-hidden mx-auto ">

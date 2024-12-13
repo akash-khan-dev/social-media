@@ -18,7 +18,7 @@ const ProfilePictureUpload = ({
   const [error, setError] = useState("");
   const chooseRef = useRef(null);
   const chooseFile = useRef(null);
-  const userInfo = useSelector((state) => state.registration.userInfo);
+  const userInfo = useSelector((state) => state.userInformation.userInfo);
   OutSideClick(chooseRef, () => {
     setShowUploadProfile(false);
   });
