@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
-
-const Photos = ({ imageData }) => {
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+const Photos = ({ imageData, imageLoading }) => {
   const [showMore, setShowMore] = useState(false);
   const countPhotos = () => {
     const totalPhotos = imageData?.total_count || 0;
@@ -24,20 +25,24 @@ const Photos = ({ imageData }) => {
             </button>
           )}
         </div>
-        <div className=" grid grid-cols-3 gap-2 min-h-7">
-          {imageData?.resources &&
-            imageData?.resources?.length &&
-            imageData?.resources
-              ?.slice(0, showMore ? imageData?.resources?.length : 6)
-              .map((resource, i) => (
-                <img
-                  key={i}
-                  src={resource.secure_url}
-                  alt="img"
-                  className="w-full h-full object-cover"
-                />
-              ))}
-        </div>
+        {imageLoading ? (
+          <div>{<Skeleton height={"100px"} count={imageLoading} />}</div>
+        ) : (
+          <div className=" grid grid-cols-3 gap-2 min-h-7">
+            {imageData?.resources &&
+              imageData?.resources?.length &&
+              imageData?.resources
+                ?.slice(0, showMore ? imageData?.resources?.length : 6)
+                .map((resource, i) => (
+                  <img
+                    key={i}
+                    src={resource.secure_url}
+                    alt="img"
+                    className="w-full h-full object-cover"
+                  />
+                ))}
+          </div>
+        )}
       </div>
     </>
   );
