@@ -106,7 +106,7 @@ const UploadProfilePicture = ({
   };
   return (
     <div>
-      <div className="w-[35%] h-[600px] box-border shadow-md top-[52%] bg-white -translate-y-[50%] fixed z-20">
+      <div className="w-[35%] h-[700px] box-border shadow-md top-[52%] bg-white -translate-y-[50%] fixed z-20">
         <div>
           <div
             onClick={() => setImage("")}
@@ -132,7 +132,8 @@ const UploadProfilePicture = ({
             image={image}
             crop={crop}
             zoom={zoom}
-            aspect={1}
+            aspect={1 / 1}
+            cropShape="rounded"
             onCropChange={setCrop}
             onCropComplete={onCropComplete}
             onZoomChange={setZoom}

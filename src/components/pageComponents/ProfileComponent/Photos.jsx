@@ -24,7 +24,7 @@ const Photos = ({ imageData }) => {
             </button>
           )}
         </div>
-        <div className=" grid grid-cols-3 gap-2">
+        <div className=" grid grid-cols-3 gap-2 min-h-7">
           {imageData?.resources &&
             imageData?.resources?.length &&
             imageData?.resources

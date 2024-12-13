@@ -5,6 +5,8 @@ import OutSideClick from "../../../../utils/Click";
 import { FaPlus } from "react-icons/fa6";
 import UploadProfilePicture from "./UploadProfilePicture";
 import { useSelector } from "react-redux";
+import { ToastError } from "../../../../utils/ToastError";
+import { ToastContainer } from "react-toastify";
 
 const ProfilePictureUpload = ({
   imageData,
@@ -30,12 +32,11 @@ const ProfilePictureUpload = ({
       files.type !== "image/webp" &&
       files.type !== "image/gif"
     ) {
-      setError(
+      return ToastError(
         `${files.name} unsupported file only jpeg, png, gif,jpg and webp`
       );
-      return;
     } else if (files.size > 1024 * 1024 * 5) {
-      setError(`${files.name} is to larger ! please atleast 5MB file `);
+      ToastError(`${files.name} is to larger ! please atleast 5MB file `);
     }
     const readFiles = new FileReader();
     readFiles.readAsDataURL(files);
@@ -58,6 +59,7 @@ const ProfilePictureUpload = ({
   }, [showUploadProfile]);
   return (
     <>
+      <ToastContainer />
       <div className="fixed top-0 left-0 w-full bg-blur h-screen flex items-center justify-center z-50">
         <div ref={chooseRef} className="w-[35%] shadow-md bg-white relative">
           <div
