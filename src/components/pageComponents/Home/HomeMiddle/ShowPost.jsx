@@ -29,7 +29,7 @@ const ShowPost = ({ data, userInfo }) => {
   return (
     <div className="w-full p-4 shadow-md rounded-md mb-5">
       <div className="flex justify-between items-center">
-        <div className="flex w-1/2 items-center">
+        <div className="flex w-full items-center">
           <div className="w-14">
             <div className="w-11 h-11 rounded-full overflow-hidden">
               <Link to={`/profile${data.user?.username || ""}`}>
@@ -42,12 +42,28 @@ const ShowPost = ({ data, userInfo }) => {
             </div>
           </div>
           <div>
-            <Link
-              to={`/profile/${data.user?.username || ""}`}
-              className="font-gilroyBold font-[18px] text-black "
-            >
-              {`${data.user?.firstName || ""} ${data.user?.lastName || ""}`}
-            </Link>
+            <div className="flex gap-x-1 items-center ">
+              <Link
+                to={`/profile/${data.user?.username || ""}`}
+                className="font-gilroyBold font-[18px] text-black "
+              >
+                {`${data.user?.firstName || ""} ${data.user?.lastName || ""}`}
+              </Link>
+              {data.type == "profilePicture" && (
+                <span className="font-gilroyMedium text-base text-secondary_color">
+                  {`Update ${
+                    data?.user?.gender === "Male" ? "his" : "her"
+                  } Picture`}
+                </span>
+              )}
+              {data.type == "cover" && (
+                <span className="font-gilroyMedium text-base text-secondary_color">
+                  {`Update ${
+                    data?.user?.gender === "Male" ? "his" : "her"
+                  } Cover Photo`}
+                </span>
+              )}
+            </div>
             <p className="font-gilroySemibold text-sm text-secondary_color">
               {createDate || ""}
             </p>
