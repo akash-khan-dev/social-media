@@ -64,6 +64,7 @@ const Profile = ({ setPostPopupVisible }) => {
               userDetail={profile?.details}
               imageLoading={imageLoading}
               imageData={imageData}
+              visitor={visitor}
             />
           </div>
           <div className="w-full ">

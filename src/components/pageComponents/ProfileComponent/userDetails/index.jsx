@@ -1,12 +1,13 @@
 import ProfileInfosOption from "./ProfileInfosOption";
 
-const UserInfoDetails = ({ userDetail }) => {
+// eslint-disable-next-line react/prop-types
+const UserInfoDetails = ({ userDetail, visitor }) => {
   return (
     <>
       <div>
         <h3 className="font-gilroySemibold text-base text-black">Infos</h3>
         <div className="mt-3">
-          <ProfileInfosOption userDetail={userDetail} />
+          <ProfileInfosOption visitor={visitor} userDetail={userDetail} />
         </div>
       </div>
     </>

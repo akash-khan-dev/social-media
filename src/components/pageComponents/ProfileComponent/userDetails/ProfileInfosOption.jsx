@@ -1,49 +1,113 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TiShoppingBag } from "react-icons/ti";
 import { CiLocationOn } from "react-icons/ci";
 import { AiOutlineHome } from "react-icons/ai";
 import { IoSchoolOutline } from "react-icons/io5";
 import { GiLoveMystery } from "react-icons/gi";
 import { FaInstagram } from "react-icons/fa";
+import EditBio from "./EditBio";
+import { useUpdateDetailsMutation } from "../../../../StateFeature/api/authApi";
+import { useSelector } from "react-redux";
 
-const ProfileInfosOption = ({ userDetail }) => {
+const ProfileInfosOption = ({ userDetail, visitor }) => {
+  const [details, setDetails] = useState(userDetail);
   const initialState = {
-    bio: userDetail?.bio ? userDetail?.bio : "",
-    nickname: userDetail?.nickname ? userDetail?.nickname : "",
-    job: userDetail?.job ? userDetail?.job : "computer ",
-    workPlace: userDetail?.workPlace ? userDetail?.workPlace : " moula & co",
-    currentCity: userDetail?.currentCity ? userDetail?.currentCity : "Dhaka",
-    homeTown: userDetail?.homeTown ? userDetail?.homeTown : "Shewrapara",
-    highSchool: userDetail?.highSchool
-      ? userDetail?.highSchool
-      : "Shahazad pur Model pilot high school",
-    collage: userDetail?.collage
-      ? userDetail?.collage
-      : "PABNA Polytechnic Institute ",
-    varsity: userDetail?.varsity ? userDetail?.varsity : " The pipools ",
-    relationship: userDetail?.relationship
-      ? userDetail?.relationship
-      : "single",
-    instagram: userDetail?.instagram ? userDetail?.instagram : "akash01",
+    bio: details?.bio ? details?.bio : "",
+    nickname: details?.nickname ? details?.nickname : "",
+    job: details?.job ? details?.job : "",
+    workPlace: details?.workPlace ? details?.workPlace : "",
+    currentCity: details?.currentCity ? details?.currentCity : "",
+    homeTown: details?.homeTown ? details?.homeTown : "",
+    highSchool: details?.highSchool ? details?.highSchool : "",
+    collage: details?.collage ? details?.collage : " ",
+    varsity: details?.varsity ? details?.varsity : " ",
+    relationship: details?.relationship ? details?.relationship : "",
+    instagram: details?.instagram ? details?.instagram : "",
   };
+  const [showEditBio, setShowEditBio] = useState(false);
   const [infos, setInfos] = useState(initialState);
+  const [maxChar, setMaxChar] = useState(100);
+  const [loading, setLoading] = useState(false);
+  const userInfo = useSelector((state) => state.userInformation.userInfo);
+  const [updateDetails] = useUpdateDetailsMutation();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setInfos({ ...infos, [name]: value });
+    setMaxChar(100 - e.target.value.length);
+  };
+
+  useEffect(() => {
+    setDetails(userDetail);
+    setInfos(userDetail);
+  }, [userDetail]);
+  const handleUpdateBio = async () => {
+    try {
+      setLoading(true);
+      const result = await updateDetails({ id: userInfo.id, infos: infos });
+      setDetails(result.data);
+      setShowEditBio(false);
+      setLoading(false);
+    } catch (error) {
+      console.log(error.message);
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <div>
+        <div>
+          {!showEditBio && (
+            <div>
+              <div className="text-center">
+                <span className="text-sm font-gilroyMedium text-black pb-3 inline-block">
+                  {details?.bio && details?.bio}
+                </span>
+              </div>
+              {visitor && !details?.bio && (
+                <button
+                  onClick={() => setShowEditBio(true)}
+                  className="py-2 w-full mb-4 bg-white_100 shadow-md rounded-md font-gilroyMedium"
+                >
+                  add bio
+                </button>
+              )}
+              {visitor && details?.bio && (
+                <button
+                  onClick={() => setShowEditBio(true)}
+                  className="py-2 w-full mb-4 bg-white_100 shadow-md rounded-md font-gilroyMedium"
+                >
+                  Edit Bio
+                </button>
+              )}
+            </div>
+          )}
+          {showEditBio && (
+            <EditBio
+              loading={loading}
+              handleUpdateBio={handleUpdateBio}
+              maxChar={maxChar}
+              name={"bio"}
+              handleChange={handleChange}
+              setShowEditBio={setShowEditBio}
+              value={infos?.bio}
+            />
+          )}
+        </div>
         <div className="flex items-center gap-x-2 mb-3">
           <div className="text-secondary_color">
             <TiShoppingBag size={25} />
           </div>
           <div className="text-sm font-gilroyNormal text-black">
-            {infos?.job && infos?.workPlace ? (
+            {details?.job && details?.workPlace ? (
               <span>
-                Works as a <b>{infos?.job}</b> at <b>{infos?.workPlace}</b>
+                Works as a <b>{details?.job}</b> at <b>{details?.workPlace}</b>
               </span>
-            ) : infos?.job && !infos?.workPlace ? (
-              <span> works as a{infos.job}</span>
-            ) : !infos?.job && infos?.workPlace ? (
-              <span> works at a{infos?.workPlace}</span>
+            ) : details?.job && !details?.workPlace ? (
+              <span> works as a{details?.job}</span>
+            ) : !details?.job && details?.workPlace ? (
+              <span> works at a{details?.workPlace}</span>
             ) : (
               "work place and job"
             )}
@@ -54,9 +118,9 @@ const ProfileInfosOption = ({ userDetail }) => {
             <CiLocationOn size={25} />
           </div>
           <div className="text-sm font-gilroyNormal text-black">
-            {infos?.currentCity ? (
+            {details?.details ? (
               <span>
-                Lives in <b>{infos.currentCity}</b>
+                Lives in <b>{details?.currentCity}</b>
               </span>
             ) : (
               " Current City"
@@ -68,9 +132,9 @@ const ProfileInfosOption = ({ userDetail }) => {
             <AiOutlineHome size={22} />
           </div>
           <div className="text-sm font-gilroyNormal text-black">
-            {infos?.homeTown ? (
+            {details?.homeTown ? (
               <span>
-                From <b>{infos.homeTown}</b>
+                From <b>{details?.homeTown}</b>
               </span>
             ) : (
               " Home Town"
@@ -82,9 +146,9 @@ const ProfileInfosOption = ({ userDetail }) => {
             <IoSchoolOutline size={22} />
           </div>
           <div className="text-sm font-gilroyNormal text-black">
-            {infos?.highSchool ? (
+            {details?.highSchool ? (
               <span>
-                Studied at <b>{infos.highSchool}</b>
+                Studied at <b>{details?.highSchool}</b>
               </span>
             ) : (
               " School "
@@ -96,9 +160,9 @@ const ProfileInfosOption = ({ userDetail }) => {
             <IoSchoolOutline size={22} />
           </div>
           <div className="text-sm font-gilroyNormal text-black">
-            {infos?.collage ? (
+            {details?.collage ? (
               <span>
-                Studied at <b>{infos.collage}</b>
+                Studied at <b>{details?.collage}</b>
               </span>
             ) : (
               "Collage "
@@ -110,9 +174,9 @@ const ProfileInfosOption = ({ userDetail }) => {
             <IoSchoolOutline size={22} />
           </div>
           <div className="text-sm font-gilroyNormal text-black">
-            {infos?.varsity ? (
+            {details?.varsity ? (
               <span>
-                Studied at <b>{infos.varsity}</b>
+                Studied at <b>{details?.varsity}</b>
               </span>
             ) : (
               "Varsity "
@@ -124,9 +188,9 @@ const ProfileInfosOption = ({ userDetail }) => {
             <GiLoveMystery size={22} />
           </div>
           <div className="text-sm font-gilroyNormal text-black">
-            {infos?.relationship ? (
+            {details?.relationship ? (
               <span>
-                <b>{infos.relationship}</b>
+                <b>{details?.relationship}</b>
               </span>
             ) : (
               "Relationship Status "
@@ -138,9 +202,9 @@ const ProfileInfosOption = ({ userDetail }) => {
             <FaInstagram size={22} />
           </div>
           <div className="text-sm font-gilroyNormal text-black">
-            {infos?.instagram ? (
+            {details?.instagram ? (
               <span>
-                <b>{infos.instagram}</b>
+                <b>{details?.instagram}</b>
               </span>
             ) : (
               "Add instagram "
