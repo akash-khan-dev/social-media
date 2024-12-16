@@ -6,9 +6,10 @@ import { AiOutlineHome } from "react-icons/ai";
 import { IoSchoolOutline } from "react-icons/io5";
 import { GiLoveMystery } from "react-icons/gi";
 import { FaInstagram } from "react-icons/fa";
-import EditBio from "./EditBio";
 import { useUpdateDetailsMutation } from "../../../../StateFeature/api/authApi";
 import { useSelector } from "react-redux";
+import EditDetails from "./EditDetails";
+import EditInfoField from "./EditInfoField";
 
 const ProfileInfosOption = ({ userDetail, visitor }) => {
   const [details, setDetails] = useState(userDetail);
@@ -18,7 +19,7 @@ const ProfileInfosOption = ({ userDetail, visitor }) => {
     job: details?.job ? details?.job : "",
     workPlace: details?.workPlace ? details?.workPlace : "",
     currentCity: details?.currentCity ? details?.currentCity : "",
-    homeTown: details?.homeTown ? details?.homeTown : "",
+    homeTown: details?.homeTown ? details?.homeTown : "dhaka",
     highSchool: details?.highSchool ? details?.highSchool : "",
     collage: details?.collage ? details?.collage : " ",
     varsity: details?.varsity ? details?.varsity : " ",
@@ -29,6 +30,8 @@ const ProfileInfosOption = ({ userDetail, visitor }) => {
   const [infos, setInfos] = useState(initialState);
   const [maxChar, setMaxChar] = useState(100);
   const [loading, setLoading] = useState(false);
+  const [editInfoVisible, setEditInfoVisible] = useState(false);
+
   const userInfo = useSelector((state) => state.userInformation.userInfo);
   const [updateDetails] = useUpdateDetailsMutation();
   const handleChange = (e) => {
@@ -41,7 +44,7 @@ const ProfileInfosOption = ({ userDetail, visitor }) => {
     setDetails(userDetail);
     setInfos(userDetail);
   }, [userDetail]);
-  const handleUpdateBio = async () => {
+  const handleUpdateDetail = async () => {
     try {
       setLoading(true);
       const result = await updateDetails({ id: userInfo.id, infos: infos });
@@ -84,14 +87,15 @@ const ProfileInfosOption = ({ userDetail, visitor }) => {
             </div>
           )}
           {showEditBio && (
-            <EditBio
+            <EditInfoField
               loading={loading}
-              handleUpdateBio={handleUpdateBio}
+              handleUpdateDetails={handleUpdateDetail}
               maxChar={maxChar}
               name={"bio"}
+              value={infos?.bio}
               handleChange={handleChange}
               setShowEditBio={setShowEditBio}
-              value={infos?.bio}
+              placeholder={"Edit Bio"}
             />
           )}
         </div>
@@ -118,7 +122,7 @@ const ProfileInfosOption = ({ userDetail, visitor }) => {
             <CiLocationOn size={25} />
           </div>
           <div className="text-sm font-gilroyNormal text-black">
-            {details?.details ? (
+            {details?.currentCity ? (
               <span>
                 Lives in <b>{details?.currentCity}</b>
               </span>
@@ -211,6 +215,44 @@ const ProfileInfosOption = ({ userDetail, visitor }) => {
             )}
           </div>
         </div>
+        {visitor &&
+        !details?.job &&
+        !details?.workPlace &&
+        !details?.currentCity &&
+        !details?.homeTown &&
+        !details?.highSchool &&
+        !details?.collage &&
+        !details?.varsity &&
+        !details?.relationship &&
+        !details?.nickname &&
+        !details?.instagram ? (
+          <>
+            <button
+              onClick={() => setEditInfoVisible(true)}
+              className="py-2 w-full mb-4 bg-white_100 shadow-md rounded-md font-gilroyMedium"
+            >
+              Add Details
+            </button>
+          </>
+        ) : (
+          visitor && (
+            <button
+              onClick={() => setEditInfoVisible(true)}
+              className="py-2 w-full mb-4 bg-white_100 shadow-md rounded-md font-gilroyMedium"
+            >
+              Edit Details
+            </button>
+          )
+        )}
+        {editInfoVisible && (
+          <EditDetails
+            handleUpdateDetails={handleUpdateDetail}
+            handleChange={handleChange}
+            details={infos}
+            editInfoVisible={editInfoVisible}
+            setEditInfoVisible={setEditInfoVisible}
+          />
+        )}
       </div>
     </>
   );
