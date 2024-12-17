@@ -7,8 +7,9 @@ import { IoSchoolOutline } from "react-icons/io5";
 import { GiLoveMystery } from "react-icons/gi";
 import { FaInstagram } from "react-icons/fa";
 import { useUpdateDetailsMutation } from "../../../../StateFeature/api/authApi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import EditDetails from "./EditDetails";
+import { loggedInUser } from "../../../../StateFeature/Slice/authSlice";
 import EditInfoField from "./EditInfoField";
 
 const ProfileInfosOption = ({ userDetail, visitor }) => {
@@ -31,6 +32,7 @@ const ProfileInfosOption = ({ userDetail, visitor }) => {
   const [maxChar, setMaxChar] = useState(100);
   const [loading, setLoading] = useState(false);
   const [editInfoVisible, setEditInfoVisible] = useState(false);
+  const dispatch = useDispatch();
 
   const userInfo = useSelector((state) => state.userInformation.userInfo);
   const [updateDetails] = useUpdateDetailsMutation();
@@ -49,6 +51,11 @@ const ProfileInfosOption = ({ userDetail, visitor }) => {
       setLoading(true);
       const result = await updateDetails({ id: userInfo.id, infos: infos });
       setDetails(result.data);
+      dispatch(loggedInUser({ ...userInfo, nickname: result?.data?.nickname }));
+      localStorage.setItem(
+        "userInfo",
+        JSON.stringify({ ...userInfo, nickname: result?.data?.nickname })
+      );
       setShowEditBio(false);
       setLoading(false);
     } catch (error) {
@@ -246,6 +253,7 @@ const ProfileInfosOption = ({ userDetail, visitor }) => {
         )}
         {editInfoVisible && (
           <EditDetails
+            loading={loading}
             handleUpdateDetails={handleUpdateDetail}
             handleChange={handleChange}
             details={infos}

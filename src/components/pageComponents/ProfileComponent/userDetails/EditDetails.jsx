@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import Details from "./Details";
 import { IoBagCheckOutline } from "react-icons/io5";
@@ -9,6 +9,7 @@ import { IoSchoolOutline } from "react-icons/io5";
 import { FaInstagram } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { GiLoveMystery } from "react-icons/gi";
+import OutSideClick from "../../../../utils/Click";
 
 const EditDetails = ({
   handleUpdateDetails,
@@ -16,7 +17,9 @@ const EditDetails = ({
   editInfoVisible,
   setEditInfoVisible,
   handleChange,
+  loading,
 }) => {
+  const detailsRef = useRef(null);
   useEffect(() => {
     const body = document.body;
 
@@ -31,10 +34,13 @@ const EditDetails = ({
     };
   }, [editInfoVisible]);
 
+  OutSideClick(detailsRef, () => {
+    setEditInfoVisible(false);
+  });
   return (
     <>
       <div className="fixed top-0 left-0 w-full bg-blur h-screen flex items-center justify-center z-50">
-        <div className="w-[45%] shadow-md bg-white relative">
+        <div ref={detailsRef} className="w-[45%] shadow-md bg-white relative">
           <div className="border-b border-line_color p-2">
             <h3 className="font-gilroyBold text-lg text-black text-center">
               Edit your Information
@@ -58,6 +64,7 @@ const EditDetails = ({
               value={details?.nickname}
               icon={<CgProfile />}
               placeholder={"Add Other Name"}
+              loading={loading}
             />
           </div>
           <div className="px-4">
@@ -72,6 +79,7 @@ const EditDetails = ({
               icon={<IoBagCheckOutline />}
               value={details?.job}
               placeholder={"Add Job"}
+              loading={loading}
             />
             <Details
               handleUpdateDetails={handleUpdateDetails}
@@ -81,6 +89,7 @@ const EditDetails = ({
               text={"Work Place"}
               value={details?.workPlace}
               placeholder={"Add Work Place"}
+              loading={loading}
             />
           </div>
           <div className="px-4">
@@ -96,6 +105,7 @@ const EditDetails = ({
               text={" Current City"}
               value={details?.currentCity}
               placeholder={"Add Current City"}
+              loading={loading}
             />
           </div>
           <div className="px-4">
@@ -111,6 +121,7 @@ const EditDetails = ({
               text={" Home Town"}
               value={details?.homeTown}
               placeholder={"Add Home Town"}
+              loading={loading}
             />
           </div>
           <div className="px-4">
@@ -124,6 +135,7 @@ const EditDetails = ({
               text={" High School"}
               value={details?.highSchool}
               placeholder={"Add Hight School"}
+              loading={loading}
             />
             <Details
               handleUpdateDetails={handleUpdateDetails}
@@ -133,6 +145,7 @@ const EditDetails = ({
               text={" Collage"}
               value={details?.collage}
               placeholder={"Add Collage"}
+              loading={loading}
             />
             <Details
               handleUpdateDetails={handleUpdateDetails}
@@ -142,6 +155,7 @@ const EditDetails = ({
               text={"Varsity"}
               value={details?.varsity}
               placeholder={"Add Varsity"}
+              loading={loading}
             />
           </div>
 
@@ -158,6 +172,7 @@ const EditDetails = ({
               text={"Relation Ship"}
               value={details?.relationship}
               placeholder={"Add instagram"}
+              loading={loading}
             />
           </div>
           <div className="px-4">
@@ -170,6 +185,7 @@ const EditDetails = ({
               text={"Instagram Account"}
               value={details?.instagram}
               placeholder={"Add instagram"}
+              loading={loading}
             />
           </div>
         </div>

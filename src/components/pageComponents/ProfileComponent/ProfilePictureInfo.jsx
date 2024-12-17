@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react";
 import profilePic from "../../../../public/postBackgrounds/man.jpg";
 import { MdOutlineCameraAlt } from "react-icons/md";
 import ProfilePictureUpload from "./ProfilePictureUpload";
-const ProfilePictureInfo = ({ profile, visitor, imageData }) => {
+const ProfilePictureInfo = ({ profile, visitor, imageData, userInfo }) => {
   const [showUploadProfile, setShowUploadProfile] = useState(false);
   const uploadProfileRef = useRef(null);
   return (
@@ -44,7 +44,7 @@ const ProfilePictureInfo = ({ profile, visitor, imageData }) => {
             {profile?.firstName + " " + profile?.lastName}
           </h3>
           <span className="font-gilroyMedium text-base text-black">
-            Other Name
+            {userInfo?.nickname}
           </span>
         </div>
       </div>

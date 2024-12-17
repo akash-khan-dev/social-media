@@ -12,6 +12,7 @@ const Details = ({
   handleChange,
   handleUpdateDetails,
   rel,
+  loading,
 }) => {
   const [showEdit, setShowEdit] = useState(false);
   const Icon = () => {
@@ -46,6 +47,7 @@ const Details = ({
 
       {showEdit && (
         <EditInfoField
+          loading={loading}
           detail
           rel={rel}
           handleUpdateDetails={handleUpdateDetails}

@@ -52,6 +52,7 @@ const Profile = ({ setPostPopupVisible }) => {
           <ProfilePictureInfo
             imageData={imageData?.resources}
             profile={profile}
+            userInfo={userInfo}
             visitor={visitor}
           />
         </div>
