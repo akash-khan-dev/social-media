@@ -97,3 +97,20 @@
   box-shadow: 0px 24px 50px rgba(0, 0, 0, 0.1);
   cursor: pointer;
 }
+
+/* ======profile scroll fixed */
+.scrollFixed .profileLeft {
+  position: fixed;
+  width: 332.5px;
+}
+.scrollFixed .profileRight {
+  width: 498.25px;
+  margin-left: 330px;
+  box-sizing: border-box;
+}
+.showLess .profileLeft {
+  bottom: 10px;
+}
+.showMore .profileLeft {
+  top: 230px;
+}

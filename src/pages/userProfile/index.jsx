@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 import {
   useGetUserProfileQuery,
   useImgListMutation,
@@ -15,6 +16,11 @@ import ProfileRight from "../../components/pageComponents/ProfileComponent/Profi
 const Profile = ({ setPostPopupVisible }) => {
   const { username } = useParams();
   const navigate = useNavigate();
+  const profileTopRef = useRef(null);
+  const profileLeftReft = useRef(null);
+  const [height, setHeight] = useState();
+  const [profileLeftHeight, setProfileLeftHeight] = useState();
+  const [scrollHeight, setScrollHeight] = useState();
   const userInfo = useSelector((state) => state.userInformation.userInfo);
   const userName = username === undefined ? userInfo.username : username;
   const { data: profile } = useGetUserProfileQuery(userName);
@@ -33,34 +39,62 @@ const Profile = ({ setPostPopupVisible }) => {
       listImg({ path, sort, max });
     }
   }, [navigate, profile, listImg, path]);
-
   const visitor = userName === userInfo.username ? true : false;
+
+  // ==== this for generate profile height
+  useEffect(() => {
+    setHeight(profileTopRef.current.clientHeight + 80);
+    setProfileLeftHeight(profileLeftReft.current.clientHeight);
+    window.addEventListener("scroll", getScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", getScroll, { passive: true });
+    };
+  }, [scrollHeight]);
+  const getScroll = () => {
+    setScrollHeight(window.scrollY);
+  };
+
+  // ===== for responsive scrolling
+  const check = useMediaQuery({
+    query: "(min-width: 992px)",
+  });
   return (
     <div>
       <Helmet>
         <title>profile</title>
       </Helmet>
       <div className="relative ">
-        <div>
-          <Cover
-            imageData={imageData?.resources}
-            coverImg={profile?.cover}
-            visitor={visitor}
-          />
+        <div ref={profileTopRef}>
+          <div>
+            <Cover
+              imageData={imageData?.resources}
+              coverImg={profile?.cover}
+              visitor={visitor}
+            />
+          </div>
+          <div>
+            <ProfilePictureInfo
+              imageData={imageData?.resources}
+              profile={profile}
+              userInfo={userInfo}
+              visitor={visitor}
+            />
+          </div>
+          <div className="w-full pb-6 bg-white_100">
+            <ProfileMenus profile={profile} imageData={imageData} />
+          </div>
         </div>
-        <div>
-          <ProfilePictureInfo
-            imageData={imageData?.resources}
-            profile={profile}
-            userInfo={userInfo}
-            visitor={visitor}
-          />
-        </div>
-        <div className="w-full pb-6 bg-white_100">
-          <ProfileMenus profile={profile} imageData={imageData} />
-        </div>
-        <div className="grid grid-cols-[2fr,3fr] gap-x-3">
-          <div className="w-full">
+        <div
+          className={`grid grid-cols-[2fr,3fr] gap-x-3 ${
+            check && scrollHeight >= height && profileLeftHeight > 100
+              ? "scrollFixed showLess"
+              : check &&
+                scrollHeight >= height &&
+                profileLeftHeight < 100 &&
+                "scrollFixed showMore"
+          }`}
+        >
+          <div ref={profileLeftReft} className="profileLeft w-full">
             <ProfileLeft
               userDetail={profile?.details}
               imageLoading={imageLoading}
@@ -68,7 +102,7 @@ const Profile = ({ setPostPopupVisible }) => {
               visitor={visitor}
             />
           </div>
-          <div className="w-full ">
+          <div className="w-full profileRight">
             <ProfileRight
               profile={profile}
               userInfo={userInfo}
