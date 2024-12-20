@@ -7,7 +7,7 @@ const OldCoverPhoto = ({ setShowOldCover, imageData, setCoverPhoto }) => {
   return (
     <>
       <div className="fixed top-0 left-0 w-full bg-blur h-screen flex items-center justify-center z-50">
-        <div className="w-[35%] shadow-md bg-white relative">
+        <div className="w-[90%] sm:w-[80%] md:w-[60%] lg:w-[35%] shadow-md bg-white relative">
           <div>
             <div
               onClick={() => setShowOldCover(false)}
@@ -35,7 +35,7 @@ const OldCoverPhoto = ({ setShowOldCover, imageData, setCoverPhoto }) => {
                 }
                 )
               </span>
-              <div className="grid grid-cols-3 gap-2 mt-2">
+              <div className="grid grid-cols-4 md:grid-cols-5 lg-grid-cols-3 gap-2 mt-2">
                 {imageData
                   ?.filter(
                     (img) =>
@@ -75,7 +75,7 @@ const OldCoverPhoto = ({ setShowOldCover, imageData, setCoverPhoto }) => {
                 }
                 )
               </span>
-              <div className="grid grid-cols-5 gap-2 mt-2">
+              <div className="grid gid-cols-5 sm:grid-cols-6 md:grid-cols-7 lg:grid-cols-5 gap-2 mt-2">
                 {imageData
                   ?.filter(
                     (img) =>

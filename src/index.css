@@ -114,3 +114,13 @@
 .showMore .profileLeft {
   top: 230px;
 }
+@media (min-width: 1750px) and (max-width: 1900.99px) {
+  .scrollFixed .profileLeft {
+    position: fixed;
+    width: 337.2px;
+  }
+  .scrollFixed .profileRight {
+    margin-left: 345px;
+    box-sizing: border-box;
+  }
+}

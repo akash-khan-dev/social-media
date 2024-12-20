@@ -24,7 +24,7 @@ const LeftData = ({ data }) => {
           } group flex lg:ml-3 xl:gap-x-7 lg:mt-3 lg:hover:bg-black lg:py-3 lg:px-4 xl:px-7 rounded-[40px] transition duration-300 cursor-pointer`}
         >
           <div
-            className={`${
+            className={`text-[20px] ${
               show ? "text-white" : "bg-transparent"
             } lg:group-hover:text-white`}
           >
@@ -45,11 +45,13 @@ const LeftData = ({ data }) => {
             path == data.link ? "bg-black text-white" : "bg-white"
           } group  flex  xl:gap-x-7 lg:ml-3 lg:mt-3 lg:hover:bg-black lg:py-3 lg:px-4 xl:px-6 rounded-[40px] transition duration-300`}
         >
-          <div className="lg:group-hover:text-white">{<ItemIcon />}</div>
+          <div className="text-[20px] lg:group-hover:text-white">
+            {<ItemIcon />}
+          </div>
           <h3
             className={`${
               path == data.link ? "text-white " : "text-black"
-            }hidden xl:block group-hover:text-white font-gilroyMedium text-base xl:text-lg text-black`}
+            } hidden xl:block group-hover:text-white font-gilroyMedium text-base xl:text-lg text-black`}
           >
             {data.title}
           </h3>

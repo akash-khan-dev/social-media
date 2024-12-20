@@ -10,7 +10,7 @@ const SearchBox = () => {
   }, []);
   return (
     <>
-      <div className="w-[335px] p-7 shadow-md min-h-[400px] max-h-[70vh] rounded-lg bg-white">
+      <div className=" w-[335px] p-7 shadow-md min-h-[400px] max-h-[70vh] rounded-lg bg-white">
         <div className=" flex items-center gap-2 border-2 border-line_color py-2 px-3 rounded-full ">
           <div onClick={() => InputRef.current.focus()}>
             {searchIconVisible && <IoSearch />}

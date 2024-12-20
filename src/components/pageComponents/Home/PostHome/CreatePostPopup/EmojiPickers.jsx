@@ -103,14 +103,14 @@ const EmojiPickers = ({
           <div className="flex items-center gap-x-1">
             <div
               onClick={() => setShowBg((prev) => !prev)}
-              className="cursor-pointer w-[40px] h-[40px] bg-gradient-to-r to-cyan-100 from-purple-100 rounded-md"
+              className="cursor-pointer w-[30px] lg:w-[40px] h-[30px] lg:h-[40px] bg-gradient-to-r to-cyan-100 from-purple-100 rounded-md"
             ></div>
             <div className="flex items-center gap-x-1">
               {showBg && (
                 <>
                   <div
                     onClick={handleRemoveBackground}
-                    className="cursor-pointer w-[40px] h-[40px] bg-white rounded-md border border-line_color"
+                    className="cursor-pointer w-[30px] lg:w-[40px] h-[30px] lg:h-[40px] bg-white rounded-md border border-line_color"
                   ></div>
                   {postBackgrounds.map((item, index) => (
                     <img
@@ -118,7 +118,7 @@ const EmojiPickers = ({
                       key={index}
                       src={item}
                       alt="background"
-                      className="w-[40px] h-[40px] rounded-md cursor-pointer"
+                      className="w-[30px] lg:w-[40px] h-[30px] lg:h-[40px] rounded-md cursor-pointer"
                     />
                   ))}
                 </>
@@ -131,7 +131,7 @@ const EmojiPickers = ({
               size={24}
             />
             {showPicker && (
-              <div className="absolute -top-[400px] -left-[100px] z-20">
+              <div className="absolute -left-[300px] -top-[400px] lg:-left-[100px] z-20">
                 <EmojiPicker
                   onEmojiClick={handleEmojiClick}
                   height={390}

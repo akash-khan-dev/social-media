@@ -15,7 +15,7 @@ const Home = ({ post, setPostPopupVisible }) => {
       </Helmet>
       {!userInfo.verified && <AgainVerification />}
 
-      <div className="w-3/4 mt-5 container">
+      <div className="w-full lg:w-3/4 mt-5 container">
         <div>
           <HomeMiddle post={post} setPostPopupVisible={setPostPopupVisible} />
         </div>

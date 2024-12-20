@@ -1,32 +1,32 @@
-import { Friends } from "../../../../svg/Friends";
-import { Media } from "../../../../svg/Media";
-import { Message } from "../../../../svg/Message";
-import { NewsFeed } from "../../../../svg/NewsFeed";
-import { Settings } from "../../../../svg/Settings";
+import { FaUserFriends } from "react-icons/fa";
+import { GoFileMedia } from "react-icons/go";
+import { IoNewspaperOutline } from "react-icons/io5";
+import { IoSettingsOutline } from "react-icons/io5";
+import { RiMessage2Line } from "react-icons/ri";
 
 export const ProfileData = [
   {
-    icon: NewsFeed,
+    icon: IoNewspaperOutline,
     title: "News Feed",
     link: "/",
   },
   {
-    icon: Message,
+    icon: RiMessage2Line,
     title: "Message",
     link: "/message",
   },
   {
-    icon: Friends,
+    icon: FaUserFriends,
     title: "Friends",
     link: "/friends",
   },
   {
-    icon: Media,
+    icon: GoFileMedia,
     title: "Media",
     link: "/media",
   },
   {
-    icon: Settings,
+    icon: IoSettingsOutline,
     title: "Settings",
     link: "settings",
   },

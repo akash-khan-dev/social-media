@@ -15,9 +15,9 @@ const HomeMiddle = ({ setPostPopupVisible }) => {
   return (
     <>
       <div className="w-full  mt-2 mb-2">
-        <div className="py-5 px-3 bg-white_100 rounded-md mt-6">
+        <div className="py-5 px-3 bg-white_100 rounded-md mt-3 lg:mt-4 xl:mt-6">
           <div className="flex items-center justify-center py-1 bg-white rounded-full">
-            <div className="w-[10%]">
+            <div className="w-[15%] sm:w-[10%] md:w-[10%] lg:w-[15%] xl:w-[12%] 2xl:w-[10%]">
               <div className="w-12 h-12 rounded-full overflow-hidden">
                 <img
                   src={user.profilePicture || profile}
@@ -39,19 +39,19 @@ const HomeMiddle = ({ setPostPopupVisible }) => {
             <div className="flex justify-around mt-6">
               <div className="flex items-center gap-2">
                 <CiVideoOn size={25} />
-                <p className="font-gilroyMedium text-lg text-black">
+                <p className="font-gilroyMedium text-base md:text-md xl:text-lg text-black">
                   Live Video
                 </p>
               </div>
               <div className="flex items-center gap-2">
                 <PiImagesThin size={25} />
-                <p className="font-gilroyMedium text-lg text-black">
+                <p className="font-gilroyMedium text-base md:text-md xl:text-lg text-black">
                   Image/Gallery
                 </p>
               </div>
               <div className="flex items-center gap-2">
                 <CiLight size={25} />
-                <p className="font-gilroyMedium text-lg text-black">
+                <p className="font-gilroyMedium text-base md:text-md xl:text-lg text-black">
                   Activities
                 </p>
               </div>

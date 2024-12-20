@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+/* eslint-disable react/prop-types */
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
@@ -19,12 +20,14 @@ const Profile = ({ setPostPopupVisible }) => {
   const profileTopRef = useRef(null);
   const profileLeftReft = useRef(null);
   const [height, setHeight] = useState();
+  const [nickName, setNickName] = useState();
   const [profileLeftHeight, setProfileLeftHeight] = useState();
   const [scrollHeight, setScrollHeight] = useState();
   const userInfo = useSelector((state) => state.userInformation.userInfo);
   const userName = username === undefined ? userInfo.username : username;
   const { data: profile } = useGetUserProfileQuery(userName);
 
+  // eslint-disable-next-line no-unused-vars
   const [listImg, { data: imageData, imageError, isLoading: imageLoading }] =
     useImgListMutation();
   const path = `${userName.replace(/\s+/g, "_")}/*`;
@@ -38,6 +41,7 @@ const Profile = ({ setPostPopupVisible }) => {
     } else {
       listImg({ path, sort, max });
     }
+    setNickName(profile?.details?.nickname);
   }, [navigate, profile, listImg, path]);
   const visitor = userName === userInfo.username ? true : false;
 
@@ -56,7 +60,7 @@ const Profile = ({ setPostPopupVisible }) => {
 
   // ===== for responsive scrolling
   const check = useMediaQuery({
-    query: "(min-width: 992px)",
+    query: "(min-width: 1500px)",
   });
   return (
     <div>
@@ -78,14 +82,15 @@ const Profile = ({ setPostPopupVisible }) => {
               profile={profile}
               userInfo={userInfo}
               visitor={visitor}
+              nickName={nickName}
             />
           </div>
-          <div className="w-full pb-6 bg-white_100">
+          <div className="w-full pb-2 lg:pb-6 bg-white_100">
             <ProfileMenus profile={profile} imageData={imageData} />
           </div>
         </div>
         <div
-          className={`grid grid-cols-[2fr,3fr] gap-x-3 ${
+          className={`2xl:grid grid-cols-[2fr,3fr] gap-x-3 ${
             check && scrollHeight >= height && profileLeftHeight > 100
               ? "scrollFixed showLess"
               : check &&
@@ -100,6 +105,7 @@ const Profile = ({ setPostPopupVisible }) => {
               imageLoading={imageLoading}
               imageData={imageData}
               visitor={visitor}
+              setNickName={setNickName}
             />
           </div>
           <div className="w-full profileRight">

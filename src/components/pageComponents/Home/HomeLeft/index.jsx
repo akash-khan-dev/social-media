@@ -1,14 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ProfileData } from "./Data";
 import LeftData from "./LeftData";
 import { useSelector } from "react-redux";
 import profile from "../../../../../public/postBackgrounds/man.jpg";
 
 const Profile = () => {
+  const navigate = useNavigate();
   const userInfo = useSelector((state) => state.userInformation.userInfo);
   return (
     <>
-      <div className="w-[80px] h-[80px] xl:w-[110px] xl:h-[110px] rounded-full overflow-hidden mx-auto ">
+      <div
+        onClick={() => navigate("/profile")}
+        className="cursor-pointer w-[80px] h-[80px] xl:w-[110px] xl:h-[110px] rounded-full overflow-hidden mx-auto "
+      >
         <img src={userInfo.profilePicture || profile} alt="profile" />
       </div>
       <div className="text-center mt-4">

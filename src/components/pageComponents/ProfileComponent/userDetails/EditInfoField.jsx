@@ -36,7 +36,7 @@ const EditInfoField = ({
         </select>
       ) : (
         <textarea
-          className="resize-none h-24 border border-line_color outline-none w-full px-3 py-1 rounded-md font-gilroyMedium text-secondary_color text-sm"
+          className="resize-none h-20 lg:h-24 border border-line_color outline-none w-full px-3 py-1 rounded-md font-gilroyMedium text-secondary_color text-sm"
           placeholder={placeholder}
           value={value}
           maxLength={"100"}

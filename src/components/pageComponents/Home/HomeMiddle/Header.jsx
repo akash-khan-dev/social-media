@@ -5,12 +5,16 @@ import { useRef, useState } from "react";
 import OutSideClick from "../../../../utils/Click";
 import LeftData from "../HomeLeft/LeftData";
 import { ProfileData } from "../HomeLeft/Data";
-import { useParams } from "react-router-dom";
+import avatar from "../../../../../public/postBackgrounds/man.jpg";
+import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Header = ({ path }) => {
   const [showSearchBox, setShowSearchBox] = useState(false);
+  const navigate = useNavigate();
   const outsideClick = useRef(null);
   const { username } = useParams();
+  const userInfo = useSelector((state) => state.userInformation.userInfo);
 
   // for search box off if click outside
   OutSideClick(outsideClick, () => {
@@ -36,7 +40,16 @@ const Header = ({ path }) => {
         <div className="hidden lg:block">
           <h3 className="font-gilroyBold text-xl text-black">{SetTitle()}</h3>
         </div>
-        <div className="lg:hidden w-[50px] h-[50px] md:w-[80px] md:h-[80px] bg-black rounded-full "></div>
+        <div
+          onClick={() => navigate("/profile")}
+          className="lg:hidden w-[50px] h-[50px] md:w-[80px] md:h-[80px] rounded-full overflow-hidden"
+        >
+          <img
+            src={userInfo.profilePicture || avatar}
+            alt="profile"
+            className="w-full h-full object-cover"
+          />
+        </div>
         <div className="w-[50%] md:w-[80%] lg:hidden flex gap-x-3 sm:gap-5 md:gap-x-7  items-center justify-center">
           {ProfileData.map((data, i) => (
             <LeftData key={i} data={data} />

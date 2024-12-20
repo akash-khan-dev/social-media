@@ -46,19 +46,19 @@ const ShowPost = ({ data, userInfo }) => {
             <div className="flex gap-x-1 items-center ">
               <Link
                 to={`/profile/${data.user?.username || ""}`}
-                className="font-gilroyBold font-[18px] text-black "
+                className="font-gilroyBold text-[15px] lg:font-[18px] text-black "
               >
                 {`${data.user?.firstName || ""} ${data.user?.lastName || ""}`}
               </Link>
               {data.type == "profilePicture" && (
-                <span className="font-gilroyMedium text-base text-secondary_color">
+                <span className="font-gilroyMedium text-sm lg:text-base text-secondary_color">
                   {`Update ${
                     data?.user?.gender === "Male" ? "his" : "her"
                   } Picture`}
                 </span>
               )}
               {data.type == "cover" && (
-                <span className="font-gilroyMedium text-base text-secondary_color">
+                <span className="font-gilroyMedium text-sm lg:text-base text-secondary_color">
                   {`Update ${
                     data?.user?.gender === "Male" ? "his" : "her"
                   } Cover Photo`}

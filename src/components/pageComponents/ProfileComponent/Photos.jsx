@@ -28,7 +28,7 @@ const Photos = ({ imageData, imageLoading }) => {
         {imageLoading ? (
           <div>{<Skeleton height={"100px"} count={imageLoading} />}</div>
         ) : (
-          <div className=" grid grid-cols-3 gap-2 min-h-7">
+          <div className=" grid grid-cols-5 md:grid-cols-5 2xl:grid-cols-3 gap-2 min-h-7">
             {imageData?.resources &&
               imageData?.resources?.length &&
               imageData?.resources

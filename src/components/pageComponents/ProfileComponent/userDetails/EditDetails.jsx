@@ -40,7 +40,10 @@ const EditDetails = ({
   return (
     <>
       <div className="fixed top-0 left-0 w-full bg-blur h-screen flex items-center justify-center z-50">
-        <div ref={detailsRef} className="w-[45%] shadow-md bg-white relative">
+        <div
+          ref={detailsRef}
+          className="w-[90%] sm:w-[80%] md:w-[60%] lg:w-[45%] shadow-md bg-white relative"
+        >
           <div className="border-b border-line_color p-2">
             <h3 className="font-gilroyBold text-lg text-black text-center">
               Edit your Information

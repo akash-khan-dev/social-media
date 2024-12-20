@@ -101,8 +101,11 @@ const CreatePostPopup = ({ setPostPopupVisible, postPopupVisible }) => {
   }, [postPopupVisible]);
   return (
     <>
-      <div className="fixed top-0 left-0 w-full bg-blur h-screen flex items-center justify-center z-20">
-        <div ref={outSideRef} className="w-[35%] shadow-md bg-white relative">
+      <div className="fixed top-0 left-0 w-full bg-blur h-screen flex items-center justify-center z-40">
+        <div
+          ref={outSideRef}
+          className="w-[90%] sm:w-[80%] md:w-[60%] lg:w-[35%] shadow-md bg-white relative"
+        >
           <div
             onClick={() => setPostPopupVisible(false)}
             className="absolute top-2 right-3 text-purple-100 cursor-pointer"

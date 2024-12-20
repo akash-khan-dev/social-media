@@ -61,7 +61,10 @@ const ProfilePictureUpload = ({
     <>
       <ToastContainer />
       <div className="fixed top-0 left-0 w-full bg-blur h-screen flex items-center justify-center z-50">
-        <div ref={chooseRef} className="w-[35%] shadow-md bg-white relative">
+        <div
+          ref={chooseRef}
+          className="w-[90%] sm:w-[80%] md:w-[60%] lg:w-[35%] shadow-md bg-white relative"
+        >
           <div
             onClick={() => setShowUploadProfile(false)}
             className="absolute top-2 right-3 text-purple-100 cursor-pointer"
@@ -87,7 +90,7 @@ const ProfilePictureUpload = ({
               onChange={handleCommentImgUpload}
             />
           </div>
-          <div className="w-full h-[250px] px-3 overflow-y-auto">
+          <div className="w-full h-[200px] xl:h-[250px] px-3 overflow-y-auto">
             <h3 className="font-gilroyNormal font-lg font-black">
               Profile Photos
             </h3>
@@ -121,7 +124,7 @@ const ProfilePictureUpload = ({
                 ))}
             </div>
           </div>
-          <div className="w-full h-[300px] mt-3 px-3 overflow-y-auto">
+          <div className="w-full h-[250px] xl:h-[300px] mt-3 px-3 overflow-y-auto">
             <h3 className="font-gilroyNormal font-lg font-black">
               Other photos
             </h3>

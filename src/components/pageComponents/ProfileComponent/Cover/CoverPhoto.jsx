@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { BsCamera } from "react-icons/bs";
 import cover from "../../../../../public/postBackgrounds/cover.png";
 import { MdModeEditOutline } from "react-icons/md";
@@ -142,7 +142,7 @@ const Cover = ({ coverImg, visitor, imageData }) => {
         <ToastContainer />
         <div
           ref={coverWith}
-          className="w-full h-[350px] bg-line_color rounded-tl-md rounded-tr-md overflow-hidden relative "
+          className="w-full h-[200px] md:h-[300px] xl:h-[350px] bg-line_color rounded-tl-md rounded-tr-md overflow-hidden relative "
         >
           <img
             src={coverImg || cover}
@@ -182,7 +182,7 @@ const Cover = ({ coverImg, visitor, imageData }) => {
         {visitor && (
           <div
             onClick={() => setShowOption(!showOption)}
-            className="absolute top-2 right-2 px-3 rounded-lg py-2 flex items-center gap-2 bg-white text-secondary_color cursor-pointer"
+            className="absolute top-2 right-2 px-3 rounded-md lg:rounded-lg py-1 lg:py-2 flex items-center gap-2 bg-white text-secondary_color cursor-pointer"
           >
             <BsCamera />
             <span className="font-gilroyMedium text-base">Edit Photo</span>
@@ -191,9 +191,9 @@ const Cover = ({ coverImg, visitor, imageData }) => {
         {showOption && (
           <div
             ref={choseFile}
-            className="absolute top-12 right-5 bg-white shadow-md rounded-md overflow-hidden"
+            className="absolute top-10 lg:top-12 right-5 bg-white shadow-md rounded-md overflow-hidden"
           >
-            <div className="px-6 py-1 flex items-center gap-2 cursor-pointer text-secondary_color hover:bg-black hover:text-white transition duration-300">
+            <div className="lg:px-6 px-3 py-1 flex items-center gap-2 cursor-pointer text-secondary_color hover:bg-black hover:text-white transition duration-300">
               <MdModeEditOutline />
               <span
                 className="font-gilroySemibold text-base"

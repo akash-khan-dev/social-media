@@ -12,7 +12,7 @@ import EditDetails from "./EditDetails";
 import { loggedInUser } from "../../../../StateFeature/Slice/authSlice";
 import EditInfoField from "./EditInfoField";
 
-const ProfileInfosOption = ({ userDetail, visitor }) => {
+const ProfileInfosOption = ({ userDetail, visitor, setNickName }) => {
   const [details, setDetails] = useState(userDetail);
   const initialState = {
     bio: details?.bio ? details?.bio : "",
@@ -46,10 +46,12 @@ const ProfileInfosOption = ({ userDetail, visitor }) => {
     setDetails(userDetail);
     setInfos(userDetail);
   }, [userDetail]);
+
   const handleUpdateDetail = async () => {
     try {
       setLoading(true);
       const result = await updateDetails({ id: userInfo.id, infos: infos });
+      setNickName(result?.data?.nickname);
       setDetails(result.data);
       dispatch(loggedInUser({ ...userInfo, nickname: result?.data?.nickname }));
       localStorage.setItem(
