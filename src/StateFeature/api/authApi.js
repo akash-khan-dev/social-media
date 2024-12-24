@@ -102,7 +102,9 @@ export const authApi = createApi({
       query: () => "/api/v1/post/showPost",
     }),
     getUserProfile: builder.query({
-      query: (username) => `/api/v1/auth/user/${username}`,
+      query: (username) => ({
+        url: `/api/v1/auth/user/${username}`,
+      }),
     }),
     imgList: builder.mutation({
       query: ({ path, sort, max }) => ({

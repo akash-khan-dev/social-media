@@ -25,6 +25,7 @@ const Profile = ({ setPostPopupVisible }) => {
   const [scrollHeight, setScrollHeight] = useState();
   const userInfo = useSelector((state) => state.userInformation.userInfo);
   const userName = username === undefined ? userInfo.username : username;
+
   const { data: profile } = useGetUserProfileQuery(userName);
 
   // eslint-disable-next-line no-unused-vars
