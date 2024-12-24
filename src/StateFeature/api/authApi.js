@@ -142,6 +142,48 @@ export const authApi = createApi({
         body: { infos, id },
       }),
     }),
+    addFriend: builder.mutation({
+      query: (id) => ({
+        url: `/api/v1/auth/addfriend/${id}`,
+        method: "PUT",
+      }),
+    }),
+    cancelRequest: builder.mutation({
+      query: (id) => ({
+        url: `/api/v1/auth/cancelrequest/${id}`,
+        method: "PUT",
+      }),
+    }),
+    follow: builder.mutation({
+      query: (id) => ({
+        url: `/api/v1/auth/follow/${id}`,
+        method: "PUT",
+      }),
+    }),
+    unFollow: builder.mutation({
+      query: (id) => ({
+        url: `/api/v1/auth/unfollow/${id}`,
+        method: "PUT",
+      }),
+    }),
+    acceptRequest: builder.mutation({
+      query: (id) => ({
+        url: `/api/v1/auth/acceptrequest/${id}`,
+        method: "PUT",
+      }),
+    }),
+    unFriend: builder.mutation({
+      query: (id) => ({
+        url: `/api/v1/auth/unfriend/${id}`,
+        method: "PUT",
+      }),
+    }),
+    deleteRequest: builder.mutation({
+      query: (id) => ({
+        url: `/api/v1/auth/deleterequest/${id}`,
+        method: "PUT",
+      }),
+    }),
   }),
 });
 
@@ -162,4 +204,11 @@ export const {
   useUploadProfileImageMutation,
   useUploadCoverPictureMutation,
   useUpdateDetailsMutation,
+  useAddFriendMutation,
+  useCancelRequestMutation,
+  useFollowMutation,
+  useUnFollowMutation,
+  useAcceptRequestMutation,
+  useUnFriendMutation,
+  useDeleteRequestMutation,
 } = authApi;

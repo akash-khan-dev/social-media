@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import profilePic from "../../../../public/postBackgrounds/man.jpg";
 import { MdOutlineCameraAlt } from "react-icons/md";
 import ProfilePictureUpload from "./ProfilePictureUpload";
@@ -51,7 +51,12 @@ const ProfilePictureInfo = ({ profile, visitor, imageData, nickName }) => {
         </div>
       </div>
       <div className="w-[50%] flex justify-end gap-x-3 mb-2 mr-3">
-        {!visitor && <FriendShip friendShip={profile?.FriendShip} />}
+        {!visitor && (
+          <FriendShip
+            profileId={profile?._id}
+            friendShips={profile?.FriendShip}
+          />
+        )}
       </div>
     </div>
   );

@@ -1,15 +1,19 @@
 /* eslint-disable react/prop-types */
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { RiUserFollowFill } from "react-icons/ri";
 import { RiUserUnfollowFill } from "react-icons/ri";
 import OutSideClick from "../../../../utils/Click";
 import { IoIosCheckmarkCircleOutline, IoMdPersonAdd } from "react-icons/io";
 import { MdOutlineCancel } from "react-icons/md";
-export const FriendShip = ({ friendShip }) => {
+import { useAddFriendMutation } from "../../../../StateFeature/api/authApi";
+export const FriendShip = ({ profileId, friendShips }) => {
+  const [friendShip, setFriendShip] = useState(friendShips);
   const [friendMenu, setFriendMenu] = useState(false);
   const [responseMenu, setResponseMenu] = useState(false);
   const friendRef = useRef(null);
   const responseRef = useRef(null);
+
+  const [addFriend] = useAddFriendMutation();
 
   OutSideClick(friendRef, () => {
     setFriendMenu(false);
@@ -17,6 +21,18 @@ export const FriendShip = ({ friendShip }) => {
   OutSideClick(responseRef, () => {
     setResponseMenu(false);
   });
+  const handleAddRequest = async () => {
+    try {
+      await addFriend(profileId).unwrap();
+      setFriendShip({ ...friendShip, following: true, request: true });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    setFriendShip(friendShips);
+  }, [friendShips]);
   return (
     <>
       {friendShip?.friend ? (
@@ -53,7 +69,10 @@ export const FriendShip = ({ friendShip }) => {
       ) : (
         !friendShip?.request &&
         !friendShip?.requestReceived && (
-          <div className="cursor-pointer font-gilroyMedium flex bg-blue text-white px-3 py-2 items-center gap-x-2 rounded-md">
+          <div
+            onClick={handleAddRequest}
+            className="cursor-pointer font-gilroyMedium flex bg-blue text-white px-3 py-2 items-center gap-x-2 rounded-md"
+          >
             <IoMdPersonAdd />
             <button className="">Add Friend</button>
           </div>
