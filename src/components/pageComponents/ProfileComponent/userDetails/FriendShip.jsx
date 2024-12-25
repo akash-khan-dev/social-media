@@ -5,7 +5,15 @@ import { RiUserUnfollowFill } from "react-icons/ri";
 import OutSideClick from "../../../../utils/Click";
 import { IoIosCheckmarkCircleOutline, IoMdPersonAdd } from "react-icons/io";
 import { MdOutlineCancel } from "react-icons/md";
-import { useAddFriendMutation } from "../../../../StateFeature/api/authApi";
+import {
+  useAcceptRequestMutation,
+  useAddFriendMutation,
+  useCancelRequestMutation,
+  useDeleteRequestMutation,
+  useFollowMutation,
+  useUnFollowMutation,
+  useUnFriendMutation,
+} from "../../../../StateFeature/api/authApi";
 export const FriendShip = ({ profileId, friendShips }) => {
   const [friendShip, setFriendShip] = useState(friendShips);
   const [friendMenu, setFriendMenu] = useState(false);
@@ -14,6 +22,12 @@ export const FriendShip = ({ profileId, friendShips }) => {
   const responseRef = useRef(null);
 
   const [addFriend] = useAddFriendMutation();
+  const [cancelRequest] = useCancelRequestMutation();
+  const [follow] = useFollowMutation();
+  const [unFollow] = useUnFollowMutation();
+  const [acceptRequest] = useAcceptRequestMutation();
+  const [unFriend] = useUnFriendMutation();
+  const [deleteRequest] = useDeleteRequestMutation();
 
   OutSideClick(friendRef, () => {
     setFriendMenu(false);
@@ -29,10 +43,77 @@ export const FriendShip = ({ profileId, friendShips }) => {
       console.log(error.message);
     }
   };
+  const handleAddCancelRequest = async () => {
+    try {
+      await cancelRequest(profileId).unwrap();
+      setFriendShip({ ...friendShip, following: false, request: false });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  const handleFollow = async () => {
+    try {
+      await follow(profileId).unwrap();
+      setFriendShip({ ...friendShip, following: true });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  const handleUnfollow = async () => {
+    try {
+      await unFollow(profileId).unwrap();
+      setFriendShip({ ...friendShip, following: false });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  const handleAcceptRequest = async () => {
+    try {
+      await acceptRequest(profileId).unwrap();
+      setFriendShip({
+        ...friendShip,
+        friend: true,
+        following: true,
+        request: false,
+        requestReceived: false,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  const handleUnfriend = async () => {
+    try {
+      await unFriend(profileId).unwrap();
+      setFriendShip({
+        ...friendShip,
+        friend: false,
+        following: false,
+        request: false,
+        requestReceived: false,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  const handleDeleteRequest = async () => {
+    try {
+      await deleteRequest(profileId).unwrap();
+      setFriendShip({
+        ...friendShip,
+        friend: false,
+        following: false,
+        request: false,
+        requestReceived: false,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   useEffect(() => {
     setFriendShip(friendShips);
   }, [friendShips]);
+
   return (
     <>
       {friendShip?.friend ? (
@@ -50,13 +131,19 @@ export const FriendShip = ({ profileId, friendShips }) => {
                 ref={friendRef}
                 className="absolute top-10 right-0 bg-white rounded-md shadow-md"
               >
-                <div className="flex items-center px-5 py-2 cursor-pointer gap-x-2 hover:bg-white_100 transition duration-300">
+                <div
+                  onClick={handleUnfriend}
+                  className="flex items-center px-5 py-2 cursor-pointer gap-x-2 hover:bg-white_100 transition duration-300"
+                >
                   <RiUserUnfollowFill />
                   <span className="font-gilroyMedium text-black text-base">
                     Unfriend
                   </span>
                 </div>
-                <div className="flex items-center  px-5 py-2 cursor-pointer gap-x-2 hover:bg-white_100 transition duration-300">
+                <div
+                  onClick={handleUnfollow}
+                  className="flex items-center  px-5 py-2 cursor-pointer gap-x-2 hover:bg-white_100 transition duration-300"
+                >
                   <RiUserUnfollowFill />
                   <span className="font-gilroyMedium text-black text-base">
                     Unfollow
@@ -80,7 +167,10 @@ export const FriendShip = ({ profileId, friendShips }) => {
       )}
       {/* request part start */}
       {friendShip?.request ? (
-        <div className="cursor-pointer font-gilroyMedium flex bg-white text-black px-3 py-2 items-center gap-x-2 rounded-md">
+        <div
+          onClick={handleAddCancelRequest}
+          className="cursor-pointer font-gilroyMedium flex bg-white text-black px-3 py-2 items-center gap-x-2 rounded-md"
+        >
           <RiUserUnfollowFill />
           <button className="">Cancel Request</button>
         </div>
@@ -99,16 +189,22 @@ export const FriendShip = ({ profileId, friendShips }) => {
                 ref={responseRef}
                 className="absolute top-10 right-0 bg-white rounded-md shadow-md"
               >
-                <div className="flex items-center px-5 py-2 cursor-pointer gap-x-2 hover:bg-white_100 transition duration-300">
+                <div
+                  onClick={handleAcceptRequest}
+                  className="flex items-center px-5 py-2 cursor-pointer gap-x-2 hover:bg-white_100 transition duration-300"
+                >
                   <IoIosCheckmarkCircleOutline />
                   <span className="font-gilroyMedium text-black text-base">
                     Confirm
                   </span>
                 </div>
-                <div className="flex items-center  px-5 py-2 cursor-pointer gap-x-2 hover:bg-white_100 transition duration-300">
+                <div
+                  onClick={handleDeleteRequest}
+                  className="flex items-center  px-5 py-2 cursor-pointer gap-x-2 hover:bg-white_100 transition duration-300"
+                >
                   <MdOutlineCancel />
                   <span className="font-gilroyMedium text-black text-base">
-                    Cancel
+                    Delete
                   </span>
                 </div>
               </div>
@@ -117,12 +213,18 @@ export const FriendShip = ({ profileId, friendShips }) => {
         )
       )}
       {friendShip?.following ? (
-        <div className="cursor-pointer font-gilroyMedium flex bg-white text-black px-3 py-2 items-center gap-x-2 rounded-md">
+        <div
+          onClick={handleUnfollow}
+          className="cursor-pointer font-gilroyMedium flex bg-white text-black px-3 py-2 items-center gap-x-2 rounded-md"
+        >
           <RiUserFollowFill />
           <button className="">Following</button>
         </div>
       ) : (
-        <div className="cursor-pointer font-gilroyMedium flex bg-blue text-white px-3 py-2 items-center gap-x-2 rounded-md">
+        <div
+          onClick={handleFollow}
+          className="cursor-pointer font-gilroyMedium flex bg-blue text-white px-3 py-2 items-center gap-x-2 rounded-md"
+        >
           <RiUserFollowFill />
           <button className="">Follow</button>
         </div>

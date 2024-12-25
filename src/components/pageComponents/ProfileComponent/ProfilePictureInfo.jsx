@@ -7,6 +7,7 @@ import { FriendShip } from "./userDetails/FriendShip";
 const ProfilePictureInfo = ({ profile, visitor, imageData, nickName }) => {
   const [showUploadProfile, setShowUploadProfile] = useState(false);
   const uploadProfileRef = useRef(null);
+  console.log(profile);
 
   return (
     <div className="flex justify-between flex-col lg:flex-row items-center bg-white_100 lg:pl-36 lg:pt-3">
@@ -54,7 +55,7 @@ const ProfilePictureInfo = ({ profile, visitor, imageData, nickName }) => {
         {!visitor && (
           <FriendShip
             profileId={profile?._id}
-            friendShips={profile?.FriendShip}
+            friendShips={profile?.friendShip}
           />
         )}
       </div>
