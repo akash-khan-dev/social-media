@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
-import React from "react";
+
 import Photos from "./Photos";
 import UserInfoDetails from "./userDetails";
+import FriendList from "./FriendList";
 
 const ProfileLeft = ({
   imageData,
@@ -9,6 +10,7 @@ const ProfileLeft = ({
   userDetail,
   visitor,
   setNickName,
+  friends,
 }) => {
   return (
     <>
@@ -21,6 +23,9 @@ const ProfileLeft = ({
       </div>
       <div className="w-full shadow-md rounded-sm p-3 mt-5">
         <Photos imageLoading={imageLoading} imageData={imageData} />
+      </div>
+      <div className="w-full shadow-md rounded-sm p-3 mt-5">
+        <FriendList friends={friends} />
       </div>
     </>
   );

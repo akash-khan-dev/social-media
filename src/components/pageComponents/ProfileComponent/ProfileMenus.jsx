@@ -6,7 +6,7 @@ const ProfileMenus = ({ profile, imageData }) => {
       <div className="text-center">
         <h4 className="font-gilroySemibold text-sm text-black">Friends</h4>
         <span className="font-gilroyBold text-base xl:text-lg text-black">
-          {"10K"}
+          {profile?.friends?.length.toString().padStart(2, 0)}
         </span>
       </div>
       <div className="text-center">
@@ -32,8 +32,8 @@ const ProfileMenus = ({ profile, imageData }) => {
       <div className="text-center">
         <h4 className="font-gilroySemibold text-sm text-black">Photos</h4>
         <span className="font-gilroyBold text-base xl:text-lg text-black">
-          {imageData?.resources.length
-            ? imageData?.resources.length.toString().padStart(2, 0)
+          {imageData?.resources?.length
+            ? imageData?.resources?.length.toString().padStart(2, 0)
             : 0}
         </span>
       </div>

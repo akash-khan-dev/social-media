@@ -63,6 +63,7 @@ const Profile = ({ setPostPopupVisible }) => {
   const check = useMediaQuery({
     query: "(min-width: 1500px)",
   });
+
   return (
     <div>
       <Helmet>
@@ -107,6 +108,7 @@ const Profile = ({ setPostPopupVisible }) => {
               imageData={imageData}
               visitor={visitor}
               setNickName={setNickName}
+              friends={profile?.friends}
             />
           </div>
           <div className="w-full profileRight">

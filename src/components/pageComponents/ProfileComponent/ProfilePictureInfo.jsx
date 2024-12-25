@@ -7,7 +7,6 @@ import { FriendShip } from "./userDetails/FriendShip";
 const ProfilePictureInfo = ({ profile, visitor, imageData, nickName }) => {
   const [showUploadProfile, setShowUploadProfile] = useState(false);
   const uploadProfileRef = useRef(null);
-  console.log(profile);
 
   return (
     <div className="flex justify-between flex-col lg:flex-row items-center bg-white_100 lg:pl-36 lg:pt-3">
@@ -47,7 +46,7 @@ const ProfilePictureInfo = ({ profile, visitor, imageData, nickName }) => {
             {profile?.firstName + " " + profile?.lastName}
           </h3>
           <span className="font-gilroyMedium text-base text-black">
-            {nickName}
+            {nickName || "(Nick Name)"}
           </span>
         </div>
       </div>

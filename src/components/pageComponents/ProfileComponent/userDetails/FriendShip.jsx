@@ -63,6 +63,7 @@ export const FriendShip = ({ profileId, friendShips }) => {
     try {
       await unFollow(profileId).unwrap();
       setFriendShip({ ...friendShip, following: false });
+      setFriendMenu(false);
     } catch (error) {
       console.log(error.message);
     }
