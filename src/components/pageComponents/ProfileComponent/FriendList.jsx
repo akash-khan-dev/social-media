@@ -17,18 +17,20 @@ const FriendList = ({ friends }) => {
             <button className="py-1 px-3 font-gilroyMedium text-white text-base bg-blue rounded-md"></button>
           )}
         </div>
-        <div className=" grid grid-cols-5 md:grid-cols-5 2xl:grid-cols-3 gap-2 min-h-7">
+        <div className=" grid grid-cols-3 md:grid-cols-4 2xl:grid-cols-2 gap-2 min-h-7 pb-4">
           {friends?.length &&
-            friends
-              .slice(0, 6)
-              .map((friend) => (
+            friends.slice(0, 6).map((friend) => (
+              <div key={friend._id}>
                 <img
-                  key={friend._id}
                   src={friend?.profilePicture || avatar}
                   alt="img"
-                  className="w-full h-full object-cover"
+                  className="w-full object-cover rounded-md"
                 />
-              ))}
+                <p className="font-gilroyMedium text-md mt-1 text-black">
+                  {friend.firstName + " " + friend.lastName}
+                </p>
+              </div>
+            ))}
         </div>
       </div>
     </>

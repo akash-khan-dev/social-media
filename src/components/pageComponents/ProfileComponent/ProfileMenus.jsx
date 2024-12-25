@@ -20,13 +20,13 @@ const ProfileMenus = ({ profile, imageData }) => {
       <div className="text-center">
         <h4 className="font-gilroySemibold text-sm text-black">Followers</h4>
         <span className="font-gilroyBold text-base xl:text-lg text-black">
-          {"10K"}
+          {profile?.followers?.length.toString().padStart(2, 0)}
         </span>
       </div>
       <div className="text-center">
         <h4 className="font-gilroySemibold text-sm text-black">Following</h4>
         <span className="font-gilroyBold text-base xl:text-lg text-black">
-          {"10k"}
+          {profile?.following?.length.toString().padStart(2, 0)}
         </span>
       </div>
       <div className="text-center">

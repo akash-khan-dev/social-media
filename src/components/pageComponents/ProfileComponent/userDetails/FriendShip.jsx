@@ -159,10 +159,10 @@ export const FriendShip = ({ profileId, friendShips }) => {
         !friendShip?.requestReceived && (
           <div
             onClick={handleAddRequest}
-            className="cursor-pointer font-gilroyMedium flex bg-blue text-white px-3 py-2 items-center gap-x-2 rounded-md"
+            className="cursor-pointer font-gilroyMedium flex bg-blue text-white px-3 py-1 lg:py-2 items-center gap-x-2 rounded-md"
           >
             <IoMdPersonAdd />
-            <button className="">Add Friend</button>
+            <button className="text-sm">Add Friend</button>
           </div>
         )
       )}
@@ -170,20 +170,20 @@ export const FriendShip = ({ profileId, friendShips }) => {
       {friendShip?.request ? (
         <div
           onClick={handleAddCancelRequest}
-          className="cursor-pointer font-gilroyMedium flex bg-white text-black px-3 py-2 items-center gap-x-2 rounded-md"
+          className="cursor-pointer font-gilroyMedium flex bg-white text-black px-3 lg:px-2 py-2 items-center gap-x-2 rounded-md"
         >
           <RiUserUnfollowFill />
-          <button className="">Cancel Request</button>
+          <button className="text-sm 2xl:text-md">Cancel Request</button>
         </div>
       ) : (
         friendShip?.requestReceived && (
           <div className="relative">
             <div
               onClick={() => setResponseMenu(!responseMenu)}
-              className="cursor-pointer font-gilroyMedium flex bg-white text-black px-3 py-2 items-center gap-x-2 rounded-md"
+              className="cursor-pointer font-gilroyMedium flex bg-white text-black px-3 py-1 md:py-2 items-center gap-x-2 rounded-md"
             >
               <RiUserFollowFill />
-              <button className="">Response</button>
+              <button className="text-sm 2xl:text-md">Response</button>
             </div>
             {responseMenu && (
               <div
@@ -192,21 +192,17 @@ export const FriendShip = ({ profileId, friendShips }) => {
               >
                 <div
                   onClick={handleAcceptRequest}
-                  className="flex items-center px-5 py-2 cursor-pointer gap-x-2 hover:bg-white_100 transition duration-300"
+                  className="flex items-center px-5 py-1 md:py-2 cursor-pointer gap-x-2 hover:bg-white_100 transition duration-300"
                 >
                   <IoIosCheckmarkCircleOutline />
-                  <span className="font-gilroyMedium text-black text-base">
-                    Confirm
-                  </span>
+                  <button className="text-sm 2xl:text-md">Confirm</button>
                 </div>
                 <div
                   onClick={handleDeleteRequest}
-                  className="flex items-center  px-5 py-2 cursor-pointer gap-x-2 hover:bg-white_100 transition duration-300"
+                  className="flex items-center  px-5 py-1 md:py-2 cursor-pointer gap-x-2 hover:bg-white_100 transition duration-300"
                 >
                   <MdOutlineCancel />
-                  <span className="font-gilroyMedium text-black text-base">
-                    Delete
-                  </span>
+                  <button className="text-sm 2xl:text-md">Delete</button>
                 </div>
               </div>
             )}
@@ -216,18 +212,18 @@ export const FriendShip = ({ profileId, friendShips }) => {
       {friendShip?.following ? (
         <div
           onClick={handleUnfollow}
-          className="cursor-pointer font-gilroyMedium flex bg-white text-black px-3 py-2 items-center gap-x-2 rounded-md"
+          className="cursor-pointer font-gilroyMedium flex bg-white text-black px-3 py-1 md:py-2 items-center gap-x-2 rounded-md"
         >
           <RiUserFollowFill />
-          <button className="">Following</button>
+          <button className="text-sm 2xl:text-md">Following</button>
         </div>
       ) : (
         <div
           onClick={handleFollow}
-          className="cursor-pointer font-gilroyMedium flex bg-blue text-white px-3 py-2 items-center gap-x-2 rounded-md"
+          className="cursor-pointer font-gilroyMedium flex bg-blue text-white px-3 py-1 md:py-2 items-center gap-x-2 rounded-md"
         >
           <RiUserFollowFill />
-          <button className="">Follow</button>
+          <button className="text-sm 2xl:text-md">Follow</button>
         </div>
       )}
     </>

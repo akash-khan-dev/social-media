@@ -9,7 +9,7 @@ const ProfilePictureInfo = ({ profile, visitor, imageData, nickName }) => {
   const uploadProfileRef = useRef(null);
 
   return (
-    <div className="flex justify-between flex-col lg:flex-row items-center bg-white_100 lg:pl-36 lg:pt-3">
+    <div className="flex justify-between flex-col lg:flex-row items-center bg-white_100 lg:pl-32 2xl:pl-36 lg:pt-3">
       {showUploadProfile && (
         <div>
           <ProfilePictureUpload
@@ -40,7 +40,7 @@ const ProfilePictureInfo = ({ profile, visitor, imageData, nickName }) => {
           </div>
         )}
       </div>
-      <div className="w-[50%]">
+      <div className="w-[50%] lg:w-[40%] text-center lg:text-start">
         <div>
           <h3 className="font-gilroySemibold text-xl text-black">
             {profile?.firstName + " " + profile?.lastName}
@@ -50,7 +50,7 @@ const ProfilePictureInfo = ({ profile, visitor, imageData, nickName }) => {
           </span>
         </div>
       </div>
-      <div className="w-[50%] flex justify-end gap-x-3 mb-2 mr-3">
+      <div className="w-[100%] lg:w-[60%] flex justify-center lg:justify-end gap-x-3 mb-2 mr-3">
         {!visitor && (
           <FriendShip
             profileId={profile?._id}
