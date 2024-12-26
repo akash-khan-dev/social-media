@@ -25,6 +25,7 @@ const ShowPost = ({ post, userInfo }) => {
   const [commentError, setCommentError] = useState("");
   const [reacts, setReacts] = useState();
   const [check, setCheck] = useState();
+  const [total, setTotal] = useState();
   const [reactPost] = useReactPostMutation();
 
   const { data: allReact } = useGetAllReactQuery({ id: post?._id });
@@ -38,27 +39,48 @@ const ShowPost = ({ post, userInfo }) => {
     }).replace("about ", "");
 
   const handleReacts = async (type) => {
+    const prevCheck = check;
+    const prevReacts = [...reacts];
+    const prevTotal = total;
     if (check === type) {
       setCheck();
+      const index = reacts.findIndex((x) => x.react === check);
+      if (index !== -1) {
+        const updateReacts = reacts.map((r, idx) =>
+          idx === index ? { ...r, count: r.count - 1 } : r
+        );
+
+        setReacts(updateReacts);
+        setTotal(total - 1);
+      }
     } else {
       setCheck(type);
+      const index = reacts.findIndex((x) => x.react === type);
+      const index1 = reacts.findIndex((x) => x.react === check);
+      const updateReacts = reacts.map((r, idx) => {
+        idx === index
+          ? { ...r, count: r.count + 1 }
+          : idx === index1
+          ? { ...r, count: r.count - 1 }
+          : r;
+      });
+      setReacts(updateReacts);
+      setTotal(total + (index !== -1 ? 1 : 0) - (index1 !== -1 ? 1 : 0));
     }
     try {
       await reactPost({ postId: post._id, react: type }).unwrap();
     } catch (error) {
-      console.log(error.message);
-    }
-    if (check === type) {
-      setCheck(type);
-    } else {
-      setCheck();
+      setCheck(prevCheck);
+      setReacts(prevReacts);
+      setTotal(prevTotal);
     }
   };
 
   useEffect(() => {
     if (allReact) {
-      setReacts(allReact.react);
+      setReacts(allReact.allReacts);
       setCheck(allReact.check);
+      setTotal(allReact.total);
     }
   }, [allReact]);
 
@@ -203,7 +225,31 @@ const ShowPost = ({ post, userInfo }) => {
       )}
       <div className="mt-1 relative">
         <div className="flex justify-between items-center border-b border-line_color pb-2">
-          <div></div>
+          <div className="flex items-center gap-x-1">
+            <div className="flex items-center">
+              {reacts &&
+                reacts
+                  .slice()
+                  .sort((a, b) => {
+                    return b.count - a.count;
+                  })
+                  .slice(0, 3)
+                  .map(
+                    (react, i) =>
+                      react?.count > 0 && (
+                        <img
+                          key={i}
+                          src={`../../../../../public/reacts/${react.react}.svg`}
+                          alt="react"
+                          className="w-4"
+                        />
+                      )
+                  )}
+            </div>
+            <span className="font-gilroyMedium text-sm text-black">
+              {total ? total : null}
+            </span>
+          </div>
           <div>
             <span className="font-gilroyMedium text-sm text-secondary_color">
               13 Comments
@@ -220,6 +266,7 @@ const ShowPost = ({ post, userInfo }) => {
         )}
         <div className="flex items-center mt-2 text-secondary_color border-b border-line_color pb-2">
           <div
+            onClick={() => handleReacts(check ? check : "like")}
             onMouseOver={() =>
               setTimeout(() => {
                 setShowReactEmoji(true);
