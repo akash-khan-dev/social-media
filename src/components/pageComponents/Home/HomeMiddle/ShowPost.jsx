@@ -7,7 +7,7 @@ import { AiOutlineLike } from "react-icons/ai";
 import { IoMdShareAlt } from "react-icons/io";
 import { FaRegCommentDots } from "react-icons/fa6";
 import Reacts from "./Reacts";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CreateComments from "./CreateComments";
 import PostMenu from "./PostMenu/PostMenu";
 import cover from "../../../../../public/postBackgrounds/cover.png";
@@ -23,6 +23,8 @@ const ShowPost = ({ post, userInfo }) => {
   const [commentText, setCommentText] = useState("");
   const [commentImage, setCommentImage] = useState("");
   const [commentError, setCommentError] = useState("");
+  const [reacts, setReacts] = useState();
+  const [check, setCheck] = useState();
   const [reactPost] = useReactPostMutation();
 
   const { data: allReact } = useGetAllReactQuery({ id: post?._id });
@@ -36,13 +38,29 @@ const ShowPost = ({ post, userInfo }) => {
     }).replace("about ", "");
 
   const handleReacts = async (type) => {
+    if (check === type) {
+      setCheck();
+    } else {
+      setCheck(type);
+    }
     try {
       await reactPost({ postId: post._id, react: type }).unwrap();
     } catch (error) {
       console.log(error.message);
     }
+    if (check === type) {
+      setCheck(type);
+    } else {
+      setCheck();
+    }
   };
-  console.log(allReact);
+
+  useEffect(() => {
+    if (allReact) {
+      setReacts(allReact.react);
+      setCheck(allReact.check);
+    }
+  }, [allReact]);
 
   return (
     <div className="w-full p-4 shadow-md rounded-md mb-5">
@@ -214,9 +232,9 @@ const ShowPost = ({ post, userInfo }) => {
             }
             className="cursor-pointer flex items-center w-2/4  justify-center"
           >
-            {allReact?.check ? (
+            {check ? (
               <img
-                src={`../../../../../public/reacts/${allReact.check}.svg`}
+                src={`../../../../../public/reacts/${check}.svg`}
                 className="h-5 mr-1"
                 alt="react"
               />
@@ -226,22 +244,22 @@ const ShowPost = ({ post, userInfo }) => {
 
             <span
               className={`${
-                allReact?.check === "like"
+                check === "like"
                   ? "text-blue"
-                  : allReact?.check === "love"
+                  : check === "love"
                   ? "text-red"
-                  : allReact?.check === "haha"
+                  : check === "haha"
                   ? "text-yellow"
-                  : allReact?.check === "angry"
+                  : check === "angry"
                   ? "text-yellow"
-                  : allReact?.check === "sad"
+                  : check === "sad"
                   ? "text-yellow"
-                  : allReact?.check === "wow"
+                  : check === "wow"
                   ? "text-yellow"
                   : "text-black"
               } font-gilroyMedium text-sm`}
             >
-              {allReact?.check ? allReact?.check : "Like"}
+              {check ? check : "Like"}
             </span>
           </div>
           <div className="flex items-center w-2/4  justify-center gap-1">
