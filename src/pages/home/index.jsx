@@ -21,7 +21,7 @@ const Home = ({ post, setPostPopupVisible }) => {
         </div>
         <div>
           {post?.data?.map((item) => (
-            <ShowPost key={item._id} data={item} userInfo={userInfo} />
+            <ShowPost key={item._id} post={item} userInfo={userInfo} />
           ))}
         </div>
       </div>

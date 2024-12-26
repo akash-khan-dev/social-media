@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from "react";
+
 import { PuffLoader } from "react-spinners";
 
 const Activate = ({ type, heading, message, loading }) => {

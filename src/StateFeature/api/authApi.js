@@ -184,6 +184,18 @@ export const authApi = createApi({
         method: "PUT",
       }),
     }),
+    reactPost: builder.mutation({
+      query: ({ postId, react }) => ({
+        url: `/api/v1/react/reactpost`,
+        method: "PUT",
+        body: { postId, react },
+      }),
+    }),
+    getAllReact: builder.query({
+      query: ({ id }) => ({
+        url: `/api/v1/react/getAllReact/${id}`,
+      }),
+    }),
   }),
 });
 
@@ -211,4 +223,6 @@ export const {
   useAcceptRequestMutation,
   useUnFriendMutation,
   useDeleteRequestMutation,
+  useReactPostMutation,
+  useGetAllReactQuery,
 } = authApi;

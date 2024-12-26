@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-import React from "react";
+
 import { reactEmoji } from "./reactEmoji";
 
-const Reacts = ({ setShowReactEmoji }) => {
+const Reacts = ({ setShowReactEmoji, handleReacts }) => {
   const emojis = reactEmoji();
 
   return (
@@ -22,6 +22,7 @@ const Reacts = ({ setShowReactEmoji }) => {
       >
         {emojis.map((react, i) => (
           <img
+            onClick={() => handleReacts(react.name)}
             key={i}
             src={react.image}
             alt="react"
