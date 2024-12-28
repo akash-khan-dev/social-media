@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import { useState } from "react";
 
 import HomeMiddle from "../Home/HomeMiddle";
 import ProfilePostView from "./ProfilePostView";
@@ -21,7 +21,7 @@ const ProfileRight = ({ userInfo, profile, setPostPopupVisible, visitor }) => {
       {profile?.post && profile?.post?.length ? (
         <div>
           {profile?.post?.map((item) => (
-            <ShowPost key={item._id} data={item} userInfo={userInfo} />
+            <ShowPost key={item._id} post={item} userInfo={userInfo} />
           ))}
         </div>
       ) : (

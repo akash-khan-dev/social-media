@@ -89,13 +89,10 @@ export const authApi = createApi({
       }),
     }),
     uploadImage: builder.mutation({
-      query: ({ formData, token }) => ({
+      query: ({ formData }) => ({
         url: "/api/v1/upload/uploadImage",
         method: "POST",
         body: formData,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
       }),
     }),
     getAllPost: builder.query({
@@ -196,6 +193,13 @@ export const authApi = createApi({
         url: `/api/v1/react/getAllReact/${id}`,
       }),
     }),
+    createComment: builder.mutation({
+      query: ({ comment, image, postId }) => ({
+        url: `/api/v1/post/comment`,
+        method: "PUT",
+        body: { comment, image, postId },
+      }),
+    }),
   }),
 });
 
@@ -225,4 +229,5 @@ export const {
   useDeleteRequestMutation,
   useReactPostMutation,
   useGetAllReactQuery,
+  useCreateCommentMutation,
 } = authApi;

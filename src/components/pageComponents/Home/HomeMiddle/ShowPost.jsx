@@ -15,6 +15,7 @@ import {
   useGetAllReactQuery,
   useReactPostMutation,
 } from "../../../../StateFeature/api/authApi";
+import Comments from "./Comments";
 // eslint-disable-next-line react/prop-types
 const ShowPost = ({ post, userInfo }) => {
   const [showReactsEmoji, setShowReactEmoji] = useState(false);
@@ -23,6 +24,8 @@ const ShowPost = ({ post, userInfo }) => {
   const [commentText, setCommentText] = useState("");
   const [commentImage, setCommentImage] = useState("");
   const [commentError, setCommentError] = useState("");
+  const [commentCount, setCommentCount] = useState(3);
+  const [comment, setComment] = useState([]);
   const [reacts, setReacts] = useState();
   const [check, setCheck] = useState();
   const [total, setTotal] = useState();
@@ -83,6 +86,9 @@ const ShowPost = ({ post, userInfo }) => {
       setTotal(allReact.total);
     }
   }, [allReact]);
+  useEffect(() => {
+    setComment(post?.comments);
+  }, [post]);
 
   return (
     <div className="w-full p-4 shadow-md rounded-md mb-5">
@@ -90,9 +96,9 @@ const ShowPost = ({ post, userInfo }) => {
         <div className="flex w-full items-center">
           <div className="w-14">
             <div className="w-11 h-11 rounded-full overflow-hidden">
-              <Link to={`/profile${post.user?.username || ""}`}>
+              <Link to={`/profile${post?.user?.username || ""}`}>
                 <img
-                  src={post.user?.profilePicture || avatar}
+                  src={post?.user?.profilePicture || avatar}
                   alt="profile"
                   className="w-full h-full bg-cover"
                 />
@@ -102,19 +108,19 @@ const ShowPost = ({ post, userInfo }) => {
           <div>
             <div className="flex gap-x-1 items-center ">
               <Link
-                to={`/profile/${post.user?.username || ""}`}
+                to={`/profile/${post?.user?.username || ""}`}
                 className="font-gilroyBold text-[15px] lg:font-[18px] text-black "
               >
-                {`${post.user?.firstName || ""} ${post.user?.lastName || ""}`}
+                {`${post?.user?.firstName || ""} ${post?.user?.lastName || ""}`}
               </Link>
-              {post.type == "profilePicture" && (
+              {post?.type == "profilePicture" && (
                 <span className="font-gilroyMedium text-sm lg:text-base text-secondary_color">
                   {`Update ${
                     post?.user?.gender === "Male" ? "his" : "her"
                   } Picture`}
                 </span>
               )}
-              {post.type == "cover" && (
+              {post?.type == "cover" && (
                 <span className="font-gilroyMedium text-sm lg:text-base text-secondary_color">
                   {`Update ${
                     post?.user?.gender === "Male" ? "his" : "her"
@@ -143,7 +149,7 @@ const ShowPost = ({ post, userInfo }) => {
           </div>
         </div>
       </div>
-      {post.background ? (
+      {post?.background ? (
         <div
           className="w-full h-[380px] mt-4 flex items-center justify-center"
           style={{
@@ -154,7 +160,7 @@ const ShowPost = ({ post, userInfo }) => {
           }}
         >
           <h4 className="font-gilroySemibold text-3xl text-white">
-            {post.text}
+            {post?.text}
           </h4>
         </div>
       ) : (
@@ -164,7 +170,7 @@ const ShowPost = ({ post, userInfo }) => {
               <>
                 <div>
                   <h4 className="font-gilroyMedium text-lg text-black mt-2">
-                    {post.text || ""}
+                    {post?.text || ""}
                   </h4>
                 </div>
                 {post.type === "profilePicture" ? (
@@ -200,19 +206,19 @@ const ShowPost = ({ post, userInfo }) => {
                       <div key={i}>
                         <img
                           className={`${
-                            post.images.length === 3
+                            post?.images?.length === 3
                               ? "[&:nth-of-type(1)]:row-start-1 [&:nth-of-type(1)]:row-end-3"
                               : ""
                           } w-full h-full object-cover`}
-                          src={img.url}
+                          src={img?.url}
                           alt="image"
                         />
                       </div>
                     ))}
-                    {post.images.length > 4 && (
+                    {post?.images?.length > 4 && (
                       <div className="absolute bottom-32 right-28 w-[55px] h-[55px] bg-blur rounded-full flex items-center justify-center">
                         <span className="font-gilroySemibold text-xl">
-                          +{post.images.length - 4}
+                          +{post?.images?.length - 4}
                         </span>
                       </div>
                     )}
@@ -246,15 +252,35 @@ const ShowPost = ({ post, userInfo }) => {
                       )
                   )}
             </div>
-            <span className="font-gilroyMedium text-sm text-black">
+            <span className="font-gilroyMedium text-sm text-secondary_color">
               {total ? total : null}
             </span>
           </div>
           <div>
             <span className="font-gilroyMedium text-sm text-secondary_color">
-              13 Comments
+              {`${comment && comment.length} Comment`}
             </span>
           </div>
+        </div>
+        <div>
+          {comment &&
+            comment
+              .slice()
+              .sort((a, b) => {
+                return new Date(b.commentedAt) - new Date(a.commentedAt);
+              })
+              .slice(0, commentCount)
+              .map((singleComment) => (
+                <Comments comment={singleComment} key={singleComment._id} />
+              ))}
+          {commentCount < comment.length && (
+            <span
+              onClick={() => setCommentCount((prev) => prev + 3)}
+              className="cursor-pointer font-gilroyMedium text-black text-base"
+            >
+              View More
+            </span>
+          )}
         </div>
         {showReactsEmoji && (
           <div className="w-[320px] absolute -top-3 left-0  bg-white shadow-md px-4 py-1 rounded-full">
@@ -340,6 +366,8 @@ const ShowPost = ({ post, userInfo }) => {
             commentError={commentError}
             setCommentError={setCommentError}
             inputRef={inputRef}
+            postId={post?._id}
+            setComment={setComment}
           />
         </div>
       </div>

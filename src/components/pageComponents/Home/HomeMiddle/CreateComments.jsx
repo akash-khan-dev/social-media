@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import avatar from "../../../../../public/postBackgrounds/man.jpg";
 import {
   MdOutlineCancel,
@@ -7,7 +7,12 @@ import {
   MdOutlinePermMedia,
 } from "react-icons/md";
 import EmojiPicker from "emoji-picker-react";
-
+import {
+  useCreateCommentMutation,
+  useUploadImageMutation,
+} from "../../../../StateFeature/api/authApi";
+import BeatLoader from "react-spinners/BeatLoader";
+import dataURItoBlob from "../../../../utils/dataURItoBlcb";
 const CreateComments = ({
   userInfo,
   commentText,
@@ -17,13 +22,19 @@ const CreateComments = ({
   commentError,
   setCommentError,
   inputRef,
+  postId,
+  setComment,
 }) => {
   const imgRef = useRef(null);
   const [emojiPicker, setEmojiPicker] = useState(false);
   const [cursorPosition, setCursorPosition] = useState();
+  const [loading, setLoading] = useState(false);
+  const [createComment] = useCreateCommentMutation();
+
+  const [uploadImage] = useUploadImageMutation();
 
   //   ============for emoji picker===========
-  const handleEmojiClick = ({ emoji }, e) => {
+  const handleEmojiClick = ({ emoji }) => {
     const ref = inputRef.current;
     ref.focus();
     const textStart = commentText.substring(0, ref.selectionStart);
@@ -60,6 +71,48 @@ const CreateComments = ({
     };
   };
 
+  const handleComment = async (e) => {
+    try {
+      if (e.key === "Enter") {
+        if (commentImage !== "") {
+          setLoading(true);
+          const Images = dataURItoBlob(commentImage);
+          const path = `${userInfo.username.replace(
+            /\s+/g,
+            "_"
+          )}/post_images/${postId}`;
+          const formData = new FormData();
+          formData.append("path", path);
+          formData.append("file", Images);
+          const comment = await uploadImage({ formData });
+          const imageUrl = comment.data.data[0].url;
+          const response = await createComment({
+            comment: commentText,
+            image: imageUrl,
+            postId: postId,
+          }).unwrap();
+          setComment(response);
+          setLoading(false);
+          setCommentText("");
+          setCommentImage("");
+        } else {
+          setLoading(true);
+          const response = await createComment({
+            comment: commentText,
+            image: null,
+            postId: postId,
+          }).unwrap();
+          setComment(response);
+          setLoading(false);
+          setCommentText("");
+          setCommentImage("");
+        }
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <div className="relative">
       <div className="mt-2 ">
@@ -67,7 +120,7 @@ const CreateComments = ({
           <div className="w-10 h-10 rounded-full overflow-hidden object-cover">
             <img src={userInfo.profilePicture || avatar} alt="profile" />
           </div>
-          <div className="w-[92%] bg-white_100 py-2 px-3 rounded-full flex items-start ">
+          <div className="w-[92%] bg-white_100 py-2 px-3 rounded-full flex items-center ">
             <input
               ref={imgRef}
               type="file"
@@ -82,7 +135,10 @@ const CreateComments = ({
               className="bg-transparent outline-none w-full"
               onChange={(e) => setCommentText(e.target.value)}
               value={commentText}
+              onKeyUp={handleComment}
             />
+            {loading && <BeatLoader size={6} />}
+
             <div className="flex gap-2 relative">
               <div>
                 <MdOutlineEmojiEmotions
