@@ -34,6 +34,7 @@ const ShowPost = ({ post, userInfo }) => {
   const { data: allReact } = useGetAllReactQuery({ id: post?._id });
 
   // ========for how mins ago post created
+  console.log("post", post);
 
   const createDate =
     post?.createdAt &&
@@ -228,6 +229,13 @@ const ShowPost = ({ post, userInfo }) => {
             )}
           </div>
         </>
+      )}
+      {!post?.background && !post?.images && (
+        <div>
+          <h4 className="font-gilroyMedium text-lg text-black mt-2">
+            {post?.text || ""}
+          </h4>
+        </div>
       )}
       <div className="mt-1 relative">
         <div className="flex justify-between items-center border-b border-line_color pb-2">

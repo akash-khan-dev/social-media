@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import OutSideClick from "../../../../utils/Click";
 import { FaPlus } from "react-icons/fa6";
@@ -15,7 +15,6 @@ const ProfilePictureUpload = ({
   setShowUploadProfile,
 }) => {
   const [image, setImage] = useState("");
-  const [error, setError] = useState("");
   const chooseRef = useRef(null);
   const chooseFile = useRef(null);
   const userInfo = useSelector((state) => state.userInformation.userInfo);

@@ -2,7 +2,7 @@
 import { formatDistance } from "date-fns";
 import profile from "../../../../../public/postBackgrounds/man.jpg";
 const Comments = ({ comment }) => {
-  console.log(comment);
+  //   console.log(comment);
   const { profilePicture, username, firstName, lastName } = comment.commentedBy;
   const createDate =
     comment?.commentedAt &&

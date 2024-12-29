@@ -6,6 +6,7 @@ import ImagesVIewer from "./ImagesVIewer";
 import OutSideClick from "../../../../../utils/Click";
 import {
   useCreatePostMutation,
+  useGetAllPostQuery,
   useUploadImageMutation,
 } from "../../../../../StateFeature/api/authApi";
 import { useSelector } from "react-redux";
@@ -22,6 +23,7 @@ const CreatePostPopup = ({ setPostPopupVisible, postPopupVisible }) => {
   const [textState, setTextState] = useState("");
   const [postImage, setPostImage] = useState([]);
   const [background, setBackground] = useState("");
+  const { refetch: refetchPost } = useGetAllPostQuery();
   const [createPost] = useCreatePostMutation();
   const [uploadImage] = useUploadImageMutation();
 
@@ -78,6 +80,7 @@ const CreatePostPopup = ({ setPostPopupVisible, postPopupVisible }) => {
         }).unwrap();
       }
       if (response.status == "done") {
+        refetchPost();
         setLoading(false);
         setPostPopupVisible(false);
       }
