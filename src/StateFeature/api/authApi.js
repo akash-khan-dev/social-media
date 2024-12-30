@@ -200,6 +200,12 @@ export const authApi = createApi({
         body: { comment, image, postId },
       }),
     }),
+    savePost: builder.mutation({
+      query: (postId) => ({
+        url: `/api/v1/post/savepost/${postId}`,
+        method: "PUT",
+      }),
+    }),
   }),
 });
 
@@ -230,4 +236,5 @@ export const {
   useReactPostMutation,
   useGetAllReactQuery,
   useCreateCommentMutation,
+  useSavePostMutation,
 } = authApi;

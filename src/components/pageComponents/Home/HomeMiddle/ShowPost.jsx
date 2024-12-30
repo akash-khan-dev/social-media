@@ -26,6 +26,7 @@ const ShowPost = ({ post, userInfo }) => {
   const [commentError, setCommentError] = useState("");
   const [commentCount, setCommentCount] = useState(3);
   const [comment, setComment] = useState([]);
+  const [checkSavePost, setCheckSavePost] = useState();
   const [reacts, setReacts] = useState();
   const [check, setCheck] = useState();
   const [total, setTotal] = useState();
@@ -34,7 +35,6 @@ const ShowPost = ({ post, userInfo }) => {
   const { data: allReact } = useGetAllReactQuery({ id: post?._id });
 
   // ========for how mins ago post created
-  console.log("post", post);
 
   const createDate =
     post?.createdAt &&
@@ -85,8 +85,10 @@ const ShowPost = ({ post, userInfo }) => {
       setReacts(allReact.allReacts);
       setCheck(allReact.check);
       setTotal(allReact.total);
+      setCheckSavePost(allReact.isPostSave);
     }
   }, [allReact]);
+
   useEffect(() => {
     setComment(post?.comments);
   }, [post]);
@@ -145,6 +147,9 @@ const ShowPost = ({ post, userInfo }) => {
                 postInfo={post?.user?._id}
                 userInfo={userInfo}
                 postImg={post?.images}
+                postId={post._id}
+                checkSavePost={checkSavePost}
+                setCheckSavePost={setCheckSavePost}
               />
             )}
           </div>
