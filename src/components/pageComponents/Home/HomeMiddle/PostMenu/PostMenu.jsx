@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import OutSideClick from "../../../../../utils/Click";
 import MenuList from "./MenuList";
 import { TiPin } from "react-icons/ti";
@@ -9,7 +10,10 @@ import { IoMdCloudDownload } from "react-icons/io";
 import { AiOutlineFullscreen } from "react-icons/ai";
 import { FaTrash } from "react-icons/fa6";
 import { saveAs } from "file-saver";
-import { useSavePostMutation } from "../../../../../StateFeature/api/authApi";
+import {
+  useRemovePostMutation,
+  useSavePostMutation,
+} from "../../../../../StateFeature/api/authApi";
 const PostMenu = ({
   setCheckSavePost,
   checkSavePost,
@@ -23,6 +27,7 @@ const PostMenu = ({
     postInfo === userInfo.id ? true : false
   );
   const [savePost] = useSavePostMutation();
+  const [removePost] = useRemovePostMutation();
   const outSide = useRef(null);
   OutSideClick(outSide, () => {
     setShowOption(false);
@@ -31,8 +36,10 @@ const PostMenu = ({
     savePost(postId);
     if (checkSavePost) {
       setCheckSavePost(false);
+      setShowOption(false);
     } else {
       setCheckSavePost(true);
+      setShowOption(false);
     }
   };
 
@@ -40,6 +47,12 @@ const PostMenu = ({
     postImg.map((img) => {
       saveAs(img.url, "image.jpg");
     });
+  };
+  const handleDeletePost = () => {
+    console.log(postId);
+
+    removePost(postId);
+    setShowOption(false);
   };
   return (
     <div
@@ -65,7 +78,12 @@ const PostMenu = ({
         {postImg && postImg.length && (
           <MenuList icon={AiOutlineFullscreen} text="Enter Full Screen" />
         )}
-        {checkUser && <MenuList icon={FaTrash} text="Delete Post" />}
+
+        {checkUser && (
+          <div onClick={handleDeletePost}>
+            <MenuList icon={FaTrash} text="Delete Post" />
+          </div>
+        )}
       </div>
     </div>
   );

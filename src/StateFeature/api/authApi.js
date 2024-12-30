@@ -206,6 +206,12 @@ export const authApi = createApi({
         method: "PUT",
       }),
     }),
+    removePost: builder.mutation({
+      query: (postId) => ({
+        url: `/api/v1/post/removepost/${postId}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
@@ -237,4 +243,5 @@ export const {
   useGetAllReactQuery,
   useCreateCommentMutation,
   useSavePostMutation,
+  useRemovePostMutation,
 } = authApi;
