@@ -225,6 +225,11 @@ export const authApi = createApi({
         body: { searchUser },
       }),
     }),
+    getSearchHistory: builder.query({
+      query: () => ({
+        url: `/api/v1/auth/getSearchHistory`,
+      }),
+    }),
   }),
 });
 
@@ -259,4 +264,5 @@ export const {
   useRemovePostMutation,
   useSearchQueryMutation,
   useAddSearchHistoryMutation,
+  useGetSearchHistoryQuery,
 } = authApi;

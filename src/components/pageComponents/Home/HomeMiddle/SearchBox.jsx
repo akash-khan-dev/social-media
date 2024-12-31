@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from "react";
-import { IoSearch } from "react-icons/io5";
+import { IoCloseCircleOutline, IoSearch } from "react-icons/io5";
 import {
   useAddSearchHistoryMutation,
+  useGetSearchHistoryQuery,
   useSearchQueryMutation,
 } from "../../../../StateFeature/api/authApi";
 import { Link } from "react-router-dom";
@@ -15,6 +16,8 @@ const SearchBox = () => {
   const [searchResult, setSearchResult] = useState([]);
   const [searchQuery] = useSearchQueryMutation();
   const [addSearchHistory] = useAddSearchHistoryMutation();
+  const { data: getSearchHistory = [] } = useGetSearchHistoryQuery();
+
   useEffect(() => {
     InputRef.current.focus();
   }, []);
@@ -29,6 +32,7 @@ const SearchBox = () => {
   const handleAddSearchHistory = async (searchUser) => {
     const response = await addSearchHistory({ searchUser }).unwrap();
   };
+  console.log(getSearchHistory?.search);
 
   return (
     <>
@@ -51,7 +55,61 @@ const SearchBox = () => {
           </div>
         </div>
         <div className="mt-3">
-          <p className="font-gilroyMedium text-sm text-black">Recent Search</p>
+          {searchResult == "" && (
+            <p className="font-gilroyMedium text-sm text-black">
+              Recent Search
+            </p>
+          )}
+          <div className="mt-3">
+            {getSearchHistory.search && searchResult == "" && (
+              <div>
+                {getSearchHistory?.search
+                  .slice()
+                  ?.sort((a, b) => {
+                    return new Date(b.createdAt) - new Date(a.createdAt);
+                  })
+                  .map((singleUser) => (
+                    <div
+                      key={singleUser.user._id}
+                      onClick={() =>
+                        handleAddSearchHistory(singleUser.user._id)
+                      }
+                    >
+                      <div className="flex justify-between items-center">
+                        <div className="w-[95%] flex items-center gap-x-3 mt-3">
+                          <div className="w-10 h-10 overflow-hidden rounded-full">
+                            <Link to={`/profile/${singleUser?.user?.username}`}>
+                              {
+                                <img
+                                  src={
+                                    singleUser?.user.profilePicture || avatar
+                                  }
+                                  className="w-full h-full object-cover"
+                                  alt="profile"
+                                />
+                              }
+                            </Link>
+                          </div>
+                          <div>
+                            <Link
+                              to={`/profile/${singleUser?.user?.username}`}
+                              className="font-gilroyMedium text-base text-black"
+                            >
+                              {singleUser?.user?.firstName +
+                                " " +
+                                singleUser?.user?.lastName}
+                            </Link>
+                          </div>
+                        </div>
+                        <div className="cursor-pointer w-[30px] h-[30px] text-secondary_color shadow-md  flex items-center justify-center rounded-full">
+                          <IoCloseCircleOutline size={22} />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            )}
+          </div>
           <div className="mt-3 ">
             {searchResult
               ? searchResult?.map((result) => (
