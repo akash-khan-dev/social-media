@@ -212,6 +212,19 @@ export const authApi = createApi({
         method: "DELETE",
       }),
     }),
+    searchQuery: builder.mutation({
+      query: (searchTerm) => ({
+        url: `/api/v1/auth/search/${searchTerm}`,
+        method: "POST",
+      }),
+    }),
+    addSearchHistory: builder.mutation({
+      query: ({ searchUser }) => ({
+        url: `/api/v1/auth/addSearch`,
+        method: "PUT",
+        body: { searchUser },
+      }),
+    }),
   }),
 });
 
@@ -244,4 +257,6 @@ export const {
   useCreateCommentMutation,
   useSavePostMutation,
   useRemovePostMutation,
+  useSearchQueryMutation,
+  useAddSearchHistoryMutation,
 } = authApi;
