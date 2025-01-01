@@ -1,13 +1,15 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { IoCloseCircleOutline, IoSearch } from "react-icons/io5";
 import {
   useAddSearchHistoryMutation,
   useGetSearchHistoryQuery,
+  useRemoveSearchHistoryMutation,
   useSearchQueryMutation,
 } from "../../../../StateFeature/api/authApi";
 import { Link } from "react-router-dom";
 import avatar from "../../../../../public/postBackgrounds/man.jpg";
+import { debounce } from "lodash";
 
 const SearchBox = () => {
   const InputRef = useRef(null);
@@ -16,7 +18,13 @@ const SearchBox = () => {
   const [searchResult, setSearchResult] = useState([]);
   const [searchQuery] = useSearchQueryMutation();
   const [addSearchHistory] = useAddSearchHistoryMutation();
-  const { data: getSearchHistory = [] } = useGetSearchHistoryQuery();
+  const { data: getSearchHistory, refetch } = useGetSearchHistoryQuery(
+    undefined,
+    {
+      refetchOnMountOrArgChange: true,
+    }
+  );
+  const [removeSearchHistory] = useRemoveSearchHistoryMutation();
 
   useEffect(() => {
     InputRef.current.focus();
@@ -30,9 +38,27 @@ const SearchBox = () => {
     }
   };
   const handleAddSearchHistory = async (searchUser) => {
-    const response = await addSearchHistory({ searchUser }).unwrap();
+    await addSearchHistory({ searchUser }).unwrap();
+    refetch();
   };
-  console.log(getSearchHistory?.search);
+  const debounceRemoveSearchHistory = useCallback(
+    debounce(async (searchUser) => {
+      try {
+        const res = await removeSearchHistory({ searchUser }).unwrap();
+        if (res.message === "ok") {
+          refetch();
+        } else {
+          console.log("unexpected error");
+        }
+      } catch (error) {
+        console.log("failed to remove ");
+      }
+    }, 300),
+    [removeSearchHistory, refetch]
+  );
+  const handleRemoveSearch = (searchUser) => {
+    debounceRemoveSearchHistory(searchUser);
+  };
 
   return (
     <>
@@ -61,7 +87,7 @@ const SearchBox = () => {
             </p>
           )}
           <div className="mt-3">
-            {getSearchHistory.search && searchResult == "" && (
+            {getSearchHistory?.search && searchResult == "" && (
               <div>
                 {getSearchHistory?.search
                   .slice()
@@ -101,7 +127,12 @@ const SearchBox = () => {
                             </Link>
                           </div>
                         </div>
-                        <div className="cursor-pointer w-[30px] h-[30px] text-secondary_color shadow-md  flex items-center justify-center rounded-full">
+                        <div
+                          onClick={() =>
+                            handleRemoveSearch(singleUser.user._id)
+                          }
+                          className="cursor-pointer w-[30px] h-[30px] text-secondary_color shadow-md  flex items-center justify-center rounded-full"
+                        >
                           <IoCloseCircleOutline size={22} />
                         </div>
                       </div>
