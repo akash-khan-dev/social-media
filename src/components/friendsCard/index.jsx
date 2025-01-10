@@ -3,10 +3,12 @@ import profile from "../../../public/postBackgrounds/man.jpg";
 import {
   useAcceptRequestMutation,
   useCancelRequestMutation,
+  useDeleteRequestMutation,
 } from "../../StateFeature/api/authApi";
 const FriendsCard = ({ friend, type, refetch }) => {
   const [cancelRequest] = useCancelRequestMutation();
   const [acceptRequest] = useAcceptRequestMutation();
+  const [deleteRequest] = useDeleteRequestMutation();
   const handleCancelRequest = async (profileId) => {
     try {
       const response = await cancelRequest(profileId).unwrap();
@@ -28,6 +30,18 @@ const FriendsCard = ({ friend, type, refetch }) => {
       console.log(error.message);
     }
   };
+
+  const handleDeleteRequest = async (profileId) => {
+    try {
+      let response = await deleteRequest(profileId).unwrap();
+      if (response.message === "Request Delete") {
+        refetch();
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <div>
       <div className="bg-white rounded-lg shadow-md flex flex-col items-center">
@@ -52,7 +66,10 @@ const FriendsCard = ({ friend, type, refetch }) => {
             >
               Accept
             </button>
-            <button className="bg-white_100 mt-2 text-black font-gilroyMedium text-sm py-2 px-4 rounded-lg ">
+            <button
+              onClick={() => handleDeleteRequest(friend._id)}
+              className="bg-white_100 mt-2 text-black font-gilroyMedium text-sm py-2 px-4 rounded-lg "
+            >
               Remove
             </button>
           </div>
