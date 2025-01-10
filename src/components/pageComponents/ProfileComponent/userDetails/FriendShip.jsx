@@ -43,7 +43,7 @@ export const FriendShip = ({ profileId, friendShips }) => {
       console.log(error.message);
     }
   };
-  const handleAddCancelRequest = async () => {
+  const handleCancelRequest = async () => {
     try {
       await cancelRequest(profileId).unwrap();
       setFriendShip({ ...friendShip, following: false, request: false });
@@ -169,7 +169,7 @@ export const FriendShip = ({ profileId, friendShips }) => {
       {/* request part start */}
       {friendShip?.request ? (
         <div
-          onClick={handleAddCancelRequest}
+          onClick={handleCancelRequest}
           className="cursor-pointer font-gilroyMedium flex bg-white text-black px-3 lg:px-2 py-2 items-center gap-x-2 rounded-md"
         >
           <RiUserUnfollowFill />
