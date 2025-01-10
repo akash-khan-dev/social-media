@@ -237,6 +237,9 @@ export const authApi = createApi({
         body: { searchUser },
       }),
     }),
+    getAllFriendsList: builder.query({
+      query: () => `/api/v1/auth/getallfriend`,
+    }),
   }),
 });
 
@@ -273,4 +276,5 @@ export const {
   useAddSearchHistoryMutation,
   useGetSearchHistoryQuery,
   useRemoveSearchHistoryMutation,
+  useGetAllFriendsListQuery,
 } = authApi;
