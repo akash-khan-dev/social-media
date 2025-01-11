@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { useNavigate } from "react-router-dom";
 import profile from "../../../public/postBackgrounds/man.jpg";
 import {
   useAcceptRequestMutation,
@@ -6,6 +7,7 @@ import {
   useDeleteRequestMutation,
 } from "../../StateFeature/api/authApi";
 const FriendsCard = ({ friend, type, refetch }) => {
+  const navigate = useNavigate();
   const [cancelRequest] = useCancelRequestMutation();
   const [acceptRequest] = useAcceptRequestMutation();
   const [deleteRequest] = useDeleteRequestMutation();
@@ -41,9 +43,14 @@ const FriendsCard = ({ friend, type, refetch }) => {
       console.log(error.message);
     }
   };
-
+  const handleRedirectProfile = (username) => {
+    navigate(`/profile/${username}`);
+  };
   return (
-    <div>
+    <div
+      className="cursor-pointer"
+      onClick={() => handleRedirectProfile(friend.username)}
+    >
       <div className="bg-white rounded-lg shadow-md flex flex-col items-center">
         <img
           src={friend?.profilePicture || profile}
