@@ -1,6 +1,8 @@
+import { useGetAllFriendsListQuery } from "../../../../StateFeature/api/authApi";
 import { ReduceText } from "../../../../utils/ReduceText";
 
 const RightFriends = () => {
+  const { data: friendsData, refetch } = useGetAllFriendsListQuery();
   const originalName = " md akash khan ahemd atikur";
   const reduceText = ReduceText(originalName, 15);
 

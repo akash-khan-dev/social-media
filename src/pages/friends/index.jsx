@@ -13,8 +13,6 @@ const Friends = () => {
     }
   }, [location.pathname, refetch]);
 
-  console.log(friendsData);
-
   return (
     <>
       <Helmet>
