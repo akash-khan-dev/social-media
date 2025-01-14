@@ -1,10 +1,8 @@
-import { useGetAllFriendsListQuery } from "../../../../StateFeature/api/authApi";
-import { ReduceText } from "../../../../utils/ReduceText";
+/* eslint-disable react/prop-types */
 
-const RightFriends = () => {
-  const { data: friendsData, refetch } = useGetAllFriendsListQuery();
-  const originalName = " md akash khan ahemd atikur";
-  const reduceText = ReduceText(originalName, 15);
+import profile from "../../../../../public/postBackgrounds/man.jpg";
+const RightFriends = ({ friendsData }) => {
+  console.log(friendsData);
 
   return (
     <>
@@ -22,44 +20,31 @@ const RightFriends = () => {
           </div>
         </div>
         <div>
-          <div className="flex mt-4">
-            <div className="w-[25%]">
-              <div className="w-[50px] h-[50px] bg-black rounded-full"></div>
-            </div>
-            <div className="w-[75%]">
-              <h4 className="font-gilroySemibold text-md">{reduceText}</h4>
-              <p className="font-gilroyNormal text-xs text-secondary_color">
-                1 hour ago
-              </p>
-              <div className="mt-3 flex gap-4">
-                <button className="bg-black py-1 px-4 rounded-lg font-gilroyMedium text-white">
-                  Accept
-                </button>
-                <button className="bg-red py-1 px-4 rounded-lg font-gilroyMedium text-white">
-                  Reject
-                </button>
+          {friendsData?.request.slice(0, 4).map((friend) => (
+            <div key={friend._id} className="flex mt-4">
+              <div className="w-[25%]">
+                <div className="w-[50px] h-[50px] overflow-hidden rounded-full">
+                  <img src={friend.profilePicture || profile} alt="profile" />
+                </div>
+              </div>
+              <div className="w-[75%]">
+                <h4 className="font-gilroySemibold text-md">
+                  {friend.firstName + " " + friend.lastName}
+                </h4>
+                <p className="font-gilroyNormal text-xs text-secondary_color">
+                  1 hour ago
+                </p>
+                <div className="mt-3 flex gap-4">
+                  <button className="bg-black py-1 px-4 rounded-lg font-gilroyMedium text-white">
+                    Accept
+                  </button>
+                  <button className="bg-red py-1 px-4 rounded-lg font-gilroyMedium text-white">
+                    Reject
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="flex mt-4">
-            <div className="w-[25%]">
-              <div className="w-[50px] h-[50px] bg-black rounded-full"></div>
-            </div>
-            <div className="w-[75%]">
-              <h4 className="font-gilroySemibold text-md"> Md Akash Khan</h4>
-              <p className="font-gilroyNormal text-xs text-secondary_color">
-                1 hour ago
-              </p>
-              <div className="mt-3 flex gap-4">
-                <button className="bg-black py-1 px-4 rounded-lg font-gilroyMedium text-white">
-                  Accept
-                </button>
-                <button className="bg-red py-1 px-4 rounded-lg font-gilroyMedium text-white">
-                  Reject
-                </button>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </>
