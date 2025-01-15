@@ -18,6 +18,7 @@ import { useState } from "react";
 import { useGetAllPostQuery } from "./StateFeature/api/authApi";
 import Profile from "./pages/userProfile";
 import Friends from "./pages/friends";
+import NotFound from "./pages/notFound";
 
 function App() {
   const [postPopupVisible, setPostPopupVisible] = useState(false);
@@ -53,6 +54,7 @@ function App() {
             <Route path="/profile/:username" element={<Profile />} />
           </Route>
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Route>
     )
   );
